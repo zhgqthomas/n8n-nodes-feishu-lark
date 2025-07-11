@@ -26,7 +26,8 @@ export class LarkMcp implements INodeType {
 		name: 'larkMcp',
 		icon: 'file:lark_icon.svg',
 		group: ['transform'],
-		version: 1,
+		version: [1],
+		defaultVersion: 1,
 		subtitle: '={{$parameter["operation"]}}',
 		description: 'Use Lark MCP client',
 		defaults: {

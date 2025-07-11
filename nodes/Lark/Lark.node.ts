@@ -17,7 +17,8 @@ export class Lark implements INodeType {
 		name: 'lark',
 		icon: 'file:lark_icon.svg',
 		group: ['output'],
-		version: 1,
+		version: [1],
+		defaultVersion: 1,
 		description: 'Consume Lark API',
 		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
 		defaults: {
