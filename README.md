@@ -1,122 +1,198 @@
-# 安装教程
-参考：https://docs.n8n.io/integrations/community-nodes/installation/
-节点名称：n8n-nodes-feishu-lite
+# n8n-nodes-lark-feishu
 
-# 功能
-## 知识库
-- 获取知识空间列表
-- 获取知识空间信息
-- 更新知识空间设置
-- 删除知识空间成员
-- 获取知识空间成员列表
-- 添加知识空间成员
-- 更新知识空间节点标题
-- 移动知识空间节点
-- 获取知识空间节点信息
-- 获取知识空间子节点列表
-- 创建知识空间节点
-- 创建知识空间节点副本
-## 通讯录
-- 获取用户信息
-- 通过手机号或邮箱获取用户 ID
-## 任务
-- 更新任务
-- 获取任务详情
-- 删除任务
-- 创建任务
-- 移除任务成员
-- 添加任务成员
-## 电子表格
-- 修改电子表格属性
-- 获取电子表格信息
-- 创建电子表格
-- 获取工作表
-- 删除工作表
-- 复制工作表
-- 新增工作表
-- 查询工作表
-- 更新行列
-- 移动行列
-- 插入行列
-- 删除行列
-- 增加行列
-- 拆分单元格
-- 设置单元格样式
-- 替换单元格
-- 合并单元格
-- 查找单元格
-- 写入数据
-- 读取单个范围
-- 插入数据
-- 写入图片
-- 自动写入数据
-- 追加数据
-## 云空间
-- 上传素材
-- 上传素材通过Url
-## 消息
-- 发送消息
-- 回复消息
-- 撤回消息
-- 转发消息
-- 编辑消息
-- 批量发送消息
-- 批量撤回消息
-## 云文档
-- 获取文档纯文本内容
-- 获取文档基本信息
-- 获取文档所有块
-- 创建文档
-- 更新块的内容
-- 更新块的内容
-- 删除块
-- 创建块
-- 创建嵌套块
-## 日历
-- 搜索日历
-- 查询日历信息
-- 查询主日历信息
-- 删除共享日历
-- 创建共享日历
-- 更新日程
-- 搜索日程
-- 获取日程列表
-- 获取日程
-- 删除日程
-- 创建日程
-- 获取日程参与人列表
-- 删除日程参与人
-- 添加日程参与人
-- 解绑会议群
-- 创建会议群
-## 多维表格
-- 解析多维表格地址
-- 更新多维表格元数据
-- 获取多维表格元数据
-- 创建多维表格
-- 复制多维表格
-- 更新数据表
-- 列出数据表
-- 删除数据表
-- 新增数据表
-- 更新视图
-- 列出视图
-- 获取视图
-- 删除视图
-- 新增视图
-- 更新记录
-- 查询记录
-- 查询记录-通过记录ID
-- 删除记录
-- 批量更新记录
-- 批量删除记录
-- 批量新增记录
-- 新增记录
-- 新增字段
-- 保存字段
-- 列出字段
-- 删除字段
-- 批量保存字段
-- 新增字段
-## 授权
-- 获取当前应用AccessToken
+This project is based on [n8n-nodes-feishu-lite](https://github.com/other-blowsnow/n8n-nodes-feishu-lite). Appreciate the original author's open-source contribution. Building upon the original functionality, I have added more practical node types and enhanced features.
+
+## Installation
+
+Reference: https://docs.n8n.io/integrations/community-nodes/installation/
+
+Node name: `n8n-nodes-lark-feishu`
+
+## Node Types
+
+This project provides the following three types of nodes:
+
+### 1. Lark Node
+
+Main Lark API operation node that supports various Lark OpenAPI function calls.
+
+### 2. Lark Trigger Node
+
+Lark event trigger node that receives Lark event pushes through long connection.
+
+### 3. Lark MCP Node
+
+Lark integration node that supports Model Context Protocol (MCP).
+
+## Trigger Node Usage Guide
+
+### Features
+
+- **Long Connection**: Uses WebSocket long connection technology, no need for public IP and domain to establish connection
+- **Real-time Event Push**: Supports real-time reception of various Lark event pushes
+- **Zero Configuration**: No complex network configuration needed, ready to use out of the box
+
+### Basic Usage
+
+1. **Add Trigger Node**: Add "Lark Trigger" node to your workflow
+2. **Configure Credentials**: Select configured Lark API credentials
+3. **Select Event Type**: Choose the event types you want to monitor
+4. **Start Workflow**: Save and start the workflow, the node will automatically establish long connection
+
+### Supported Event Types
+
+- **Message Events**: New messages, message emoji reactions, etc.
+- **Bitable Events**: Field changes, record changes, etc.
+- **Card Interactive Events**: Card callback interactions, etc.
+- **Any Events**: Support monitoring all event types
+
+## Implemented Lark OpenAPI Functions
+
+### Wiki Related
+
+- Get wiki space list
+- Get wiki space info
+- Update wiki space settings
+- Delete wiki space member
+- Get wiki space member list
+- Add wiki space member
+- Update wiki space node title
+- Move wiki space node
+- Get wiki space node info
+- Get wiki space sub-node list
+- Create wiki space node
+- Create wiki space node copy
+
+### Contact Related
+
+- Get user info
+- Get user ID by phone number or email
+
+### Task Related
+
+- Update task
+- Get task details
+- Delete task
+- Create task
+- Remove task member
+- Add task member
+
+### Spreadsheet Related
+
+- Modify spreadsheet properties
+- Get spreadsheet info
+- Create spreadsheet
+- Get worksheet
+- Delete worksheet
+- Copy worksheet
+- Add worksheet
+- Query worksheet
+- Update rows and columns
+- Move rows and columns
+- Insert rows and columns
+- Delete rows and columns
+- Add rows and columns
+- Split cells
+- Set cell style
+- Replace cells
+- Merge cells
+- Find cells
+- Write data
+- Read single range
+- Insert data
+- Write image
+- Auto write data
+- Append data
+
+### Drive Related
+
+- Upload material
+- Upload material via URL
+
+### Message Related
+
+- Send message
+- Reply message
+- Recall message
+- Forward message
+- Edit message
+- Batch send messages
+- Batch recall messages
+
+### Document Related
+
+- Get document plain text content
+- Get document basic info
+- Get all document blocks
+- Create document
+- Update block content
+- Delete block
+- Create block
+- Create nested block
+
+### Calendar Related
+
+- Search calendar
+- Query calendar info
+- Query primary calendar info
+- Delete shared calendar
+- Create shared calendar
+- Update event
+- Search events
+- Get event list
+- Get event
+- Delete event
+- Create event
+- Get event attendee list
+- Delete event attendee
+- Add event attendee
+- Unbind meeting group
+- Create meeting group
+
+### Bitable Related
+
+- Parse bitable URL
+- Update bitable metadata
+- Get bitable metadata
+- Create bitable
+- Copy bitable
+- Update table
+- List tables
+- Delete table
+- Add table
+- Update view
+- List views
+- Get view
+- Delete view
+- Add view
+- Update record
+- Query records
+- Query record by ID
+- Delete record
+- Batch update records
+- Batch delete records
+- Batch add records
+- Add record
+- Add field
+- Save field
+- List fields
+- Delete field
+- Batch save fields
+
+### Authorization Related
+
+- Get current app access token
+
+## License
+
+MIT License
+
+## Contributing
+
+Welcome to submit Issues and Pull Requests to help improve this project.
+
+## Links
+
+- [Project Homepage](https://github.com/zhgqthomas/n8n-nodes-lark-feishu)
+- [Lark Open Platform Documentation](https://open.feishu.cn/document/)
+- [n8n Community Nodes Documentation](https://docs.n8n.io/integrations/community-nodes/)
