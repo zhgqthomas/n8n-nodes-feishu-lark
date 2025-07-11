@@ -1,4 +1,4 @@
-# n8n-nodes-lark-feishu
+# n8n-nodes-feishu-lark
 
 本项目是基于 [n8n-nodes-feishu-lite](https://github.com/other-blowsnow/n8n-nodes-feishu-lite) 之上进行的二次开发，感谢原作者的开源贡献。在原有功能基础上，增加了更多实用的节点类型和功能支持。
 
@@ -6,7 +6,7 @@
 
 参考：https://docs.n8n.io/integrations/community-nodes/installation/
 
-节点名称：`n8n-nodes-lark-feishu`
+节点名称：`n8n-nodes-feishu-lark`
 
 ## 节点类型
 

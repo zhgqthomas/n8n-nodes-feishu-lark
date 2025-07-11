@@ -1,4 +1,6 @@
-# n8n-nodes-lark-feishu
+[中文](https://github.com/zhgqthomas/n8n-nodes-feishu-lark/blob/main/README-ZH.md)
+
+# n8n-nodes-feishu-lark
 
 This project is based on [n8n-nodes-feishu-lite](https://github.com/other-blowsnow/n8n-nodes-feishu-lite). Appreciate the original author's open-source contribution. Building upon the original functionality, I have added more practical node types and enhanced features.
 
@@ -6,7 +8,7 @@ This project is based on [n8n-nodes-feishu-lite](https://github.com/other-blowsn
 
 Reference: https://docs.n8n.io/integrations/community-nodes/installation/
 
-Node name: `n8n-nodes-lark-feishu`
+Node name: `n8n-nodes-feishu-lark`
 
 ## Node Types
 
