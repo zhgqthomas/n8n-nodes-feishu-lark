@@ -9,6 +9,7 @@ import {
 } from 'n8n-workflow';
 import { WSClient } from '../wsclient';
 import { EventDispatcher } from '../wsclient/dispatcher';
+import { TriggerEventType } from '../help/type/enums';
 
 export class LarkTrigger implements INodeType {
 	description: INodeTypeDescription = {
@@ -79,7 +80,7 @@ export class LarkTrigger implements INodeType {
 					},
 					{
 						name: 'Receive Message(接收消息)',
-						value: 'im.message.receive_v1',
+						value: TriggerEventType.ReceiveMessage,
 						description: 'This event is triggered when the bot receives a message sent by a user',
 					},
 				],

@@ -1,6 +1,7 @@
+import { ResourceType } from '../../help/type/enums';
 import { ResourceOptions } from '../../help/type/IResource';
 
 export default {
 	name: 'Space(云空间)',
-	value: 'space',
+	value: ResourceType.Space,
 } as ResourceOptions;
