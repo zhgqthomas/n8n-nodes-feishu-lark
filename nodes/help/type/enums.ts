@@ -26,3 +26,7 @@ export declare const enum ResourceType {
 	Task = 'task',
 	Wiki = 'wiki_spaces',
 }
+
+export declare const enum OperationType {
+	ParseMessageContent = 'parseContent',
+}

@@ -9,6 +9,8 @@ import {
 } from 'n8n-workflow';
 import ResourceFactory from '../help/builder/ResourceFactory';
 
+import { configuredOutputs } from '../help/utils';
+
 const resourceBuilder = ResourceFactory.build(__dirname);
 
 export class Lark implements INodeType {
@@ -26,7 +28,7 @@ export class Lark implements INodeType {
 		},
 		usableAsTool: true,
 		inputs: [NodeConnectionType.Main],
-		outputs: [NodeConnectionType.Main],
+		outputs: `={{(${configuredOutputs})($parameter)}}`,
 		credentials: [
 			{
 				name: 'larkCredentialsApi',
