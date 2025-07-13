@@ -65,6 +65,12 @@ export class Lark implements INodeType {
 				});
 
 				responseData = await callFunc.call(this, itemIndex);
+
+				const executionData = this.helpers.constructExecutionMetaData(
+					this.helpers.returnJsonArray(responseData as IDataObject),
+					{ itemData: { item: itemIndex } },
+				);
+				returnData.push(...executionData);
 			} catch (error) {
 				this.logger.error('call function error', {
 					resource,
@@ -75,17 +81,11 @@ export class Lark implements INodeType {
 				});
 
 				if (this.continueOnFail()) {
-					let errorJson = {
-						error: error.message,
-					};
-					if (error.name === 'NodeApiError') {
-						errorJson.error = error?.cause?.error;
-					}
-
-					returnData.push({
-						json: errorJson,
-						pairedItem: itemIndex,
-					});
+					const executionErrorData = this.helpers.constructExecutionMetaData(
+						this.helpers.returnJsonArray({ error: error.description ?? error.message }),
+						{ itemData: { item: itemIndex } },
+					);
+					returnData.push(...executionErrorData);
 					continue;
 				} else if (error.name === 'NodeApiError') {
 					throw error;
@@ -96,11 +96,6 @@ export class Lark implements INodeType {
 					});
 				}
 			}
-			const executionData = this.helpers.constructExecutionMetaData(
-				this.helpers.returnJsonArray(responseData as IDataObject),
-				{ itemData: { item: itemIndex } },
-			);
-			returnData.push(...executionData);
 		}
 
 		return [returnData];
