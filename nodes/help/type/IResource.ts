@@ -8,12 +8,12 @@ import {
 export type ResourceOperation = INodePropertyOptions & {
 	options: INodeProperties[];
 	call?: (this: IExecuteFunctions, index: number) => Promise<IDataObject | IDataObject[]>;
-	// 默认100
+	// default value = 100
 	order?: number;
 };
 
 export type ResourceOptions = INodePropertyOptions & {
-	// 默认100
+	// default value = 100
 	order?: number;
 };
 

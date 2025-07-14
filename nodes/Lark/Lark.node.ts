@@ -1,5 +1,4 @@
 import {
-	IDataObject,
 	IExecuteFunctions,
 	INodeExecutionData,
 	INodeType,
@@ -10,6 +9,7 @@ import {
 import ResourceFactory from '../help/builder/ResourceFactory';
 
 import { configuredOutputs } from '../help/utils';
+import { OutputType } from '../help/type/enums';
 
 const resourceBuilder = ResourceFactory.build(__dirname);
 
@@ -41,8 +41,7 @@ export class Lark implements INodeType {
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		const items = this.getInputData();
 
-		let responseData: IDataObject = {};
-		let returnData = [];
+		let returnData: INodeExecutionData[][] = Array.from({ length: 1 }, () => []);
 
 		const resource = this.getNodeParameter('resource', 0);
 		const operation = this.getNodeParameter('operation', 0);
@@ -64,13 +63,20 @@ export class Lark implements INodeType {
 					itemIndex,
 				});
 
-				responseData = await callFunc.call(this, itemIndex);
-
-				const executionData = this.helpers.constructExecutionMetaData(
-					this.helpers.returnJsonArray(responseData as IDataObject),
-					{ itemData: { item: itemIndex } },
-				);
-				returnData.push(...executionData);
+				const responseData = await callFunc.call(this, itemIndex);
+				const { outputType } = responseData;
+				if (!outputType) {
+					const executionData = this.helpers.constructExecutionMetaData(
+						this.helpers.returnJsonArray(responseData),
+						{ itemData: { item: itemIndex } },
+					);
+					returnData[0].push(...executionData);
+				} else if (outputType === OutputType.Multiple) {
+					const { outputData } = responseData as { outputData: INodeExecutionData[][] };
+					returnData = outputData;
+				} else {
+					return [];
+				}
 			} catch (error) {
 				this.logger.error('call function error', {
 					resource,
@@ -85,7 +91,7 @@ export class Lark implements INodeType {
 						this.helpers.returnJsonArray({ error: error.description ?? error.message }),
 						{ itemData: { item: itemIndex } },
 					);
-					returnData.push(...executionErrorData);
+					returnData[0].push(...executionErrorData);
 					continue;
 				} else if (error.name === 'NodeApiError') {
 					throw error;
@@ -98,6 +104,6 @@ export class Lark implements INodeType {
 			}
 		}
 
-		return [returnData];
+		return returnData;
 	}
 }

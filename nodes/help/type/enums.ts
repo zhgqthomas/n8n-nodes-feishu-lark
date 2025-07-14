@@ -30,3 +30,9 @@ export declare const enum ResourceType {
 export declare const enum OperationType {
 	ParseMessageContent = 'parseContent',
 }
+
+export declare const enum OutputType {
+	Single = 'single',
+	Multiple = 'multiple',
+	None = 'none',
+}
