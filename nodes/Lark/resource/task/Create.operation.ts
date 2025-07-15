@@ -5,7 +5,7 @@ import RequestUtils from '../../../help/utils/RequestUtils';
 
 export default {
 	name: 'Create Task | 创建任务',
-	value: 'task:create',
+	value: 'create',
 	order: 100,
 	options: [
 		{

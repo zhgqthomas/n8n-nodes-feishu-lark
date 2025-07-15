@@ -4,7 +4,7 @@ import RequestUtils from '../../../help/utils/RequestUtils';
 
 export default {
 	name: 'Get Task Info | 获取任务详情',
-	value: 'task:getInfo',
+	value: 'getInfo',
 	order: 100,
 	options: [
 		{

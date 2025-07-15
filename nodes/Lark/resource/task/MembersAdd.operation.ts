@@ -14,7 +14,7 @@ const REQUEST_BODY = [
 
 export default {
 	name: 'Add Members | 添加任务成员',
-	value: 'task:addMember',
+	value: 'addMembers',
 	order: 90,
 	options: [
 		{

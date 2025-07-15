@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: '上传素材通过Url',
-	value: 'space:uploadByUrl',
+	value: 'uploadByUrl',
 	order: 50,
 	options: [
 		{

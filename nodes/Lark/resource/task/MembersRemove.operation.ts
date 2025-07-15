@@ -16,7 +16,7 @@ const REQUEST_BODY = {
 
 export default {
 	name: 'Remove Members | 移除任务成员',
-	value: 'task:membersRemove',
+	value: 'removeMembers',
 	order: 90,
 	options: [
 		{

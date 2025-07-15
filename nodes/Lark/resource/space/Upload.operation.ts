@@ -5,7 +5,7 @@ import NodeUtils from '../../../help/utils/NodeUtils';
 
 export default {
 	name: '上传素材',
-	value: 'space:upload',
+	value: 'upload',
 	order: 50,
 	options: [
 		{
