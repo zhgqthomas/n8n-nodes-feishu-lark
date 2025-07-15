@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: '获取知识空间信息',
-	value: 'wiki:spaces:info',
+	value: 'getSpaceInfo',
 	order: 100,
 	options: [
 		{

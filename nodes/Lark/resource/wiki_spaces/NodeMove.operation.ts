@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: '移动知识空间节点',
-	value: 'wiki:spaces:node:move',
+	value: 'moveSpaceNode',
 	order: 90,
 	options: [
 		{

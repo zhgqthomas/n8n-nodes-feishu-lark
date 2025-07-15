@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: '更新知识空间节点标题',
-	value: 'wiki:spaces:node:updateTitle',
+	value: 'updateSpaceNodeTitle',
 	order: 90,
 	options: [
 		{

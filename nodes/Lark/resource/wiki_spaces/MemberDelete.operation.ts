@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: '删除知识空间成员',
-	value: 'wiki:spaces:members:delete',
+	value: 'deleteSpaceMember',
 	order: 97,
 	options: [
 		{

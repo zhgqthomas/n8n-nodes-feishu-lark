@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: '获取知识空间子节点列表',
-	value: 'wiki:spaces:node:children',
+	value: 'getSpaceNodeChildren',
 	order: 90,
 	options: [
 		{

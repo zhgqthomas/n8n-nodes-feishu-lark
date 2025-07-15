@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: '添加知识空间成员',
-	value: 'wiki:spaces:members:add',
+	value: 'addSpaceMember',
 	order: 95,
 	options: [
 		{

@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: '更新知识空间设置',
-	value: 'wiki:spaces:settings:update',
+	value: 'updateSpaceSettings',
 	order: 98,
 	options: [
 		{

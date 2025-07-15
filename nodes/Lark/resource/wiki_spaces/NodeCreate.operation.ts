@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: '创建知识空间节点',
-	value: 'wiki:spaces:node:create',
+	value: 'createSpaceNode',
 	order: 90,
 	options: [
 		{

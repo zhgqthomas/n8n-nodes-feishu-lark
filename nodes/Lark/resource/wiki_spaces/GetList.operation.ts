@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: '获取知识空间列表',
-	value: 'wiki:spaces:list',
+	value: 'getWikiSpaceList',
 	order: 100,
 	options: [
 		{
