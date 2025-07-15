@@ -5,7 +5,7 @@ import NodeUtils from '../../../help/utils/NodeUtils';
 
 export default {
 	name: 'Update Block Content | 更新块的内容',
-	value: 'doc:block:updateContent',
+	value: 'updateBlockContent',
 	options: [
 		{
 			displayName: 'Document ID(文档 ID)',

@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: 'Create Document | 创建文档',
-	value: 'doc:create',
+	value: 'create',
 	options: [
 		{
 			displayName: 'Title(标题)',

@@ -10,7 +10,7 @@ const REQUEST_BODY = {
 
 export default {
 	name: 'Create Nested Blocks | 创建嵌套块',
-	value: 'doc:block:createNested',
+	value: 'createNestedBlock',
 	options: [
 		{
 			displayName: 'Document ID(文档 ID)',

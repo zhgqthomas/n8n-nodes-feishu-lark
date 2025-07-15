@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: 'Get Plain Text Content | 获取文档纯文本内容',
-	value: 'doc:getPlainTextContent',
+	value: 'getPlainTextContent',
 	options: [
 		{
 			displayName: 'Document ID(文档 ID)',

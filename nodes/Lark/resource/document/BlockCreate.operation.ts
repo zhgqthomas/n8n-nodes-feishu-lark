@@ -5,7 +5,7 @@ import NodeUtils from '../../../help/utils/NodeUtils';
 
 export default {
 	name: 'Create Block | 创建块',
-	value: 'doc:block:create',
+	value: 'createBlock',
 	options: [
 		{
 			displayName: 'Document ID(文档 ID)',

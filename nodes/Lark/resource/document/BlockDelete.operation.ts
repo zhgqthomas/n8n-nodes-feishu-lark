@@ -10,7 +10,7 @@ const REQUEST_BODY = {
 
 export default {
 	name: 'Delete Block | 删除块',
-	value: 'doc:block:delete',
+	value: 'deleteBlock',
 	options: [
 		{
 			displayName: 'Document ID(文档 ID)',

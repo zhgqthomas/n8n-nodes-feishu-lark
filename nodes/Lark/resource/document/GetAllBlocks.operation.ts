@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: 'Get Document Blocks | 获取文档块列表',
-	value: 'doc:getBlocks',
+	value: 'getBlocks',
 	options: [
 		{
 			displayName: 'Document ID(文档 ID)',

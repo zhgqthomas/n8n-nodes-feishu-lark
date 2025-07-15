@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: 'Get Document Info | 获取文档基本信息',
-	value: 'doc:getInfo',
+	value: 'getInfo',
 	options: [
 		{
 			displayName: 'Document ID(文档 ID)',
