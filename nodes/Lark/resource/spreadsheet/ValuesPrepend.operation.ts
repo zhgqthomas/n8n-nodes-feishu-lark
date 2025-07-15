@@ -3,8 +3,8 @@ import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
-	name: '写入图片',
-	value: 'spreadsheet:valuesImage',
+	name: '插入数据',
+	value: 'prependValues',
 	order: 70,
 	options: [
 		{
@@ -22,42 +22,32 @@ export default {
 			required: true,
 			default: '',
 			description:
-				'指定写入图片的单元格。格式为 &lt;sheetId&gt;!&lt;开始单元格&gt;:&lt;结束单元格&gt;。',
+				'指定范围，用于写入数据。格式为 &lt;sheetId&gt;!&lt;开始位置&gt;:&lt;结束位置&gt;。',
 		},
 		{
-			displayName: '图片二进制字段',
-			name: 'imageParameterName',
-			type: 'string',
+			displayName: '数据',
+			name: 'values',
+			type: 'json',
 			required: true,
 			default: '',
-			description: '需要写入的图片的二进制流。',
-		},
-		{
-			displayName: '图片名称',
-			name: 'name',
-			type: 'string',
-			required: true,
-			default: '',
-			description: '写入的图片名称，需加后缀名。',
+			description: '参考：https://open.feishu.cn/document/ukTMukTMukTM/ugjN1UjL4YTN14CO2UTN',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
 		const spreadsheetToken = this.getNodeParameter('spreadsheetToke', index) as string;
 		const range = this.getNodeParameter('range', index) as string;
-		const imageParameterName = this.getNodeParameter('imageParameterName', index) as string;
-		const name = this.getNodeParameter('name', index) as string;
-
-		const binaryData = await this.helpers.getBinaryDataBuffer(index, imageParameterName);
+		const values = this.getNodeParameter('values', index) as IDataObject[];
 
 		const body: IDataObject = {
-			range,
-			image: Array.from(binaryData),
-			name,
+			valueRange: {
+				range,
+				values,
+			},
 		};
 
 		const response = await RequestUtils.request.call(this, {
 			method: 'POST',
-			url: `/open-apis/sheets/v2/spreadsheets/${spreadsheetToken}/values_image`,
+			url: `/open-apis/sheets/v2/spreadsheets/${spreadsheetToken}/values_prepend`,
 			body,
 		});
 

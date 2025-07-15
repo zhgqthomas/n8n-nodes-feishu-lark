@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: '获取工作表',
-	value: 'spreadsheet:getSheets',
+	value: 'getSheets',
 	order: 95,
 	options: [
 		{

@@ -3,8 +3,8 @@ import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
-	name: '删除工作表',
-	value: 'spreadsheet:deleteSheets',
+	name: '新增工作表',
+	value: 'addSheets',
 	order: 95,
 	options: [
 		{
@@ -16,22 +16,32 @@ export default {
 			description: '电子表格的 token。',
 		},
 		{
-			displayName: '工作表的 ID',
-			name: 'sheetId',
+			displayName: '新增工作表的标题',
+			name: 'title',
 			type: 'string',
 			required: true,
 			default: '',
 		},
+		{
+			displayName: '新增工作表的位置',
+			name: 'index',
+			type: 'number',
+			default: 0,
+		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
 		const spreadsheetToken = this.getNodeParameter('spreadsheetToke', index) as string;
-		const sheetId = this.getNodeParameter('sheetId', index) as IDataObject;
+		const title = this.getNodeParameter('title', index) as IDataObject;
+		const _index = this.getNodeParameter('index', index) as IDataObject;
 
 		const body: IDataObject = {
 			requests: [
 				{
-					deleteSheet: {
-						sheetId,
+					addSheet: {
+						properties: {
+							title: title,
+							index: _index,
+						},
 					},
 				},
 			],

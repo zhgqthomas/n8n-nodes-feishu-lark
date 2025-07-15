@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: '查询工作表',
-	value: 'spreadsheet:querySheet',
+	value: 'querySheet',
 	order: 95,
 	options: [
 		{

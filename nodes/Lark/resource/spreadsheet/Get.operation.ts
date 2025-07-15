@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: '获取电子表格信息',
-	value: 'spreadsheet:getInfo',
+	value: 'getInfo',
 	order: 100,
 	options: [
 		{

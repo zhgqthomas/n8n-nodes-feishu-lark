@@ -3,13 +3,13 @@ import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
-	name: '增加行列',
-	value: 'spreadsheet:addDimension',
+	name: '删除行列',
+	value: 'deleteDimension',
 	order: 90,
 	options: [
 		{
 			displayName: '电子表格 Token',
-			name: 'spreadsheet_toke',
+			name: 'spreadsheetToke',
 			type: 'string',
 			required: true,
 			default: '',
@@ -21,10 +21,10 @@ export default {
 			type: 'string',
 			required: true,
 			default: '',
-			description: '电子表格工作表的 ID。',
+			description: '工作表的 ID。',
 		},
 		{
-			displayName: '更新的维度',
+			displayName: '删除的维度',
 			name: 'majorDimension',
 			type: 'options',
 			options: [
@@ -33,34 +33,44 @@ export default {
 			],
 			required: true,
 			default: 'ROWS',
-			description: '更新的维度。',
+			description: '删除的维度。',
 		},
 		{
-			displayName: '增加的行数或列数',
-			name: 'length',
+			displayName: '起始位置',
+			name: 'startIndex',
 			type: 'number',
 			required: true,
 			default: 1,
-			description: '要增加的行数或列数。取值范围为 (0,5000]。',
+			description: '要删除的行或列的起始位置。从 1 开始计数。',
+		},
+		{
+			displayName: '结束位置',
+			name: 'endIndex',
+			type: 'number',
+			required: true,
+			default: 1,
+			description: '要删除的行或列结束的位置。从 1 开始计数。',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
-		const spreadsheet_token = this.getNodeParameter('spreadsheet_toke', index) as string;
+		const spreadsheetToken = this.getNodeParameter('spreadsheetToke', index) as string;
 		const sheetId = this.getNodeParameter('sheetId', index) as string;
 		const majorDimension = this.getNodeParameter('majorDimension', index) as string;
-		const length = this.getNodeParameter('length', index) as number;
+		const startIndex = this.getNodeParameter('startIndex', index) as number;
+		const endIndex = this.getNodeParameter('endIndex', index) as number;
 
 		const body: IDataObject = {
 			dimension: {
 				sheetId,
 				majorDimension,
-				length,
+				startIndex,
+				endIndex,
 			},
 		};
 
 		return RequestUtils.request.call(this, {
-			method: 'POST',
-			url: `/open-apis/sheets/v2/spreadsheets/${spreadsheet_token}/dimension_range`,
+			method: 'DELETE',
+			url: `/open-apis/sheets/v2/spreadsheets/${spreadsheetToken}/dimension_range`,
 			body,
 		});
 	},

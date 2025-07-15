@@ -21,7 +21,7 @@ export declare const enum ResourceType {
 	Contacts = 'contacts',
 	Document = 'document',
 	Message = 'message',
-	Sheets = 'sheets',
+	Spreadsheet = 'spreadsheet',
 	Space = 'space',
 	Task = 'task',
 	Wiki = 'wiki_spaces',

@@ -3,38 +3,43 @@ import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
-	name: '修改电子表格属性',
-	value: 'spreadsheet:update',
-	order: 100,
+	name: '删除工作表',
+	value: 'deleteSheets',
+	order: 95,
 	options: [
 		{
 			displayName: '电子表格 Token',
-			name: 'spreadsheet_toke',
+			name: 'spreadsheetToke',
 			type: 'string',
 			required: true,
 			default: '',
 			description: '电子表格的 token。',
 		},
 		{
-			displayName: '新的电子表格标题',
-			name: 'title',
+			displayName: '工作表的 ID',
+			name: 'sheetId',
 			type: 'string',
+			required: true,
 			default: '',
-			description: '新的电子表格标题。',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
-		const spreadsheet_token = this.getNodeParameter('spreadsheet_toke', index) as string;
-		const title = this.getNodeParameter('title', index) as string;
+		const spreadsheetToken = this.getNodeParameter('spreadsheetToke', index) as string;
+		const sheetId = this.getNodeParameter('sheetId', index) as IDataObject;
 
-		const body: IDataObject = {};
-		if (title) {
-			body.title = title;
-		}
+		const body: IDataObject = {
+			requests: [
+				{
+					deleteSheet: {
+						sheetId,
+					},
+				},
+			],
+		};
 
 		return RequestUtils.request.call(this, {
-			method: 'PATCH',
-			url: `/open-apis/sheets/v3/spreadsheets/${spreadsheet_token}`,
+			method: 'POST',
+			url: `/open-apis/sheets/v2/spreadsheets/${spreadsheetToken}/sheets_batch_update`,
 			body,
 		});
 	},

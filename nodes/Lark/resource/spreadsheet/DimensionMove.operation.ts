@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: '移动行列',
-	value: 'spreadsheet:moveDimension',
+	value: 'moveDimension',
 	order: 90,
 	options: [
 		{

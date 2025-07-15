@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: '插入行列',
-	value: 'spreadsheet:insertDimension',
+	value: 'insertDimension',
 	order: 90,
 	options: [
 		{

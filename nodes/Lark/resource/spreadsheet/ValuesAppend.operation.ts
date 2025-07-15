@@ -5,7 +5,7 @@ import NodeUtils from '../../../help/utils/NodeUtils';
 
 export default {
 	name: '追加数据',
-	value: 'spreadsheet:valuesAppend',
+	value: 'appendValues',
 	order: 70,
 	options: [
 		{

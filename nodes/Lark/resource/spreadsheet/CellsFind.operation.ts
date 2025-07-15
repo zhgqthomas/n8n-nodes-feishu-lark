@@ -3,8 +3,8 @@ import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
-	name: '替换单元格',
-	value: 'spreadsheet:replaceCells',
+	name: '查找单元格',
+	value: 'findCells',
 	order: 80,
 	options: [
 		{
@@ -39,14 +39,6 @@ export default {
 			description: '查找的字符串。',
 		},
 		{
-			displayName: '替换字符串',
-			name: 'replacement',
-			type: 'string',
-			required: true,
-			default: '',
-			description: '替换的字符串。',
-		},
-		{
 			displayName: '是否忽略查找字符串的大小写',
 			name: 'matchCase',
 			type: 'boolean',
@@ -76,7 +68,6 @@ export default {
 		const sheetId = this.getNodeParameter('sheetId', index) as string;
 		const range = this.getNodeParameter('range', index) as string;
 		const find = this.getNodeParameter('find', index) as string;
-		const replacement = this.getNodeParameter('replacement', index) as string;
 		const matchCase = this.getNodeParameter('matchCase', index) as boolean;
 		const matchEntireCell = this.getNodeParameter('matchEntireCell', index) as boolean;
 		const searchByRegex = this.getNodeParameter('searchByRegex', index) as boolean;
@@ -91,12 +82,11 @@ export default {
 				include_formulas: includeFormulas,
 			},
 			find,
-			replacement,
 		};
 
 		return RequestUtils.request.call(this, {
 			method: 'POST',
-			url: `/open-apis/sheets/v3/spreadsheets/${spreadsheetToken}/sheets/${sheetId}/replace`,
+			url: `/open-apis/sheets/v3/spreadsheets/${spreadsheetToken}/sheets/${sheetId}/find`,
 			body,
 		});
 	},

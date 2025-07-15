@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: '读取单个范围',
-	value: 'spreadsheet:valuesRead',
+	value: 'readValues',
 	order: 70,
 	options: [
 		{

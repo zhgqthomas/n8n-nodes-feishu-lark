@@ -5,7 +5,7 @@ import nodeUtils from '../../../help/utils/NodeUtils';
 
 export default {
 	name: '自动写入数据',
-	value: 'spreadsheet:valuesAutoWrite',
+	value: 'autoWriteValues',
 	order: 70,
 	options: [
 		{

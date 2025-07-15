@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: '设置单元格样式',
-	value: 'spreadsheet:setCellStyle',
+	value: 'setCellStyle',
 	order: 80,
 	options: [
 		{

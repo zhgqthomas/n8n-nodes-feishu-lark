@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: '更新行列',
-	value: 'spreadsheet:updateDimension',
+	value: 'updateDimension',
 	order: 90,
 	options: [
 		{

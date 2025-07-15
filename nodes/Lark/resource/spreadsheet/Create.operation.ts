@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: '创建电子表格',
-	value: 'spreadsheet:create',
+	value: 'create',
 	order: 100,
 	options: [
 		{
