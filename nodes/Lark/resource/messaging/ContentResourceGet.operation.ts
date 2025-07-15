@@ -1,4 +1,4 @@
-import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
+import { IDataObject, IExecuteFunctions, BINARY_ENCODING } from 'n8n-workflow';
 import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
 
@@ -40,18 +40,31 @@ export default {
 			],
 			default: 'image',
 		},
+		{
+			displayName: 'Will be returned in base64 format | 将以 base64 格式返回',
+			name: 'getContentResourceNotice',
+			type: 'notice',
+			default: '',
+		},
 	],
-	async call(this: IExecuteFunctions, index: number): Promise<IDataObject[]> {
+	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
 		const message_id = this.getNodeParameter('message_id', index) as string;
 		const file_key = this.getNodeParameter('file_key', index) as string;
 		const type = this.getNodeParameter('type', index, 'image') as string;
 
-		return await RequestUtils.request.call(this, {
+		const data = await RequestUtils.request.call(this, {
 			method: 'GET',
 			url: `/open-apis/im/v1/messages/${message_id}/resources/${file_key}`,
 			qs: {
 				type,
 			},
+			encoding: null,
+			json: false,
 		});
+
+		return {
+			data: Buffer.from(data).toString(BINARY_ENCODING),
+			type,
+		};
 	},
 } as ResourceOperation;

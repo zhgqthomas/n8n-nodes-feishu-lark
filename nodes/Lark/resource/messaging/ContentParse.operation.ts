@@ -134,6 +134,7 @@ export default {
 			() => [],
 		);
 		const { message } = item;
+		message.content = JSON.parse(message.content || '{}');
 		// switch (message.message_type) {
 		// 	case MessageType.Image:
 		// 	case MessageType.File:
