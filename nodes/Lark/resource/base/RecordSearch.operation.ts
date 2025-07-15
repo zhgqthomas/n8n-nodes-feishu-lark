@@ -12,7 +12,7 @@ const REQUEST_BODY = {
 
 export default {
 	name: 'Search Records | 查询记录',
-	value: 'record:search',
+	value: 'searchRecords',
 	order: 70,
 	options: [
 		{

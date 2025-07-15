@@ -5,7 +5,7 @@ import NodeUtils from '../../../help/utils/NodeUtils';
 
 export default {
 	name: 'Update View | 更新视图',
-	value: 'view:update',
+	value: 'updateView',
 	order: 80,
 	options: [
 		{

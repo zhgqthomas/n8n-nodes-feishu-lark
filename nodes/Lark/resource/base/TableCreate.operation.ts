@@ -11,7 +11,7 @@ const REQUEST_BODY = {
 
 export default {
 	name: 'Create Table | 新增数据表',
-	value: 'table:create',
+	value: 'createTable',
 	order: 90,
 	options: [
 		{

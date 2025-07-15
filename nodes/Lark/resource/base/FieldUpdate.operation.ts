@@ -10,7 +10,7 @@ const REQUEST_BODY = {
 
 export default {
 	name: 'Update field | 更新字段',
-	value: 'field:update',
+	value: 'updateField',
 	order: 60,
 	options: [
 		{

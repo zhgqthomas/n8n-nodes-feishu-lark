@@ -8,7 +8,7 @@ const REQUEST_BODY = {
 
 export default {
 	name: 'Get Records | 批量获取记录',
-	value: 'record:getList',
+	value: 'getRecordList',
 	order: 70,
 	options: [
 		{

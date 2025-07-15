@@ -10,7 +10,7 @@ const REQUEST_BODY = {
 
 export default {
 	name: 'Create Field | 新增字段',
-	value: 'field:create',
+	value: 'createField',
 	order: 60,
 	options: [
 		{

@@ -10,7 +10,7 @@ const REQUEST_BODY = {
 
 export default {
 	name: 'Create Role | 新增自定义角色',
-	value: 'role:create',
+	value: 'createRole',
 	order: 100,
 	options: [
 		{

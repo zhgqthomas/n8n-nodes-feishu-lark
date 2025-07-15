@@ -9,7 +9,7 @@ const REQUEST_BODY = {
 
 export default {
 	name: 'Batch Delete Table | 批量删除数据表',
-	value: 'table:batchDelete',
+	value: 'batchDeleteTables',
 	order: 90,
 	options: [
 		{

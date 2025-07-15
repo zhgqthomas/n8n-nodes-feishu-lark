@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: 'Delete Field | 删除字段',
-	value: 'field:delete',
+	value: 'deleteField',
 	order: 60,
 	options: [
 		{

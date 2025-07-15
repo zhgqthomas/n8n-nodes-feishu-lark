@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: 'Get App Info | 获取多维表格元数据',
-	value: 'app:get',
+	value: 'getAppInfo',
 	order: 100,
 	options: [
 		{

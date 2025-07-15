@@ -9,7 +9,7 @@ const REQUEST_BODY = {
 
 export default {
 	name: 'Batch Update Record | 批量更新记录',
-	value: 'record:batchUpdate',
+	value: 'batchUpdateRecords',
 	order: 70,
 	options: [
 		{

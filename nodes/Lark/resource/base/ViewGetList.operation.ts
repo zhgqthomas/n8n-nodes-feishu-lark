@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: 'Get Views | 列出视图',
-	value: 'view:getList',
+	value: 'getViewList',
 	order: 80,
 	options: [
 		{

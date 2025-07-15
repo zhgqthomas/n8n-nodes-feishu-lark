@@ -10,7 +10,7 @@ const REQUEST_BODY = {
 
 export default {
 	name: 'Delete Role | 删除自定义角色',
-	value: 'role:delete',
+	value: 'deleteRole',
 	order: 100,
 	options: [
 		{

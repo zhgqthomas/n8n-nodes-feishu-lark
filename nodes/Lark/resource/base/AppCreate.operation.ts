@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: 'Create Base App | 创建多维表格',
-	value: 'app:create',
+	value: 'createApp',
 	order: 100,
 	options: [
 		{

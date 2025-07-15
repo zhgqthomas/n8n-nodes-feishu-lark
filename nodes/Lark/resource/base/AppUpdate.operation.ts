@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: 'Update App Info | 更新多维表格元数据',
-	value: 'app:update',
+	value: 'updateApp',
 	order: 100,
 	options: [
 		{

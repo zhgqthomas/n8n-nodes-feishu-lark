@@ -5,7 +5,7 @@ import NodeUtils from '../../../help/utils/NodeUtils';
 
 export default {
 	name: 'Batch Delete Record | 批量删除记录',
-	value: 'record:batchDelete',
+	value: 'batchDeleteRecords',
 	order: 70,
 	options: [
 		{

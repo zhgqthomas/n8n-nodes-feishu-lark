@@ -5,7 +5,7 @@ import NodeUtils from '../../../help/utils/NodeUtils';
 
 export default {
 	name: 'Batch Create Record | 批量新增记录',
-	value: 'record:batchCreate',
+	value: 'batchCreateRecords',
 	order: 70,
 	options: [
 		{

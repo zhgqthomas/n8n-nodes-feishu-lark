@@ -9,7 +9,7 @@ const REQUEST_BODY = {
 
 export default {
 	name: 'Batch Delete Role Member | 批量删除协作者',
-	value: 'member:batchDelete',
+	value: 'batchDeleteMembers',
 	order: 100,
 	options: [
 		{

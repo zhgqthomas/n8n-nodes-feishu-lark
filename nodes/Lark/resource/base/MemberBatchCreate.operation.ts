@@ -9,7 +9,7 @@ const REQUEST_BODY = {
 
 export default {
 	name: 'Batch Create Role Member | 批量新增协作者',
-	value: 'member:batchCreate',
+	value: 'batchCreateMembers',
 	order: 100,
 	options: [
 		{

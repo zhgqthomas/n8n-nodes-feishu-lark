@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: 'Create Role Member | 新增协作者',
-	value: 'member:create',
+	value: 'createMember',
 	order: 100,
 	options: [
 		{

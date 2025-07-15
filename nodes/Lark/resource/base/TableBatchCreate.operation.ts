@@ -9,7 +9,7 @@ const REQUEST_BODY = {
 
 export default {
 	name: 'Batch Create Table | 批量创建数据表',
-	value: 'table:batchCreate',
+	value: 'batchCreateTables',
 	order: 90,
 	options: [
 		{

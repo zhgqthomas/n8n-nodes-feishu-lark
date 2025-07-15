@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: 'Get Tables | 列出数据表',
-	value: 'table:getList',
+	value: 'getTableList',
 	order: 90,
 	options: [
 		{

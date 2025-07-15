@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: 'Get Role Members | 列出协作者',
-	value: 'member:getList',
+	value: 'getMemberList',
 	order: 90,
 	options: [
 		{

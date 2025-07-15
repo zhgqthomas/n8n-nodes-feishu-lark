@@ -5,7 +5,7 @@ import NodeUtils from '../../../help/utils/NodeUtils';
 
 export default {
 	name: 'Create Record | 新增记录',
-	value: 'record:create',
+	value: 'createRecord',
 	order: 70,
 	options: [
 		{

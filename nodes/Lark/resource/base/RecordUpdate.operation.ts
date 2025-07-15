@@ -5,7 +5,7 @@ import NodeUtils from '../../../help/utils/NodeUtils';
 
 export default {
 	name: 'Update Record | 更新记录',
-	value: 'record:update',
+	value: 'updateRecord',
 	order: 70,
 	options: [
 		{

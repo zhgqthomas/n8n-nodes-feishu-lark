@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: 'Get Roles | 列出自定义角色',
-	value: 'role:getList',
+	value: 'getRoleList',
 	order: 90,
 	options: [
 		{

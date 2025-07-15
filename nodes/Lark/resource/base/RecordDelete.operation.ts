@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: 'Delete Record | 删除记录',
-	value: 'record:delete',
+	value: 'deleteRecord',
 	order: 70,
 	options: [
 		{

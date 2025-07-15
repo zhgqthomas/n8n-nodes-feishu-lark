@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: 'Create View | 新增视图',
-	value: 'view:create',
+	value: 'createView',
 	order: 80,
 	options: [
 		{

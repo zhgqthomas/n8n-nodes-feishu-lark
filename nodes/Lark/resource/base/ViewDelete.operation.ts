@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: 'Delete View | 删除视图',
-	value: 'view:delete',
+	value: 'deleteView',
 	order: 80,
 	options: [
 		{

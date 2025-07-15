@@ -10,7 +10,7 @@ const REQUEST_BODY = {
 
 export default {
 	name: 'Update Role | 更新自定义角色',
-	value: 'role:update',
+	value: 'updateRole',
 	order: 100,
 	options: [
 		{

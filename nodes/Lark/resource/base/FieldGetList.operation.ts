@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: 'Get Fields | 列出字段',
-	value: 'field:getList',
+	value: 'getFieldList',
 	order: 60,
 	options: [
 		{

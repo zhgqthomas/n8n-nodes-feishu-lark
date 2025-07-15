@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: 'Update Table | 更新数据表',
-	value: 'table:update',
+	value: 'updateTable',
 	order: 90,
 	options: [
 		{

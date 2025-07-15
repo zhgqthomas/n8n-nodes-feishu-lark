@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: 'Copy Base App | 复制多维表格',
-	value: 'app:copy',
+	value: 'copyApp',
 	order: 100,
 	options: [
 		{

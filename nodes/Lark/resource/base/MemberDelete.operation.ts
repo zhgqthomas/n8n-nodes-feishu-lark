@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: 'Delete Role Member | 删除协作者',
-	value: 'member:delete',
+	value: 'deleteMember',
 	order: 100,
 	options: [
 		{
