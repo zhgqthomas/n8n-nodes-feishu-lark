@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: 'Batch Get User Info | 拼量获取用户信息',
-	value: 'user:batchGetInfo',
+	value: 'batchGetUserInfo',
 	options: [
 		{
 			displayName: 'User ID Type(用户 ID 类型)',

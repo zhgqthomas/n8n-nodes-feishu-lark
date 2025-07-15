@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: 'Get User Info | 获取用户信息',
-	value: 'user:getInfo',
+	value: 'getUserInfo',
 	options: [
 		{
 			displayName: 'User ID Type(用户 ID 类型)',
