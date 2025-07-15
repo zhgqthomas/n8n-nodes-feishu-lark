@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: 'Reply Message | 回复消息',
-	value: 'message:reply',
+	value: 'reply',
 	options: [
 		{
 			displayName: 'Message ID(消息ID)',

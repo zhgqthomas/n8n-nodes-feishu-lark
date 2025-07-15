@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 const MessageEditOperate: ResourceOperation = {
 	name: 'Edit Message | 编辑消息',
-	value: 'message:edit',
+	value: 'edit',
 	options: [
 		{
 			displayName: 'Message ID(消息ID)',

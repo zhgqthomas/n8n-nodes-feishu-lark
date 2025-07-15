@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: 'Recall Message | 撤回消息',
-	value: 'message:recall',
+	value: 'recall',
 	options: [
 		{
 			displayName: 'Message ID(消息ID)',

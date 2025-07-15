@@ -3,17 +3,9 @@ import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
-	name: 'Forward Message | 转发消息',
-	value: 'message:forward',
+	name: 'Send Message | 发送消息',
+	value: 'send',
 	options: [
-		{
-			displayName: 'Message ID(消息ID)',
-			name: 'message_id',
-			type: 'string',
-			required: true,
-			default: '',
-			description: 'Https://open.feishu.cn/document/server-docs/im-v1/message/forward#pathParams',
-		},
 		{
 			displayName: 'Receiver ID Type(接收者ID类型)',
 			name: 'receive_id_type',
@@ -47,7 +39,7 @@ export default {
 			],
 			required: true,
 			default: 'open_id',
-			description: 'Https://open.feishu.cn/document/server-docs/im-v1/message/forward#queryParams',
+			description: 'Https://open.feishu.cn/document/server-docs/im-v1/message/create#queryParams',
 		},
 		{
 			displayName: 'Receiver ID(接收者ID)',
@@ -58,6 +50,28 @@ export default {
 				'The ID type should consistent with the value of the query parameter receive_id_type',
 		},
 		{
+			displayName: 'Message Type(消息类型)',
+			name: 'msg_type',
+			type: 'options',
+			options: [
+				{ name: 'Audio(语音)', value: 'audio' },
+				{ name: 'File(文件)', value: 'file' },
+				{ name: 'Image(图片)', value: 'image' },
+				{ name: 'Interactive Card(卡片)', value: 'interactive' },
+				{ name: 'Rich Text(富文本)', value: 'post' },
+				{ name: 'Share Chat(分享群名片)', value: 'share_chat' },
+				{ name: 'Share User(分享个人名片)', value: 'share_user' },
+				{ name: 'Sticker(表情包)', value: 'sticker' },
+				{ name: 'System Message(系统消息)', value: 'system' },
+				{ name: 'Text(文本)', value: 'text' },
+				{ name: 'Video(视频)', value: 'media' },
+			],
+			description:
+				'Https://open.feishu.cn/document/server-docs/im-v1/message-content-description/create_json',
+			required: true,
+			default: 'text',
+		},
+		{
 			displayName: 'UUID(去重ID)',
 			name: 'uuid',
 			type: 'string',
@@ -65,21 +79,37 @@ export default {
 			description:
 				'A custom unique string sequence used to request deduplication when sending messages',
 		},
+		{
+			displayName: 'Message Content(消息内容)',
+			name: 'content',
+			type: 'json',
+			default: '{"text":"test content"}',
+			description: 'Https://open.feishu.cn/document/server-docs/im-v1/message/create#requestBody',
+			required: true,
+		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
-		const message_id = this.getNodeParameter('message_id', index) as string;
 		const receive_id_type = this.getNodeParameter('receive_id_type', index) as string;
 		const receive_id = this.getNodeParameter('receive_id', index) as string;
+		const msg_type = this.getNodeParameter('msg_type', index) as string;
+		const content = this.getNodeParameter('content', index) as object;
 		const uuid = this.getNodeParameter('uuid', index) as string;
 
 		const { code, msg, data } = await RequestUtils.request.call(this, {
 			method: 'POST',
-			url: `/open-apis/im/v1/messages/${message_id}/forward`,
-			qs: { receive_id_type, ...(uuid && { uuid }) },
-			body: { receive_id },
+			url: `/open-apis/im/v1/messages`,
+			qs: {
+				receive_id_type,
+			},
+			body: {
+				receive_id,
+				msg_type,
+				content,
+				...(uuid && { uuid }),
+			},
 		});
 		if (code !== 0) {
-			throw new Error(`Forward message failed, code: ${code}, message: ${msg}`);
+			throw new Error(`Send message failed, code: ${code}, message: ${msg}`);
 		}
 		return data as IDataObject;
 	},

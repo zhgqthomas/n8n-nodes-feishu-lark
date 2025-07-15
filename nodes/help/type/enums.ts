@@ -20,7 +20,7 @@ export declare const enum ResourceType {
 	Calendar = 'calendar',
 	Contacts = 'contacts',
 	Document = 'document',
-	Message = 'messaging',
+	Message = 'message',
 	Sheets = 'sheets',
 	Space = 'space',
 	Task = 'task',

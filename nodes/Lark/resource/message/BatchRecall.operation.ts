@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: 'Batch Recall Messages | 批量撤回消息',
-	value: 'message:batchRecall',
+	value: 'batchRecall',
 	options: [
 		{
 			displayName: 'Message IDs(待撤回的批量消息任务ID)',

@@ -5,7 +5,7 @@ import NodeUtils from '../../../help/utils/NodeUtils';
 
 export default {
 	name: 'Batch Send Messages | 批量发送消息',
-	value: 'message:batchSend',
+	value: 'batchSend',
 	options: [
 		{
 			displayName: 'Message Type(消息类型)',

@@ -4,7 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 
 export default {
 	name: 'Get Message Content | 获取消息内容',
-	value: 'message:getContent',
+	value: 'getContent',
 	options: [
 		{
 			displayName: 'Message ID(消息ID)',
