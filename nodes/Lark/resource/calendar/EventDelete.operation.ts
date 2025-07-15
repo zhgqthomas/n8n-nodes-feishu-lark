@@ -4,7 +4,7 @@ import RequestUtils from '../../../help/utils/RequestUtils';
 
 export default {
 	name: 'Delete Calendar Event | 删除日程',
-	value: 'calendar:deleteEvent',
+	value: 'deleteEvent',
 	order: 90,
 	options: [
 		{
@@ -13,7 +13,8 @@ export default {
 			type: 'string',
 			required: true,
 			default: '',
-			description: 'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/delete#pathParams',
+			description:
+				'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/delete#pathParams',
 		},
 		{
 			displayName: 'Event ID(日程 ID)',
@@ -21,7 +22,8 @@ export default {
 			type: 'string',
 			required: true,
 			default: '',
-			description: 'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/delete#pathParams',
+			description:
+				'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/delete#pathParams',
 		},
 		{
 			displayName: 'Need Notification(是否发送通知)',

@@ -4,7 +4,7 @@ import RequestUtils from '../../../help/utils/RequestUtils';
 
 export default {
 	name: 'Create Calendar | 创建共享日历',
-	value: 'calendar:create',
+	value: 'create',
 	options: [
 		{
 			displayName: 'Summary(日历标题)',
@@ -44,7 +44,8 @@ export default {
 			name: 'summary_alias',
 			type: 'string',
 			default: '',
-			description: 'Setting this field (including subsequent modification of this field) only takes effect for the current identity',
+			description:
+				'Setting this field (including subsequent modification of this field) only takes effect for the current identity',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {

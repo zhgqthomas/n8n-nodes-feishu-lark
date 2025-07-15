@@ -4,7 +4,7 @@ import RequestUtils from '../../../help/utils/RequestUtils';
 
 export default {
 	name: 'Get Calendar Event | 获取日程',
-	value: 'calendar:getEvent',
+	value: 'getEvent',
 	order: 90,
 	options: [
 		{

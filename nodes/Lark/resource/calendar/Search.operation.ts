@@ -4,7 +4,7 @@ import RequestUtils from '../../../help/utils/RequestUtils';
 
 export default {
 	name: 'Search Calendar | 搜索日历',
-	value: 'calendar:search',
+	value: 'search',
 	options: [
 		{
 			displayName: 'Key Words(搜索关键字)',
@@ -12,7 +12,8 @@ export default {
 			type: 'string',
 			required: true,
 			default: '',
-			description: 'Will search public calendars or the user\'s primary calendar where the title or description contains this keyword',
+			description:
+				"Will search public calendars or the user's primary calendar where the title or description contains this keyword",
 		},
 		{
 			displayName: 'Whether Paging(是否分页)',

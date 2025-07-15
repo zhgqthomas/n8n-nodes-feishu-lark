@@ -4,7 +4,7 @@ import RequestUtils from '../../../help/utils/RequestUtils';
 
 export default {
 	name: 'Get Primary Calendar Info | 查询主日历信息',
-	value: 'calendar:getPrimaryInfo',
+	value: 'getPrimaryInfo',
 	order: 100,
 	options: [
 		{
@@ -17,7 +17,8 @@ export default {
 				{ name: 'User ID', value: 'user_id' },
 			],
 			default: 'open_id',
-			description: 'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar/primary#queryParams',
+			description:
+				'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar/primary#queryParams',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject[]> {

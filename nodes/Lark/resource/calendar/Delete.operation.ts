@@ -4,7 +4,7 @@ import RequestUtils from '../../../help/utils/RequestUtils';
 
 export default {
 	name: 'Delete Calendar | 删除共享日历',
-	value: 'calendar:delete',
+	value: 'delete',
 	options: [
 		{
 			displayName: 'Calendar ID(日历 ID)',
@@ -12,7 +12,8 @@ export default {
 			type: 'string',
 			required: true,
 			default: '',
-			description: 'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar/delete#pathParams',
+			description:
+				'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar/delete#pathParams',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {

@@ -5,7 +5,7 @@ import RequestUtils from '../../../help/utils/RequestUtils';
 
 export default {
 	name: 'Delete Event Attendees | 删除日程参与人',
-	value: 'calendar:event:attendees:delete',
+	value: 'deleteEventAttendees',
 	order: 80,
 	options: [
 		{
@@ -14,7 +14,8 @@ export default {
 			type: 'string',
 			required: true,
 			default: '',
-			description: 'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event-attendee/batch_delete#pathParams',
+			description:
+				'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event-attendee/batch_delete#pathParams',
 		},
 		{
 			displayName: 'Event ID(日程 ID)',
@@ -22,7 +23,8 @@ export default {
 			type: 'string',
 			required: true,
 			default: '',
-			description: 'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event-attendee/batch_delete#pathParams',
+			description:
+				'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event-attendee/batch_delete#pathParams',
 		},
 		{
 			displayName: 'User ID Type(用户 ID 类型)',
@@ -34,7 +36,8 @@ export default {
 				{ name: 'User ID', value: 'user_id' },
 			],
 			default: 'open_id',
-			description: 'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event-attendee/create#queryParams',
+			description:
+				'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event-attendee/create#queryParams',
 		},
 		{
 			displayName: 'Need Notification(是否发送通知)',
@@ -56,21 +59,24 @@ export default {
 			name: 'is_enable_admin',
 			type: 'boolean',
 			default: false,
-			description: 'Whether to enable the meeting room administrator status (you need to set a member as the meeting room administrator in the management background first)',
+			description:
+				'Whether to enable the meeting room administrator status (you need to set a member as the meeting room administrator in the management background first)',
 		},
 		{
 			displayName: 'Attendee IDs(需删除的参与人 ID 列表)',
 			name: 'attendee_ids',
 			type: 'json',
 			default: '[]',
-			description: 'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event-attendee/batch_delete#requestBody',
+			description:
+				'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event-attendee/batch_delete#requestBody',
 		},
 		{
 			displayName: 'Delete IDs(参与人类型对应的 ID 列表)',
 			name: 'delete_ids',
 			type: 'json',
 			default: '[]',
-			description: 'The ID corresponding to the invitee type, which is a supplementary field to the attendee_ids field',
+			description:
+				'The ID corresponding to the invitee type, which is a supplementary field to the attendee_ids field',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {

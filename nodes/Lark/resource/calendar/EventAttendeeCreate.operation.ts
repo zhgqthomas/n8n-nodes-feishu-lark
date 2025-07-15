@@ -5,7 +5,7 @@ import RequestUtils from '../../../help/utils/RequestUtils';
 
 export default {
 	name: 'Create Event Invitees | 添加日程参与人',
-	value: 'calendar:event:invitees:create',
+	value: 'createEventInvitees',
 	order: 80,
 	options: [
 		{
@@ -14,7 +14,8 @@ export default {
 			type: 'string',
 			required: true,
 			default: '',
-			description: 'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event-attendee/create#pathParams',
+			description:
+				'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event-attendee/create#pathParams',
 		},
 		{
 			displayName: 'Event ID(日程 ID)',
@@ -22,7 +23,8 @@ export default {
 			type: 'string',
 			required: true,
 			default: '',
-			description: 'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event-attendee/create#pathParams',
+			description:
+				'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event-attendee/create#pathParams',
 		},
 		{
 			displayName: 'User ID Type(用户 ID 类型)',
@@ -34,7 +36,8 @@ export default {
 				{ name: 'User ID', value: 'user_id' },
 			],
 			default: 'open_id',
-			description: 'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event-attendee/create#queryParams',
+			description:
+				'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event-attendee/create#queryParams',
 		},
 		{
 			displayName: 'Need Notification(是否发送通知)',
@@ -56,7 +59,8 @@ export default {
 			name: 'is_enable_admin',
 			type: 'boolean',
 			default: false,
-			description: 'Whether to enable the meeting room administrator status (you need to set a member as the meeting room administrator in the management background first)',
+			description:
+				'Whether to enable the meeting room administrator status (you need to set a member as the meeting room administrator in the management background first)',
 		},
 		{
 			displayName: 'Add Operator to Attendee(添加操作人为参与人)',
@@ -70,7 +74,8 @@ export default {
 			name: 'attendees',
 			type: 'json',
 			default: '[]',
-			description: 'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event-attendee/create#requestBody',
+			description:
+				'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event-attendee/create#requestBody',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject[]> {

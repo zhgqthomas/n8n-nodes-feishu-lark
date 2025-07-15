@@ -4,7 +4,7 @@ import RequestUtils from '../../../help/utils/RequestUtils';
 
 export default {
 	name: 'Unbind Meeting Chat | 解绑会议群',
-	value: 'calendar:meetingchat:unbind',
+	value: 'unbindMeetingChat',
 	order: 70,
 	options: [
 		{
@@ -13,7 +13,8 @@ export default {
 			type: 'string',
 			required: true,
 			default: '',
-			description: 'Https://open.feishu.cn/document/calendar-v4/calendar-event-meeting_chat/create#pathParams',
+			description:
+				'Https://open.feishu.cn/document/calendar-v4/calendar-event-meeting_chat/create#pathParams',
 		},
 		{
 			displayName: 'Event ID(日程 ID)',
@@ -21,7 +22,8 @@ export default {
 			type: 'string',
 			required: true,
 			default: '',
-			description: 'Https://open.feishu.cn/document/calendar-v4/calendar-event-meeting_chat/create#pathParams',
+			description:
+				'Https://open.feishu.cn/document/calendar-v4/calendar-event-meeting_chat/create#pathParams',
 		},
 		{
 			displayName: 'Meeting Chat ID(会议群 ID)',

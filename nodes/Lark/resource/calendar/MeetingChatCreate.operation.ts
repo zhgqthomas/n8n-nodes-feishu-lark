@@ -4,7 +4,7 @@ import RequestUtils from '../../../help/utils/RequestUtils';
 
 export default {
 	name: 'Create Meeting Chat | 创建会议群',
-	value: 'calendar:meetingchat:create',
+	value: 'createMeetingChat',
 	order: 70,
 	options: [
 		{
@@ -13,7 +13,8 @@ export default {
 			type: 'string',
 			required: true,
 			default: '',
-			description: 'Https://open.feishu.cn/document/calendar-v4/calendar-event-meeting_chat/create#pathParams',
+			description:
+				'Https://open.feishu.cn/document/calendar-v4/calendar-event-meeting_chat/create#pathParams',
 		},
 		{
 			displayName: 'Event ID(日程 ID)',
@@ -21,7 +22,8 @@ export default {
 			type: 'string',
 			required: true,
 			default: '',
-			description: 'Https://open.feishu.cn/document/calendar-v4/calendar-event-meeting_chat/create#pathParams',
+			description:
+				'Https://open.feishu.cn/document/calendar-v4/calendar-event-meeting_chat/create#pathParams',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {

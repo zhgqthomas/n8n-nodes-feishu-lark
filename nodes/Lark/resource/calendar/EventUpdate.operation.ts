@@ -5,7 +5,7 @@ import RequestUtils from '../../../help/utils/RequestUtils';
 
 export default {
 	name: 'Update Calendar | 更新日程',
-	value: 'calendar:updateEvent',
+	value: 'updateEvent',
 	order: 90,
 	options: [
 		{
@@ -14,7 +14,8 @@ export default {
 			type: 'string',
 			required: true,
 			default: '',
-			description: 'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/get#pathParams',
+			description:
+				'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/get#pathParams',
 		},
 		{
 			displayName: 'Event ID(日程 ID)',
@@ -22,7 +23,8 @@ export default {
 			type: 'string',
 			required: true,
 			default: '',
-			description: 'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/delete#pathParams',
+			description:
+				'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/delete#pathParams',
 		},
 		{
 			displayName: 'User ID Type(用户 ID 类型)',
@@ -34,7 +36,8 @@ export default {
 				{ name: 'User ID', value: 'user_id' },
 			],
 			default: 'open_id',
-			description: 'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar/primary#queryParams',
+			description:
+				'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar/primary#queryParams',
 		},
 		{
 			displayName: 'Request Body(请求体)',
@@ -42,7 +45,8 @@ export default {
 			type: 'json',
 			required: true,
 			default: '{}',
-			description: 'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/patch#requestBody',
+			description:
+				'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/patch#requestBody',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {

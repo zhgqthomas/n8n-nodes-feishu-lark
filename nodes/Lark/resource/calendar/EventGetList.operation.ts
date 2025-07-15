@@ -5,7 +5,7 @@ import RequestUtils from '../../../help/utils/RequestUtils';
 
 export default {
 	name: 'Get Calendar Event List | 获取日程列表',
-	value: 'calendar:event:getList',
+	value: 'getEventList',
 	order: 90,
 	options: [
 		{
@@ -14,7 +14,8 @@ export default {
 			type: 'string',
 			required: true,
 			default: '',
-			description: 'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/get#pathParams',
+			description:
+				'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/get#pathParams',
 		},
 		{
 			displayName: 'User ID Type(用户 ID 类型)',
@@ -26,14 +27,16 @@ export default {
 				{ name: 'User ID', value: 'user_id' },
 			],
 			default: 'open_id',
-			description: 'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/list#queryParams',
+			description:
+				'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/list#queryParams',
 		},
 		{
 			displayName: 'Anchor Time(时间锚点)',
 			name: 'anchor_time',
 			type: 'string',
 			default: '',
-			description: 'Used to set a specific point in time for pulling events, thereby avoiding the need to pull all events',
+			description:
+				'Used to set a specific point in time for pulling events, thereby avoiding the need to pull all events',
 		},
 		{
 			displayName: 'Sync Token(增量同步标记)',

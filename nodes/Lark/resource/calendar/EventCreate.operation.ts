@@ -5,7 +5,7 @@ import RequestUtils from '../../../help/utils/RequestUtils';
 
 export default {
 	name: 'Create Calendar Event | 创建日程',
-	value: 'calendar:createEvent',
+	value: 'createEvent',
 	order: 90,
 	options: [
 		{
@@ -14,7 +14,8 @@ export default {
 			type: 'string',
 			required: true,
 			default: '',
-			description: 'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/create#pathParams',
+			description:
+				'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/create#pathParams',
 		},
 		{
 			displayName: 'User ID Type(用户 ID 类型)',
@@ -26,7 +27,8 @@ export default {
 				{ name: 'User ID', value: 'user_id' },
 			],
 			default: 'open_id',
-			description: 'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/create#pathParams',
+			description:
+				'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/create#pathParams',
 		},
 		{
 			displayName: 'Request Body(请求体)',
@@ -34,7 +36,8 @@ export default {
 			type: 'json',
 			required: true,
 			default: '{}',
-			description: 'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/create#requestBody',
+			description:
+				'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/create#requestBody',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {

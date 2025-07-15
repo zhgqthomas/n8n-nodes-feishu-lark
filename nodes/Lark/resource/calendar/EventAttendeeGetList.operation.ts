@@ -4,7 +4,7 @@ import RequestUtils from '../../../help/utils/RequestUtils';
 
 export default {
 	name: 'Get Event Attendees List | 获取日程参与人列表',
-	value: 'calendar:event:attendees:getList',
+	value: 'getEventAttendeesList',
 	order: 80,
 	options: [
 		{
@@ -13,7 +13,8 @@ export default {
 			type: 'string',
 			required: true,
 			default: '',
-			description: 'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event-attendee/list-2#pathParams',
+			description:
+				'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event-attendee/list-2#pathParams',
 		},
 		{
 			displayName: 'Event ID(日程 ID',
@@ -21,7 +22,8 @@ export default {
 			type: 'string',
 			required: true,
 			default: '',
-			description: 'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event-attendee/list-2#pathParams',
+			description:
+				'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event-attendee/list-2#pathParams',
 		},
 		{
 			displayName: 'User ID Type(用户 ID 类型)',
@@ -33,7 +35,8 @@ export default {
 				{ name: 'User ID', value: 'user_id' },
 			],
 			default: 'open_id',
-			description: 'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event-attendee/create#queryParams',
+			description:
+				'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event-attendee/create#queryParams',
 		},
 		{
 			displayName: 'Need Resource Customization(是否需要会议室表单信息)',

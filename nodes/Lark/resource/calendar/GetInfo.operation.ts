@@ -4,7 +4,7 @@ import RequestUtils from '../../../help/utils/RequestUtils';
 
 export default {
 	name: 'Get Calendar Info | 查询日历信息',
-	value: 'calendar:get',
+	value: 'getInfo',
 	options: [
 		{
 			displayName: 'Calendar ID(日历 ID)',
@@ -12,7 +12,8 @@ export default {
 			type: 'string',
 			required: true,
 			default: '',
-			description: 'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar/get#pathParams',
+			description:
+				'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar/get#pathParams',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {

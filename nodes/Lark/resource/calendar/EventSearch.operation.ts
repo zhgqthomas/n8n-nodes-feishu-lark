@@ -5,7 +5,7 @@ import RequestUtils from '../../../help/utils/RequestUtils';
 
 export default {
 	name: 'Search Calendar | 搜索日程',
-	value: 'calendar:searchEvents',
+	value: 'searchEvents',
 	order: 90,
 	options: [
 		{
@@ -14,7 +14,8 @@ export default {
 			type: 'string',
 			required: true,
 			default: '',
-			description: 'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/get#pathParams',
+			description:
+				'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/get#pathParams',
 		},
 		{
 			displayName: 'Key Words(搜索关键字)',
@@ -30,7 +31,8 @@ export default {
 			name: 'filter',
 			type: 'json',
 			default: '{}',
-			description: 'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/search#requestBody',
+			description:
+				'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/search#requestBody',
 		},
 		{
 			displayName: 'User ID Type(用户 ID 类型)',
@@ -42,7 +44,8 @@ export default {
 				{ name: 'User ID', value: 'user_id' },
 			],
 			default: 'open_id',
-			description: 'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/get#queryParams',
+			description:
+				'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/get#queryParams',
 		},
 		{
 			displayName: 'Whether Paging(是否分页)',
