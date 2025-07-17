@@ -81,9 +81,10 @@ export default {
 			default: JSON.stringify(REQUEST_BODY),
 		},
 		{
-			displayName: 'Doc:  https://open.feishu.cn/document/docs/bitable-v1/app-table-record/search',
+			displayName: 'Doc: https://open.feishu.cn/document/docs/bitable-v1/app-table-record/search',
 			name: 'notice',
 			type: 'notice',
+			default: '',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject[]> {

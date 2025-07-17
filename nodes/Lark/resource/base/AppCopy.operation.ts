@@ -5,7 +5,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 export default {
 	name: 'Copy Base App | 复制多维表格',
 	value: 'copyApp',
-	order: 100,
+	order: 190,
 	options: [
 		{
 			displayName: 'App Token(多维表格唯一标识)',
@@ -14,7 +14,6 @@ export default {
 			typeOptions: { password: true },
 			required: true,
 			default: '',
-			description: 'Https://open.feishu.cn/document/server-docs/docs/bitable-v1/bitable-overview#d03706e3',
 		},
 		{
 			displayName: 'App Folder Token(文件夹唯一标识)',
@@ -22,7 +21,6 @@ export default {
 			type: 'string',
 			typeOptions: { password: true },
 			default: '',
-			description: 'Https://open.feishu.cn/document/server-docs/docs/faq#e4a9bfa1',
 		},
 		{
 			displayName: 'App Name(多维表格名称)',
@@ -31,46 +29,48 @@ export default {
 			default: '',
 		},
 		{
-			displayName: 'Whether to Copy the Content(是否复制内容)',
+			displayName: 'Copy the Content(是否复制内容)',
 			name: 'without_content',
 			type: 'boolean',
 			default: false,
+			description:
+				'Whether to copy the content from the original table, True is copy, False is not copy',
 		},
 		{
 			displayName: 'Time Zone(时区)',
 			name: 'time_zone',
 			type: 'string',
 			default: '',
-			description: 'Https://bytedance.larkoffice.com/docx/YKRndTM7VoyDqpxqqeEcd67MnEf',
+			description: 'Doc: https://bytedance.larkoffice.com/docx/YKRndTM7VoyDqpxqqeEcd67MnEf',
+		},
+		{
+			displayName: 'Doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app/copy',
+			name: 'notice',
+			type: 'notice',
+			default: '',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
 		const app_token = this.getNodeParameter('app_token', index) as string;
 		const folder_token = this.getNodeParameter('folder_token', index) as string;
 		const name = this.getNodeParameter('name', index) as string;
-		const without_content = this.getNodeParameter('without_content', index) as boolean;
+		const without_content = this.getNodeParameter('without_content', index, false) as boolean;
 		const time_zone = this.getNodeParameter('time_zone', index) as string;
 
 		const body: IDataObject = {
-			without_content,
+			without_content: !without_content,
 			...(folder_token && { folder_token }),
 			...(name && { name }),
 			...(time_zone && { time_zone }),
 		};
 
 		const {
-			code,
-			msg,
 			data: { app },
 		} = await RequestUtils.request.call(this, {
 			method: 'POST',
 			url: `/open-apis/bitable/v1/apps/${app_token}/copy`,
 			body,
 		});
-
-		if (code !== 0) {
-			throw new Error(`Error copying base app: code:${code}, message:${msg}`);
-		}
 
 		return app;
 	},

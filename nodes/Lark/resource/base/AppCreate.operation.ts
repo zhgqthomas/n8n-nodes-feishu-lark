@@ -5,7 +5,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 export default {
 	name: 'Create Base App | 创建多维表格',
 	value: 'createApp',
-	order: 1000,
+	order: 200,
 	options: [
 		{
 			displayName: 'App Name(多维表格名称)',
@@ -25,12 +25,13 @@ export default {
 			name: 'time_zone',
 			type: 'string',
 			default: '',
-			description: 'Doc:  https://bytedance.larkoffice.com/docx/YKRndTM7VoyDqpxqqeEcd67MnEf',
+			description: 'Doc: https://bytedance.larkoffice.com/docx/YKRndTM7VoyDqpxqqeEcd67MnEf',
 		},
 		{
-			displayName: 'Doc:  https://open.feishu.cn/document/server-docs/docs/bitable-v1/app/create',
+			displayName: 'Doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app/create',
 			name: 'notice',
 			type: 'notice',
+			default: '',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
