@@ -115,8 +115,9 @@ export default {
 			displayName: 'Whether Download Resource(是否下载资源)',
 			name: 'downloadResource',
 			type: 'boolean',
+			default: false,
 			required: true,
-			description: 'Whether to download resources such as images, files, etc.',
+			description: 'Whether to download resources such as images, files, etc',
 			displayOptions: {
 				show: {
 					messageTypes: [
