@@ -41,10 +41,12 @@ export default {
 			name: 'time_zone',
 			type: 'string',
 			default: '',
-			description: 'Doc: https://bytedance.larkoffice.com/docx/YKRndTM7VoyDqpxqqeEcd67MnEf',
+			description:
+				'<a target="_blank" href="https://bytedance.larkoffice.com/docx/YKRndTM7VoyDqpxqqeEcd67MnEf">Open document</a>',
 		},
 		{
-			displayName: 'Doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app/copy',
+			displayName:
+				'<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/bitable-v1/app/copy">Open official document</a>',
 			name: 'notice',
 			type: 'notice',
 			default: '',

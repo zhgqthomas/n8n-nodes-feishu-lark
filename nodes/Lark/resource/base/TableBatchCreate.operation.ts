@@ -10,7 +10,7 @@ const REQUEST_BODY = {
 export default {
 	name: 'Batch Create Table | 批量创建数据表',
 	value: 'batchCreateTables',
-	order: 90,
+	order: 150,
 	options: [
 		{
 			displayName: 'App Token(多维表格唯一标识)',
@@ -19,7 +19,6 @@ export default {
 			typeOptions: { password: true },
 			required: true,
 			default: '',
-			description: 'Https://open.feishu.cn/document/server-docs/docs/bitable-v1/bitable-overview#d03706e3',
 		},
 		{
 			displayName: 'User ID Type(用户 ID 类型)',
@@ -31,7 +30,6 @@ export default {
 				{ name: 'User ID', value: 'user_id' },
 			],
 			default: 'open_id',
-			description: 'Https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table/batch_create#queryParams',
 		},
 		{
 			displayName: 'Request Body(请求体)',
@@ -39,7 +37,13 @@ export default {
 			type: 'json',
 			required: true,
 			default: JSON.stringify(REQUEST_BODY),
-			description: 'Https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table/batch_create?#requestBody',
+		},
+		{
+			displayName:
+				'<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table/batch_create">Open official document</a>',
+			name: 'notice',
+			type: 'notice',
+			default: '',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject[]> {
@@ -48,8 +52,6 @@ export default {
 		const user_id_type = this.getNodeParameter('user_id_type', index) as string;
 
 		const {
-			code,
-			msg,
 			data: { table_ids },
 		} = await RequestUtils.request.call(this, {
 			method: 'POST',
@@ -60,10 +62,8 @@ export default {
 			body,
 		});
 
-		if (code !== 0) {
-			throw new Error(`Error creating tables: code:${code}, message:${msg}`);
-		}
-
-		return table_ids as IDataObject[];
+		return table_ids.map((table_id: string) => ({
+			table_id,
+		})) as IDataObject[];
 	},
 } as ResourceOperation;

@@ -10,7 +10,7 @@ const REQUEST_BODY = {
 export default {
 	name: 'Batch Delete Table | 批量删除数据表',
 	value: 'batchDeleteTables',
-	order: 90,
+	order: 110,
 	options: [
 		{
 			displayName: 'App Token(多维表格唯一标识)',
@@ -19,7 +19,6 @@ export default {
 			typeOptions: { password: true },
 			required: true,
 			default: '',
-			description: 'Https://open.feishu.cn/document/server-docs/docs/bitable-v1/bitable-overview#d03706e3',
 		},
 		{
 			displayName: 'Request Body(请求体)',
@@ -27,22 +26,24 @@ export default {
 			type: 'json',
 			required: true,
 			default: JSON.stringify(REQUEST_BODY),
-			description: 'Https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table/batch_delete#requestBody',
+		},
+		{
+			displayName:
+				'<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table/batch_delete">Open official document</a>',
+			name: 'notice',
+			type: 'notice',
+			default: '',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject[]> {
 		const app_token = this.getNodeParameter('app_token', index) as string;
 		const body = NodeUtils.getNodeJsonData(this, 'body', index) as IDataObject;
 
-		const { code, msg } = await RequestUtils.request.call(this, {
+		await RequestUtils.request.call(this, {
 			method: 'POST',
 			url: `/open-apis/bitable/v1/apps/${app_token}/tables/batch_delete`,
 			body,
 		});
-
-		if (code !== 0) {
-			throw new Error(`Error deleting tables: code:${code}, message:${msg}`);
-		}
 
 		const { table_ids } = body;
 

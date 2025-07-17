@@ -28,7 +28,8 @@ export default {
 			default: false,
 		},
 		{
-			displayName: 'Doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app/update',
+			displayName:
+				'<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/bitable-v1/app/update">Open official document</a>',
 			name: 'notice',
 			type: 'notice',
 			default: '',

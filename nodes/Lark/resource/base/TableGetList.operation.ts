@@ -5,7 +5,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 export default {
 	name: 'Get Tables | 列出数据表',
 	value: 'getTableList',
-	order: 90,
+	order: 130,
 	options: [
 		{
 			displayName: 'App Token(多维表格唯一标识)',
@@ -14,7 +14,6 @@ export default {
 			typeOptions: { password: true },
 			required: true,
 			default: '',
-			description: 'Https://open.feishu.cn/document/server-docs/docs/bitable-v1/bitable-overview#d03706e3',
 		},
 		{
 			displayName: 'Whether Paging(是否分页)',
@@ -47,6 +46,13 @@ export default {
 				},
 			},
 		},
+		{
+			displayName:
+				'<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table/list">Open official document</a>',
+			name: 'notice',
+			type: 'notice',
+			default: '',
+		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
 		const app_token = this.getNodeParameter('app_token', index) as string;
@@ -58,8 +64,6 @@ export default {
 		let hasMore = false;
 		do {
 			const {
-				code,
-				msg,
 				data: { has_more, page_token, items },
 			} = await RequestUtils.request.call(this, {
 				method: 'GET',
@@ -69,10 +73,6 @@ export default {
 					page_size: pageSize,
 				},
 			});
-
-			if (code !== 0) {
-				throw new Error(`Error fetching base tables: ${msg}`);
-			}
 
 			hasMore = has_more;
 			pageToken = page_token;
