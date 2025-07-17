@@ -5,7 +5,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 export default {
 	name: 'Get App Info | 获取多维表格元数据',
 	value: 'getAppInfo',
-	order: 100,
+	order: 180,
 	options: [
 		{
 			displayName: 'App Token(多维表格唯一标识)',
@@ -14,24 +14,23 @@ export default {
 			typeOptions: { password: true },
 			required: true,
 			default: '',
-			description: 'Https://open.feishu.cn/document/server-docs/docs/bitable-v1/bitable-overview#d03706e3',
+		},
+		{
+			displayName: 'Doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app/get',
+			name: 'notice',
+			type: 'notice',
+			default: '',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
 		const app_token = this.getNodeParameter('app_token', index) as string;
 
 		const {
-			code,
-			msg,
 			data: { app },
 		} = await RequestUtils.request.call(this, {
 			method: 'GET',
 			url: `/open-apis/bitable/v1/apps/${app_token}`,
 		});
-
-		if (code !== 0) {
-			throw new Error(`Error getting base app info: code:${code}, message:${msg}`);
-		}
 
 		return app;
 	},

@@ -5,7 +5,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 export default {
 	name: 'Update App Info | 更新多维表格元数据',
 	value: 'updateApp',
-	order: 100,
+	order: 170,
 	options: [
 		{
 			displayName: 'App Token(多维表格唯一标识)',
@@ -14,7 +14,6 @@ export default {
 			typeOptions: { password: true },
 			required: true,
 			default: '',
-			description: 'Https://open.feishu.cn/document/server-docs/docs/bitable-v1/bitable-overview#d03706e3',
 		},
 		{
 			displayName: 'App Name(多维表格名称)',
@@ -28,6 +27,12 @@ export default {
 			type: 'boolean',
 			default: false,
 		},
+		{
+			displayName: 'Doc: https://open.feishu.cn/document/server-docs/docs/bitable-v1/app/update',
+			name: 'notice',
+			type: 'notice',
+			default: '',
+		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
 		const app_token = this.getNodeParameter('app_token', index) as string;
@@ -40,18 +45,12 @@ export default {
 		};
 
 		const {
-			code,
-			msg,
 			data: { app },
 		} = await RequestUtils.request.call(this, {
 			method: 'PUT',
 			url: `/open-apis/bitable/v1/apps/${app_token}`,
 			body,
 		});
-
-		if (code !== 0) {
-			throw new Error(`Error updating base app: code:${code}, message:${msg}`);
-		}
 
 		return app;
 	},
