@@ -5,7 +5,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 export default {
 	name: 'Create Base App | 创建多维表格',
 	value: 'createApp',
-	order: 100,
+	order: 1000,
 	options: [
 		{
 			displayName: 'App Name(多维表格名称)',
@@ -19,14 +19,18 @@ export default {
 			type: 'string',
 			typeOptions: { password: true },
 			default: '',
-			description: 'Https://open.feishu.cn/document/server-docs/docs/faq#e4a9bfa1',
 		},
 		{
 			displayName: 'Time Zone(时区)',
 			name: 'time_zone',
 			type: 'string',
 			default: '',
-			description: 'Https://bytedance.larkoffice.com/docx/YKRndTM7VoyDqpxqqeEcd67MnEf',
+			description: 'Doc:  https://bytedance.larkoffice.com/docx/YKRndTM7VoyDqpxqqeEcd67MnEf',
+		},
+		{
+			displayName: 'Doc:  https://open.feishu.cn/document/server-docs/docs/bitable-v1/app/create',
+			name: 'notice',
+			type: 'notice',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
@@ -41,18 +45,12 @@ export default {
 		};
 
 		const {
-			code,
-			msg,
 			data: { app },
 		} = await RequestUtils.request.call(this, {
 			method: 'POST',
 			url: '/open-apis/bitable/v1/apps',
 			body,
 		});
-
-		if (code !== 0) {
-			throw new Error(`Error creating base app: code:${code}, message:${msg}`);
-		}
 
 		return app;
 	},
