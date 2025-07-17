@@ -22,7 +22,8 @@ export default {
 			typeOptions: { password: true },
 			required: true,
 			default: '',
-			description: 'Https://open.feishu.cn/document/server-docs/docs/bitable-v1/bitable-overview#d03706e3',
+			description:
+				'Https://open.feishu.cn/document/server-docs/docs/bitable-v1/bitable-overview#d03706e3',
 		},
 		{
 			displayName: 'Table ID(数据表唯一标识)',
@@ -42,7 +43,8 @@ export default {
 				{ name: 'User ID', value: 'user_id' },
 			],
 			default: 'open_id',
-			description: 'Https://open.feishu.cn/document/docs/bitable-v1/app-table-record/search#queryParams',
+			description:
+				'Https://open.feishu.cn/document/docs/bitable-v1/app-table-record/search#queryParams',
 		},
 		{
 			displayName: 'Whether Paging(是否分页)',
@@ -81,16 +83,17 @@ export default {
 			type: 'json',
 			required: true,
 			default: JSON.stringify(REQUEST_BODY),
-			description: 'Https://open.feishu.cn/document/docs/bitable-v1/app-table-record/search#requestBody',
+			description:
+				'Https://open.feishu.cn/document/docs/bitable-v1/app-table-record/search#requestBody',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject[]> {
 		const app_token = this.getNodeParameter('app_token', index) as string;
 		const table_id = this.getNodeParameter('table_id', index) as string;
 		const user_id_type = this.getNodeParameter('user_id_type', index) as string;
-		let pageToken = this.getNodeParameter('page_token', index) as string;
+		let pageToken = this.getNodeParameter('page_token', index, '') as string;
 		const pageSize = this.getNodeParameter('page_size', index, 500) as number;
-		const body = NodeUtils.getNodeJsonData(this, 'body', index, '') as IDataObject;
+		const body = NodeUtils.getNodeJsonData(this, 'body', index) as IDataObject;
 		const whetherPaging = this.getNodeParameter('whether_paging', index, false) as boolean;
 
 		const allRecords: IDataObject[] = [];
@@ -101,7 +104,7 @@ export default {
 				msg,
 				data: { has_more, page_token, items },
 			} = await RequestUtils.request.call(this, {
-				method: 'GET',
+				method: 'POST',
 				url: `/open-apis/bitable/v1/apps/${app_token}/tables/${table_id}/records/search`,
 				qs: {
 					user_id_type,
