@@ -7,6 +7,7 @@ export const configuredOutputs = (parameters: INodeParameters) => {
 		parameters.operation === OperationType.ParseMessageContent
 	) {
 		const messageTypes = (parameters.messageTypes as string[]) || [];
+		// Return different outputs based on message types
 		return messageTypes.map((type: string) => ({
 			type: NodeConnectionType.Main,
 			displayName: type,

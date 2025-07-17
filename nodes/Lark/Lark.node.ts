@@ -66,6 +66,7 @@ export class Lark implements INodeType {
 				const responseData = await callFunc.call(this, itemIndex);
 				const { outputType } = responseData;
 				if (!outputType) {
+					// Default to single output
 					const executionData = this.helpers.constructExecutionMetaData(
 						this.helpers.returnJsonArray(responseData),
 						{ itemData: { item: itemIndex } },
