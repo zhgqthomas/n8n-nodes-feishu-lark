@@ -51,7 +51,7 @@ export default {
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
 		const pageSize = this.getNodeParameter('page_size', index) as number;
-		const pageToken = this.getNodeParameter('page_token', index) as string;
+		const pageToken = this.getNodeParameter('page_token', index, '') as string;
 		const lang = this.getNodeParameter('lang', index) as string;
 
 		const qs: IDataObject = {

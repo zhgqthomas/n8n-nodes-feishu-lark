@@ -90,7 +90,7 @@ export default {
 		const user_id_type = this.getNodeParameter('user_id_type', index) as string;
 		let pageToken = this.getNodeParameter('page_token', index) as string;
 		const pageSize = this.getNodeParameter('page_size', index, 500) as number;
-		const body = NodeUtils.getNodeJsonData(this, 'body', index) as IDataObject;
+		const body = NodeUtils.getNodeJsonData(this, 'body', index, '') as IDataObject;
 		const whetherPaging = this.getNodeParameter('whether_paging', index, false) as boolean;
 
 		const allRecords: IDataObject[] = [];
