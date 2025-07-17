@@ -1,6 +1,6 @@
-import { IDataObject, IExecuteFunctions, BINARY_ENCODING } from 'n8n-workflow';
-import RequestUtils from '../../../help/utils/RequestUtils';
+import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import { ResourceOperation } from '../../../help/type/IResource';
+import { larkApiRequestMessageResourceData } from '../../GenericFunctions';
 
 export default {
 	name: 'Get Message Content Resource | 获取消息中的资源文件',
@@ -52,18 +52,14 @@ export default {
 		const file_key = this.getNodeParameter('file_key', index) as string;
 		const type = this.getNodeParameter('type', index, 'image') as string;
 
-		const data = await RequestUtils.request.call(this, {
-			method: 'GET',
-			url: `/open-apis/im/v1/messages/${message_id}/resources/${file_key}`,
-			qs: {
-				type,
-			},
-			encoding: null,
-			json: false,
+		const data = await larkApiRequestMessageResourceData.call(this, {
+			type,
+			messageId: message_id,
+			key: file_key,
 		});
 
 		return {
-			data: Buffer.from(data).toString(BINARY_ENCODING),
+			data,
 			type,
 		};
 	},
