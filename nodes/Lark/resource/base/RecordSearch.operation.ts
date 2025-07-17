@@ -22,8 +22,6 @@ export default {
 			typeOptions: { password: true },
 			required: true,
 			default: '',
-			description:
-				'Https://open.feishu.cn/document/server-docs/docs/bitable-v1/bitable-overview#d03706e3',
 		},
 		{
 			displayName: 'Table ID(数据表唯一标识)',
@@ -43,8 +41,6 @@ export default {
 				{ name: 'User ID', value: 'user_id' },
 			],
 			default: 'open_id',
-			description:
-				'Https://open.feishu.cn/document/docs/bitable-v1/app-table-record/search#queryParams',
 		},
 		{
 			displayName: 'Whether Paging(是否分页)',
@@ -83,8 +79,11 @@ export default {
 			type: 'json',
 			required: true,
 			default: JSON.stringify(REQUEST_BODY),
-			description:
-				'Https://open.feishu.cn/document/docs/bitable-v1/app-table-record/search#requestBody',
+		},
+		{
+			displayName: 'Doc:  https://open.feishu.cn/document/docs/bitable-v1/app-table-record/search',
+			name: 'notice',
+			type: 'notice',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject[]> {
@@ -100,8 +99,6 @@ export default {
 		let hasMore = false;
 		do {
 			const {
-				code,
-				msg,
 				data: { has_more, page_token, items },
 			} = await RequestUtils.request.call(this, {
 				method: 'POST',
@@ -113,10 +110,6 @@ export default {
 				},
 				body,
 			});
-
-			if (code !== 0) {
-				throw new Error(`Error fetching base fields: code:${code}, message:${msg}`);
-			}
 
 			hasMore = has_more;
 			pageToken = page_token;
