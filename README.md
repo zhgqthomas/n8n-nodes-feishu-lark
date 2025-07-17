@@ -59,7 +59,7 @@ Resource 选择 Message， Operation 选择 Parse Message Content 就可以使�
 ![](./images/parse_msg_content.png)
 
 ### Trigger 和 解析组件搭配 Demo
-Trigger 选择监听接收消息，然后搭配解析组件就可以实现在飞书客户端给机器人发一张图片，然后将图片传递给 Chatgpt 进行 OCR 分析等工作流。[点击这里跳转到Demo]()
+Trigger 选择监听接收消息，然后搭配解析组件就可以实现在飞书客户端给机器人发一张图片，然后将图片传递给 Chatgpt 进行 OCR 分析等工作流。[点击这里跳转到Demo](https://github.com/zhgqthomas/n8n-nodes-feishu-lark/blob/main/demo/send_image_lark_bot_analyze.json)
 ![](./images/demo_work_flow.png)
 
 ## MCP 的使用
