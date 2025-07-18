@@ -1,36 +1,20 @@
 import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
+import { WORDING } from '../../../help/wording';
+import { OperationType } from '../../../help/type/enums';
+import { DESCRIPTIONS } from '../../../help/description';
 
 export default {
-	name: 'Create Base App | 创建多维表格',
-	value: 'createApp',
+	name: WORDING.CreateBaseApp,
+	value: OperationType.CreateBaseApp,
 	order: 200,
 	options: [
+		DESCRIPTIONS.BASE_APP_NAME,
+		DESCRIPTIONS.FOLDER_TOKEN,
+		DESCRIPTIONS.TIME_ZONE,
 		{
-			displayName: 'App Name(多维表格名称)',
-			name: 'name',
-			type: 'string',
-			default: '',
-		},
-		{
-			displayName: 'App Folder Token(文件夹唯一标识)',
-			name: 'folder_token',
-			type: 'string',
-			typeOptions: { password: true },
-			default: '',
-		},
-		{
-			displayName: 'Time Zone(时区)',
-			name: 'time_zone',
-			type: 'string',
-			default: '',
-			description:
-				'<a target="_blank" href="https://bytedance.larkoffice.com/docx/YKRndTM7VoyDqpxqqeEcd67MnEf">Open document</a>',
-		},
-		{
-			displayName:
-				'<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/bitable-v1/app/create">Open official document</a>',
+			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/bitable-v1/app/create">${WORDING.OpenDocument}</a>`,
 			name: 'notice',
 			type: 'notice',
 			default: '',
@@ -39,20 +23,18 @@ export default {
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
 		const name = this.getNodeParameter('name', index) as string;
 		const folder_token = this.getNodeParameter('folder_token', index) as string;
-		const time_zone = this.getNodeParameter('time_zone', index) as string;
-
-		const body: IDataObject = {
-			...(name && { name }),
-			...(folder_token && { folder_token }),
-			...(time_zone && { time_zone }),
-		};
+		const time_zone = this.getNodeParameter('time_zone', index, 'Asia/Shanghai') as string;
 
 		const {
 			data: { app },
 		} = await RequestUtils.request.call(this, {
 			method: 'POST',
 			url: '/open-apis/bitable/v1/apps',
-			body,
+			body: {
+				...(name && { name }),
+				...(folder_token && { folder_token }),
+				...(time_zone && { time_zone }),
+			},
 		});
 
 		return app;

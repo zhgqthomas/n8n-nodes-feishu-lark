@@ -28,6 +28,13 @@ export declare const enum ResourceType {
 }
 
 export declare const enum OperationType {
+	// Base
+	CreateBaseApp = 'createApp',
+	CopyBaseApp = 'copyApp',
+	GetBaseAppInfo = 'getAppInfo',
+	UpdateBaseApp = 'updateApp',
+	CreateRecord = 'createRecord',
+	// Message
 	ParseMessageContent = 'parseContent',
 }
 

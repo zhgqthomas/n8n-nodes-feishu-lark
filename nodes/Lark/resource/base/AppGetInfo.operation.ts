@@ -1,23 +1,18 @@
 import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
+import { WORDING } from '../../../help/wording';
+import { OperationType } from '../../../help/type/enums';
+import { DESCRIPTIONS } from '../../../help/description';
 
 export default {
-	name: 'Get App Info | 获取多维表格元数据',
-	value: 'getAppInfo',
+	name: WORDING.GetBaseAppInfo,
+	value: OperationType.GetBaseAppInfo,
 	order: 198,
 	options: [
+		DESCRIPTIONS.BASE_APP_TOKEN,
 		{
-			displayName: 'App Token(多维表格唯一标识)',
-			name: 'app_token',
-			type: 'string',
-			typeOptions: { password: true },
-			required: true,
-			default: '',
-		},
-		{
-			displayName:
-				'<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/bitable-v1/app/get">Open official document</a>',
+			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/bitable-v1/app/get">${WORDING.OpenDocument}</a>`,
 			name: 'notice',
 			type: 'notice',
 			default: '',
