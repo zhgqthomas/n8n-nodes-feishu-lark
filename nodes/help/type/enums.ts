@@ -36,3 +36,14 @@ export declare const enum OutputType {
 	Multiple = 'multiple',
 	None = 'none',
 }
+
+export declare const enum FileType {
+	Doc = 'doc',
+	Sheet = 'sheet',
+	Mindnote = 'mindnote',
+	Bitable = 'bitable',
+	File = 'file',
+	Docx = 'docx',
+	Folder = 'folder',
+	Shortcut = 'shortcut',
+}

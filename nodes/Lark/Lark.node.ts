@@ -1,5 +1,7 @@
 import {
 	IExecuteFunctions,
+	INodeListSearchResult,
+	ILoadOptionsFunctions,
 	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
@@ -10,6 +12,7 @@ import ResourceFactory from '../help/builder/ResourceFactory';
 
 import { configuredOutputs } from '../help/utils';
 import { OutputType } from '../help/type/enums';
+import { larkApiRequestBitableList, larkApiRequestTableList } from './GenericFunctions';
 
 const resourceBuilder = ResourceFactory.build(__dirname);
 
@@ -36,6 +39,36 @@ export class Lark implements INodeType {
 			},
 		],
 		properties: resourceBuilder.build(),
+	};
+
+	methods = {
+		listSearch: {
+			async searchBitables(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
+				const bitables = await larkApiRequestBitableList.call(this as unknown as IExecuteFunctions);
+				return {
+					results: bitables.map((bitable) => ({
+						name: bitable.name as string,
+						value: bitable.token as string,
+						url: bitable.url as string,
+					})),
+				};
+			},
+			async searchTables(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
+				const appToken = this.getNodeParameter('app_token', undefined, {
+					extractValue: true,
+				}) as string;
+				const tables = await larkApiRequestTableList.call(
+					this as unknown as IExecuteFunctions,
+					appToken,
+				);
+				return {
+					results: tables.map((table) => ({
+						name: table.name as string,
+						value: table.table_id as string,
+					})),
+				};
+			},
+		},
 	};
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
