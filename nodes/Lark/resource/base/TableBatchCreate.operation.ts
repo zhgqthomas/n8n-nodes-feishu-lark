@@ -13,12 +13,32 @@ export default {
 	order: 150,
 	options: [
 		{
-			displayName: 'App Token(多维表格唯一标识)',
+			displayName: 'Base App(多维表格)',
 			name: 'app_token',
-			type: 'string',
-			typeOptions: { password: true },
+			type: 'resourceLocator',
+			default: { mode: 'list', value: '' },
 			required: true,
-			default: '',
+			description: 'Need to have the permission to view all files in my space',
+			modes: [
+				{
+					displayName: 'From List',
+					name: 'list',
+					type: 'list',
+					placeholder: 'Select Base App',
+					typeOptions: {
+						searchListMethod: 'searchBitables',
+						searchFilterRequired: false,
+						searchable: false,
+					},
+				},
+				{
+					displayName: 'ID',
+					name: 'id',
+					type: 'string',
+					placeholder: 'Enter App Token',
+					default: '',
+				},
+			],
 		},
 		{
 			displayName: 'User ID Type(用户 ID 类型)',
@@ -47,7 +67,9 @@ export default {
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject[]> {
-		const app_token = this.getNodeParameter('app_token', index) as string;
+		const app_token = this.getNodeParameter('app_token', index, undefined, {
+			extractValue: true,
+		}) as string;
 		const body = NodeUtils.getNodeJsonData(this, 'body', index) as IDataObject;
 		const user_id_type = this.getNodeParameter('user_id_type', index) as string;
 
