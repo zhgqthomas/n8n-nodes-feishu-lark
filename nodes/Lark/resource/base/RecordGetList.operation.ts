@@ -9,80 +9,130 @@ const REQUEST_BODY = {
 export default {
 	name: 'Get Records | 批量获取记录',
 	value: 'getRecordList',
-	order: 70,
+	order: 179,
 	options: [
 		{
-			displayName: 'App Token(多维表格唯一标识)',
+			displayName: 'Base App(多维表格)',
 			name: 'app_token',
-			type: 'string',
-			typeOptions: { password: true },
+			type: 'resourceLocator',
+			default: { mode: 'list', value: '' },
 			required: true,
-			default: '',
-			description: 'Https://open.feishu.cn/document/server-docs/docs/bitable-v1/bitable-overview#d03706e3',
-		},
-		{
-			displayName: 'Table ID(数据表唯一标识)',
-			name: 'table_id',
-			type: 'string',
-			required: true,
-			default: '',
-			description: 'Base data table unique identifier',
-		},
-		{
-			displayName: 'User ID Type(用户 ID 类型)',
-			name: 'user_id_type',
-			type: 'options',
-			options: [
-				{ name: 'Open ID', value: 'open_id' },
-				{ name: 'Union ID', value: 'union_id' },
-				{ name: 'User ID', value: 'user_id' },
+			description: 'Need to have the permission to view all files in my space',
+			modes: [
+				{
+					displayName: 'From List',
+					name: 'list',
+					type: 'list',
+					placeholder: 'Select Base App',
+					typeOptions: {
+						searchListMethod: 'searchBitables',
+						searchFilterRequired: false,
+						searchable: false,
+					},
+				},
+				{
+					displayName: 'ID',
+					name: 'id',
+					type: 'string',
+					placeholder: 'Enter App Token',
+					default: '',
+				},
 			],
-			default: 'open_id',
-			description: 'Https://open.feishu.cn/document/docs/bitable-v1/app-table-record/batch_get#requestBody',
 		},
 		{
-			displayName: 'Whether to Return Shared Link(是否返回记录的分享链接)',
-			name: 'with_shared_url',
-			type: 'boolean',
-			default: false,
+			displayName: 'Table(数据表)',
+			name: 'table_id',
+			type: 'resourceLocator',
+			default: { mode: 'list', value: '' },
+			required: true,
+			description: 'Need to have the permission to view the Base above',
+			modes: [
+				{
+					displayName: 'From List',
+					name: 'list',
+					type: 'list',
+					placeholder: 'Select Table',
+					typeOptions: {
+						searchListMethod: 'searchTables',
+						searchFilterRequired: false,
+						searchable: false,
+					},
+				},
+				{
+					displayName: 'ID',
+					name: 'id',
+					type: 'string',
+					placeholder: 'Enter Table ID',
+					default: '',
+				},
+			],
 		},
 		{
-			displayName: 'Whether to Return Automatic Fields(是否返回自动计算的字段)',
-			name: 'automatic_fields',
-			type: 'boolean',
-			default: false,
-		},
-		{
-			displayName: 'Request Body(请求体JSON)',
+			displayName: 'Request Body(请求体)',
 			name: 'body',
 			type: 'json',
 			required: true,
 			default: JSON.stringify(REQUEST_BODY),
-			description: 'Https://open.feishu.cn/document/docs/bitable-v1/app-table-record/batch_get#requestBody',
+		},
+		{
+			displayName: 'Options(选项)',
+			name: 'options',
+			type: 'collection',
+			placeholder: 'Add Field',
+			default: {},
+			options: [
+				{
+					displayName: 'User ID Type(用户 ID 类型)',
+					name: 'user_id_type',
+					type: 'options',
+					typeOptions: {
+						loadOptionsMethod: 'getUserType',
+					},
+					default: 'open_id',
+				},
+				{
+					displayName: 'Whether to Return Shared Link(是否返回记录的分享链接)',
+					name: 'with_shared_url',
+					type: 'boolean',
+					default: false,
+				},
+				{
+					displayName: 'Whether to Return Automatic Fields(是否返回自动计算的字段)',
+					name: 'automatic_fields',
+					type: 'boolean',
+					default: false,
+				},
+			],
+		},
+		{
+			displayName:
+				'<a target="_blank" href="https://open.feishu.cn/document/docs/bitable-v1/app-table-record/batch_get">Open official document</a>',
+			name: 'notice',
+			type: 'notice',
+			default: '',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
 		const app_token = this.getNodeParameter('app_token', index) as string;
 		const table_id = this.getNodeParameter('table_id', index) as string;
-		const user_id_type = this.getNodeParameter('user_id_type', index) as string;
-		const with_shared_url = this.getNodeParameter('with_shared_url', index) as boolean;
-		const automatic_fields = this.getNodeParameter('automatic_fields', index) as boolean;
-		const body = this.getNodeParameter('body', index) as string;
+		const body = this.getNodeParameter('body', index, {
+			ensureType: 'json',
+		}) as IDataObject;
+		const options = this.getNodeParameter('options', index, {});
+		const user_id_type = options.user_id_type as string;
+		const with_shared_url = options.with_shared_url as boolean;
+		const automatic_fields = options.automatic_fields as boolean;
 
-		const { code, msg, data } = await RequestUtils.request.call(this, {
+		const { data } = await RequestUtils.request.call(this, {
 			method: 'POST',
 			url: `/open-apis/bitable/v1/apps/${app_token}/tables/${table_id}/records/batch_get`,
 			body: {
-				record_ids: JSON.parse(body).record_ids || [],
+				record_ids: body.record_ids || [],
 				user_id_type,
 				with_shared_url,
 				automatic_fields,
 			},
 		});
-
-		if (code !== 0) {
-			throw new Error(`Error fetching records: code:${code}, message:${msg}`);
-		}
 
 		return data;
 	},
