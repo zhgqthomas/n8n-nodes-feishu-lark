@@ -10,7 +10,7 @@ const REQUEST_BODY = {
 export default {
 	name: 'Batch Create Table | 批量创建数据表',
 	value: 'batchCreateTables',
-	order: 150,
+	order: 195,
 	options: [
 		{
 			displayName: 'Base App(多维表格)',

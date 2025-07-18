@@ -12,7 +12,7 @@ const REQUEST_BODY = {
 export default {
 	name: 'Create Table | 新增数据表',
 	value: 'createTable',
-	order: 160,
+	order: 196,
 	options: [
 		{
 			displayName: 'Base App(多维表格)',

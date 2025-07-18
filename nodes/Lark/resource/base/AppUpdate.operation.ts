@@ -5,7 +5,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 export default {
 	name: 'Update App Info | 更新多维表格元数据',
 	value: 'updateApp',
-	order: 170,
+	order: 197,
 	options: [
 		{
 			displayName: 'App Token(多维表格唯一标识)',

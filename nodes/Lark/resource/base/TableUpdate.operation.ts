@@ -5,7 +5,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 export default {
 	name: 'Update Table | 更新数据表',
 	value: 'updateTable',
-	order: 140,
+	order: 194,
 	options: [
 		{
 			displayName: 'Base App(多维表格)',

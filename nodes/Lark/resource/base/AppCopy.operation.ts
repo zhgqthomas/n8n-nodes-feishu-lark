@@ -5,7 +5,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 export default {
 	name: 'Copy Base App | 复制多维表格',
 	value: 'copyApp',
-	order: 190,
+	order: 199,
 	options: [
 		{
 			displayName: 'App Token(多维表格唯一标识)',

@@ -5,7 +5,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 export default {
 	name: 'Delete Table | 删除数据表',
 	value: 'deleteTable',
-	order: 120,
+	order: 192,
 	options: [
 		{
 			displayName: 'Base App(多维表格)',

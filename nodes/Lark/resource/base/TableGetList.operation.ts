@@ -5,7 +5,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 export default {
 	name: 'Get Tables | 列出数据表',
 	value: 'getTableList',
-	order: 130,
+	order: 193,
 	options: [
 		{
 			displayName: 'Base App(多维表格)',
