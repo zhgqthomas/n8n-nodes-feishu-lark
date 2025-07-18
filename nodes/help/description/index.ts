@@ -1,4 +1,46 @@
 export const DESCRIPTIONS = {
+	PAGE_SIZE: {
+		displayName: 'Page Size(分页大小)',
+		name: 'page_size',
+		type: 'number',
+		default: 20,
+		displayOptions: {
+			show: {
+				whether_paging: [true],
+			},
+		},
+	},
+
+	PAGE_TOKEN: {
+		displayName: 'Page Token(分页标记)',
+		name: 'page_token',
+		type: 'string',
+		typeOptions: { password: true },
+		default: '',
+		description:
+			'It is not filled in the first request, indicating traversal from the beginning; when there will be more groups, the new page_token will be returned at the same time, and the next traversal can use the page_token to get more groups',
+		displayOptions: {
+			show: {
+				whether_paging: [true],
+			},
+		},
+	},
+
+	WHETHER_PAGING: {
+		displayName: 'Whether Paging(是否分页)',
+		name: 'whether_paging',
+		type: 'boolean',
+		default: false,
+	},
+
+	NEW_NAME: {
+		displayName: 'New Name(新名称)',
+		name: 'name',
+		type: 'string',
+		required: true,
+		default: '',
+	},
+
 	IS_ADVANCED: {
 		displayName: 'Turn on/off Advanced(是否开启高级权限)',
 		name: 'is_advanced',

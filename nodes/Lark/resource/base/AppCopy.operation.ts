@@ -13,8 +13,14 @@ export default {
 		DESCRIPTIONS.BASE_APP_TOKEN,
 		DESCRIPTIONS.FOLDER_TOKEN,
 		DESCRIPTIONS.BASE_APP_NAME,
-		DESCRIPTIONS.WHETHER_COPY_CONTENT,
-		DESCRIPTIONS.TIME_ZONE,
+		{
+			displayName: WORDING.Options,
+			name: 'options',
+			type: 'collection',
+			placeholder: WORDING.AddField,
+			default: {},
+			options: [DESCRIPTIONS.WHETHER_COPY_CONTENT, DESCRIPTIONS.TIME_ZONE],
+		},
 		{
 			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/bitable-v1/app/copy">${WORDING.OpenDocument}</a>`,
 			name: 'notice',
@@ -26,8 +32,9 @@ export default {
 		const app_token = this.getNodeParameter('app_token', index) as string;
 		const folder_token = this.getNodeParameter('folder_token', index) as string;
 		const name = this.getNodeParameter('name', index) as string;
-		const without_content = this.getNodeParameter('without_content', index, false) as boolean;
-		const time_zone = this.getNodeParameter('time_zone', index, 'Asia/Shanghai') as string;
+		const options = this.getNodeParameter('options', index, {});
+		const without_content = options.without_content as boolean;
+		const time_zone = options.time_zone as string;
 
 		const {
 			data: { app },
