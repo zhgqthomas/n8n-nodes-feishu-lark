@@ -1,6 +1,7 @@
 import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
+import { DESCRIPTIONS } from '../../../help/description';
 
 const REQUEST_BODY = {
 	record_ids: [],
@@ -81,15 +82,7 @@ export default {
 			placeholder: 'Add Field',
 			default: {},
 			options: [
-				{
-					displayName: 'User ID Type(用户 ID 类型)',
-					name: 'user_id_type',
-					type: 'options',
-					typeOptions: {
-						loadOptionsMethod: 'getUserType',
-					},
-					default: 'open_id',
-				},
+				DESCRIPTIONS.USER_ID_TYPE,
 				{
 					displayName: 'Whether to Return Shared Link(是否返回记录的分享链接)',
 					name: 'with_shared_url',

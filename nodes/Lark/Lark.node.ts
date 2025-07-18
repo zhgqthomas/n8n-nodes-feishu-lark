@@ -7,7 +7,6 @@ import {
 	INodeTypeDescription,
 	NodeConnectionType,
 	NodeOperationError,
-	INodePropertyOptions,
 } from 'n8n-workflow';
 import ResourceFactory from '../help/builder/ResourceFactory';
 
@@ -93,15 +92,6 @@ export class Lark implements INodeType {
 						value: view.view_id as string,
 					})),
 				};
-			},
-		},
-		loadOptions: {
-			async getUserType(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
-				return [
-					{ name: 'Open ID', value: 'open_id' },
-					{ name: 'Union ID', value: 'union_id' },
-					{ name: 'User ID', value: 'user_id' },
-				];
 			},
 		},
 	};

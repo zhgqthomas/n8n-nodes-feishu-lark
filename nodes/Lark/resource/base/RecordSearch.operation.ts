@@ -1,6 +1,7 @@
 import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
+import { DESCRIPTIONS } from '../../../help/description';
 
 const REQUEST_BODY = {
 	automatic_fields: false,
@@ -69,15 +70,7 @@ export default {
 				},
 			],
 		},
-		{
-			displayName: 'User ID Type(用户 ID 类型)',
-			name: 'user_id_type',
-			type: 'options',
-			typeOptions: {
-				loadOptionsMethod: 'getUserType',
-			},
-			default: 'open_id',
-		},
+		DESCRIPTIONS.USER_ID_TYPE,
 		{
 			displayName: 'Whether Paging(是否分页)',
 			name: 'whether_paging',
@@ -122,18 +115,7 @@ export default {
 			type: 'collection',
 			placeholder: 'Add Field',
 			default: {},
-			options: [
-				{
-					displayName: 'User ID Type(用户 ID 类型)',
-					name: 'user_id_type',
-					type: 'options',
-					required: true,
-					typeOptions: {
-						loadOptionsMethod: 'getUserType',
-					},
-					default: 'open_id',
-				},
-			],
+			options: [DESCRIPTIONS.USER_ID_TYPE],
 		},
 		{
 			displayName:

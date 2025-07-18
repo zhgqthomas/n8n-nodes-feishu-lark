@@ -59,10 +59,11 @@ export const DESCRIPTIONS = {
 		displayName: 'User ID Type(用户 ID 类型)',
 		name: 'user_id_type',
 		type: 'options',
-		required: true,
-		typeOptions: {
-			loadOptionsMethod: 'getUserType',
-		},
+		options: [
+			{ name: 'Open ID', value: 'open_id' },
+			{ name: 'Union ID', value: 'union_id' },
+			{ name: 'User ID', value: 'user_id' },
+		],
 		default: 'open_id',
 	},
 
