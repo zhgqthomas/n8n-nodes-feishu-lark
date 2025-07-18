@@ -5,24 +5,63 @@ import { ResourceOperation } from '../../../help/type/IResource';
 export default {
 	name: 'Get Views | 列出视图',
 	value: 'getViewList',
-	order: 80,
+	order: 188,
 	options: [
 		{
-			displayName: 'App Token(多维表格唯一标识)',
+			displayName: 'Base App(多维表格)',
 			name: 'app_token',
-			type: 'string',
-			typeOptions: { password: true },
+			type: 'resourceLocator',
+			default: { mode: 'list', value: '' },
 			required: true,
-			default: '',
-			description: 'Https://open.feishu.cn/document/server-docs/docs/bitable-v1/bitable-overview#d03706e3',
+			description: 'Need to have the permission to view all files in my space',
+			modes: [
+				{
+					displayName: 'From List',
+					name: 'list',
+					type: 'list',
+					placeholder: 'Select Base App',
+					typeOptions: {
+						searchListMethod: 'searchBitables',
+						searchFilterRequired: false,
+						searchable: false,
+					},
+				},
+				{
+					displayName: 'ID',
+					name: 'id',
+					type: 'string',
+					placeholder: 'Enter App Token',
+					default: '',
+				},
+			],
 		},
 		{
-			displayName: 'Table ID(数据表唯一标识)',
+			displayName: 'Table(数据表)',
 			name: 'table_id',
-			type: 'string',
+			type: 'resourceLocator',
+			default: { mode: 'list', value: '' },
 			required: true,
-			default: '',
-			description: 'Base data table unique identifier',
+			description: 'Need to have the permission to view the Base above',
+			modes: [
+				{
+					displayName: 'From List',
+					name: 'list',
+					type: 'list',
+					placeholder: 'Select Table',
+					typeOptions: {
+						searchListMethod: 'searchTables',
+						searchFilterRequired: false,
+						searchable: false,
+					},
+				},
+				{
+					displayName: 'ID',
+					name: 'id',
+					type: 'string',
+					placeholder: 'Enter Table ID',
+					default: '',
+				},
+			],
 		},
 		{
 			displayName: 'User ID Type(用户 ID 类型)',
@@ -75,14 +114,25 @@ export default {
 				},
 			},
 		},
+		{
+			displayName:
+				'<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-view/list">Open official document</a>',
+			name: 'notice',
+			type: 'notice',
+			default: '',
+		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
-		const app_token = this.getNodeParameter('app_token', index) as string;
-		const table_id = this.getNodeParameter('table_id', index) as string;
+		const app_token = this.getNodeParameter('app_token', index, undefined, {
+			extractValue: true,
+		}) as string;
+		const table_id = this.getNodeParameter('table_id', index, undefined, {
+			extractValue: true,
+		}) as string;
 		const whetherPaging = this.getNodeParameter('whether_paging', index, false) as boolean;
 		const pageSize = this.getNodeParameter('page_size', index, 100) as string;
 		let pageToken = this.getNodeParameter('page_token', index, '') as string;
-		const user_id_type = this.getNodeParameter('user_id_type', index) as string;
+		const user_id_type = this.getNodeParameter('user_id_type', index, 'open_id') as string;
 
 		const allViews: IDataObject[] = [];
 		let hasMore = false;

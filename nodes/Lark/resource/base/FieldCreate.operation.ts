@@ -70,7 +70,7 @@ export default {
 		},
 		{
 			displayName: 'Request ID(请求 ID)',
-			name: 'client_token',
+			name: 'request_id',
 			type: 'string',
 			default: '',
 			description: 'Unique identifier for the request, used to ensure idempotency',
@@ -100,7 +100,7 @@ export default {
 		const body = this.getNodeParameter('body', index, undefined, {
 			ensureType: 'json',
 		}) as IDataObject;
-		const clientToken = this.getNodeParameter('client_token', index, '') as string;
+		const request_id = this.getNodeParameter('request_id', index, '') as string;
 
 		const {
 			data: { field },
@@ -109,7 +109,7 @@ export default {
 			url: `/open-apis/bitable/v1/apps/${app_token}/tables/${table_id}/fields`,
 			body: body,
 			qs: {
-				client_token: clientToken,
+				client_token: request_id,
 			},
 		});
 

@@ -12,7 +12,11 @@ import ResourceFactory from '../help/builder/ResourceFactory';
 
 import { configuredOutputs } from '../help/utils';
 import { OutputType } from '../help/type/enums';
-import { larkApiRequestBitableList, larkApiRequestTableList } from './GenericFunctions';
+import {
+	larkApiRequestBitableList,
+	larkApiRequestTableList,
+	larkApiRequestTableViewList,
+} from './GenericFunctions';
 
 const resourceBuilder = ResourceFactory.build(__dirname);
 
@@ -65,6 +69,27 @@ export class Lark implements INodeType {
 					results: tables.map((table) => ({
 						name: table.name as string,
 						value: table.table_id as string,
+					})),
+				};
+			},
+
+			async searchTableViews(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
+				const app_token = this.getNodeParameter('app_token', undefined, {
+					extractValue: true,
+				}) as string;
+				const table_id = this.getNodeParameter('table_id', undefined, {
+					extractValue: true,
+				}) as string;
+				const user_id_type = this.getNodeParameter('user_id_type', 'open_id') as string;
+				const views = await larkApiRequestTableViewList.call(this as unknown as IExecuteFunctions, {
+					app_token,
+					table_id,
+					user_id_type,
+				});
+				return {
+					results: views.map((view) => ({
+						name: view.view_name as string,
+						value: view.view_id as string,
 					})),
 				};
 			},
