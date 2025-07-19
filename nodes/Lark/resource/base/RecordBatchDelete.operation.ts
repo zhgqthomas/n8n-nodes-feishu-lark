@@ -9,7 +9,17 @@ export default {
 	name: WORDING.BatchDeleteTableRecords,
 	value: OperationType.BatchDeleteTableRecords,
 	order: 178,
-	options: [DESCRIPTIONS.BASE_APP_TOKEN, DESCRIPTIONS.BASE_TABLE_ID, DESCRIPTIONS.REQUEST_BODY],
+	options: [
+		DESCRIPTIONS.BASE_APP_TOKEN,
+		DESCRIPTIONS.BASE_TABLE_ID,
+		DESCRIPTIONS.REQUEST_BODY,
+		{
+			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-record/batch_delete">${WORDING.OpenDocument}</a>`,
+			name: 'notice',
+			type: 'notice',
+			default: '',
+		},
+	],
 
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject[]> {
 		const app_token = this.getNodeParameter('app_token', index) as string;

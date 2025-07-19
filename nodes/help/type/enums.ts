@@ -71,6 +71,13 @@ export declare const enum OperationType {
 	GetBaseRoleList = 'getRoleList',
 	DeleteBaseRole = 'deleteRole',
 
+	// Base Role Member
+	CreateBaseRoleMember = 'createMember',
+	BatchCreateBaseRoleMembers = 'batchCreateMembers',
+	GetBaseRoleMemberList = 'getMemberList',
+	DeleteBaseRoleMember = 'deleteMember',
+	BatchDeleteBaseRoleMembers = 'batchDeleteMembers',
+
 	// Message
 	ParseMessageContent = 'parseContent',
 }

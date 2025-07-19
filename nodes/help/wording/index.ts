@@ -42,6 +42,13 @@ export const WORDING = {
 	GetBaseRoleList: 'Get Roles | 列出自定义角色',
 	DeleteBaseRole: 'Delete Role | 删除自定义角色',
 
+	// Base Role Member
+	CreateBaseRoleMember: 'Create Role Member | 新增协作者',
+	BatchCreateBaseRoleMembers: 'Batch Create Role Members | 批量新增协作者',
+	GetBaseRoleMemberList: 'Get Role Members | 列出协作者',
+	DeleteBaseRoleMember: 'Delete Role Member | 删除协作者',
+	BatchDeleteBaseRoleMembers: 'Batch Delete Role Members | 批量删除协作者',
+
 	// Common
 	Options: 'Options(选项)',
 	AddField: 'Add Field | 添加字段',

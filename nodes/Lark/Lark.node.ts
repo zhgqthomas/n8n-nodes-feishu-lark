@@ -19,6 +19,7 @@ import {
 	larkApiRequestTableList,
 	larkApiRequestTableViewList,
 } from './GenericFunctions';
+import RequestUtils from '../help/utils/RequestUtils';
 
 const resourceBuilder = ResourceFactory.build(__dirname);
 
@@ -118,6 +119,47 @@ export class Lark implements INodeType {
 						name: role.role_name as string,
 						value: role.role_id as string,
 					})),
+				};
+			},
+
+			async searchUserIds(
+				this: ILoadOptionsFunctions,
+				query?: string,
+			): Promise<INodeListSearchResult> {
+				if (!query) {
+					throw new NodeOperationError(this.getNode(), 'Query required for search');
+				}
+
+				// Check if query is in email format using regex
+				const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+				const body = emailRegex.test(query) ? { emails: [query] } : { mobiles: [query] };
+
+				const results: any[] = [];
+				const userIdTypes = ['open_id', 'user_id', 'union_id'];
+				for (const userIdType of userIdTypes) {
+					const {
+						data: { user_list: users },
+					} = await RequestUtils.request.call(this as unknown as IExecuteFunctions, {
+						method: 'POST',
+						url: '/open-apis/contact/v3/users/batch_get_id',
+						qs: {
+							user_id_type: userIdType,
+						},
+						body,
+					});
+
+					if (!users[0].user_id) {
+						throw new NodeOperationError(this.getNode(), `No user found for: ${query}`);
+					}
+
+					results.push({
+						name: userIdType,
+						value: users[0]?.user_id || '',
+					});
+				}
+
+				return {
+					results,
 				};
 			},
 		},

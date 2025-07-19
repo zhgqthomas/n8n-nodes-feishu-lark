@@ -1,4 +1,48 @@
 export const DESCRIPTIONS = {
+	MEMBER_ID: {
+		displayName: 'Member ID(自定义角色协作者 ID)',
+		name: 'member_id',
+		type: 'resourceLocator',
+		default: { mode: 'list', value: '' },
+		required: true,
+		description: 'Need to have the read permission of base role',
+		modes: [
+			{
+				displayName: 'From List',
+				name: 'list',
+				type: 'list',
+				initType: 'user_id',
+				placeholder: 'Input phone number or email',
+				typeOptions: {
+					searchListMethod: 'searchUserIds',
+					searchFilterRequired: true,
+					searchable: true,
+				},
+			},
+			{
+				displayName: 'ID',
+				name: 'id',
+				type: 'string',
+				placeholder: 'Enter ID',
+				default: '',
+			},
+		],
+	},
+	MEMBER_ID_TYPE: {
+		displayName: 'Member ID Type(协作者 ID 类型)',
+		name: 'member_id_type',
+		type: 'options',
+		options: [
+			{ name: 'Chat ID', value: 'chat_id' },
+			{ name: 'Department ID', value: 'department_id' },
+			{ name: 'Open Department ID', value: 'open_department_id' },
+			{ name: 'Open ID', value: 'open_id' },
+			{ name: 'Union ID', value: 'union_id' },
+			{ name: 'User ID', value: 'user_id' },
+		],
+		default: 'open_id',
+	},
+
 	BASE_ROLE_ID: {
 		displayName: 'Role ID(自定义角色唯一标识)',
 		name: 'role_id',
@@ -11,7 +55,7 @@ export const DESCRIPTIONS = {
 				displayName: 'From List',
 				name: 'list',
 				type: 'list',
-				placeholder: 'Select Field',
+				placeholder: 'Select Role',
 				typeOptions: {
 					searchListMethod: 'searchBaseRoles',
 					searchFilterRequired: false,
