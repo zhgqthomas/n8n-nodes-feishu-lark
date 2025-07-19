@@ -19,7 +19,7 @@ export default {
 			default: '',
 		},
 	],
-	async call(this: IExecuteFunctions, index: number): Promise<IDataObject[]> {
+	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
 		const app_token = this.getNodeParameter('app_token', index, undefined, {
 			extractValue: true,
 		}) as string;
@@ -33,15 +33,8 @@ export default {
 			body,
 		});
 
-		const { table_ids } = body;
-
-		if (Array.isArray(table_ids)) {
-			return table_ids.map((table_id) => ({
-				deleted: true,
-				table_id,
-			})); // Return an array of deleted table objects
-		} else {
-			throw new Error('Error: table_ids is not an array or is undefined.');
-		}
+		return {
+			status: 'success',
+		};
 	},
 } as ResourceOperation;

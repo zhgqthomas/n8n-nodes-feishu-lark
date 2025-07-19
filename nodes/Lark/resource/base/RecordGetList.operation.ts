@@ -1,4 +1,4 @@
-import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
+import { IDataObject, IExecuteFunctions, NodeOperationError } from 'n8n-workflow';
 import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
 import { DESCRIPTIONS } from '../../../help/description';
@@ -12,7 +12,11 @@ export default {
 	options: [
 		DESCRIPTIONS.BASE_APP_TOKEN,
 		DESCRIPTIONS.BASE_TABLE_ID,
-		DESCRIPTIONS.REQUEST_BODY,
+		{
+			...DESCRIPTIONS.REQUEST_BODY,
+			displayName: 'Record IDs(记录 ID 列表)',
+			default: '[]',
+		},
 		{
 			displayName: WORDING.Options,
 			name: 'options',
@@ -39,7 +43,7 @@ export default {
 		const table_id = this.getNodeParameter('table_id', index, undefined, {
 			extractValue: true,
 		}) as string;
-		const body = this.getNodeParameter('body', index, {
+		const records = this.getNodeParameter('body', index, undefined, {
 			ensureType: 'json',
 		}) as IDataObject;
 		const options = this.getNodeParameter('options', index, {});
@@ -47,11 +51,16 @@ export default {
 		const with_shared_url = options.with_shared_url as boolean;
 		const automatic_fields = options.automatic_fields as boolean;
 
+		this.logger.info(`Fetching table records: ${records}`);
+		if (!Array.isArray(records)) {
+			throw new NodeOperationError(this.getNode(), 'Record IDs must be an array.');
+		}
+
 		const { data } = await RequestUtils.request.call(this, {
 			method: 'POST',
 			url: `/open-apis/bitable/v1/apps/${app_token}/tables/${table_id}/records/batch_get`,
 			body: {
-				record_ids: body.record_ids || [],
+				record_ids: records || [],
 				user_id_type,
 				with_shared_url,
 				automatic_fields,

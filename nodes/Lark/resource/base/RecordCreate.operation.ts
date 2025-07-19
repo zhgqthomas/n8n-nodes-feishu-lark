@@ -10,7 +10,7 @@ export default {
 	value: OperationType.CreateTableRecord,
 	order: 185,
 	options: [
-		DESCRIPTIONS.BASE_APP_NAME,
+		DESCRIPTIONS.BASE_APP_TOKEN,
 		DESCRIPTIONS.BASE_TABLE_ID,
 		DESCRIPTIONS.REQUEST_BODY,
 		{
@@ -39,7 +39,7 @@ export default {
 		const table_id = this.getNodeParameter('table_id', index, undefined, {
 			extractValue: true,
 		}) as string;
-		const body = this.getNodeParameter('body', index, {
+		const body = this.getNodeParameter('body', index, undefined, {
 			ensureType: 'json',
 		}) as IDataObject;
 		const options = this.getNodeParameter('options', index, {});

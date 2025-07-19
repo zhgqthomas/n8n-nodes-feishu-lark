@@ -170,7 +170,7 @@ export async function getFileList(
 ): Promise<IDataObject[]> {
 	let hasMore = true;
 	let pageToken = '';
-	const files: IDataObject[] = [];
+	const allFiles: IDataObject[] = [];
 
 	while (hasMore) {
 		const response = await larkApiRequestFolderList.call(this, {
@@ -193,13 +193,13 @@ export async function getFileList(
 
 		for (const file of files) {
 			if (file.type === type) {
-				files.push(file);
+				allFiles.push(file);
 			} else if (file.type === FileType.Folder) {
 				const results = await getFileList.call(this, type, file.token as string);
-				files.push(...results);
+				allFiles.push(...results);
 			}
 		}
 	}
 
-	return files;
+	return allFiles;
 }
