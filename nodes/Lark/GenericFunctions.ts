@@ -2,6 +2,35 @@ import { BINARY_ENCODING, IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import RequestUtils from '../help/utils/RequestUtils';
 import { FileType } from '../help/type/enums';
 
+export async function larkApiRequestTableFieldList(
+	this: IExecuteFunctions,
+	options: IDataObject,
+): Promise<IDataObject[]> {
+	const allFields: IDataObject[] = [];
+	let hasMore = false;
+	let pageToken = '';
+	const { app_token, table_id } = options;
+
+	do {
+		const {
+			data: { has_more, page_token, items },
+		} = await RequestUtils.request.call(this, {
+			method: 'GET',
+			url: `/open-apis/bitable/v1/apps/${app_token}/tables/${table_id}/fields`,
+			qs: {
+				page_token: pageToken,
+				page_size: 100,
+			},
+		});
+
+		hasMore = has_more;
+		pageToken = page_token;
+		allFields.push(...items);
+	} while (hasMore);
+
+	return allFields;
+}
+
 export async function larkApiRequestTableViewList(
 	this: IExecuteFunctions,
 	options: IDataObject,

@@ -1,4 +1,42 @@
 export const DESCRIPTIONS = {
+	TEXT_FIELD_AS_ARRAY: {
+		displayName: 'Text Field as Array(字段描述数组形式返回)',
+		name: 'text_field_as_array',
+		type: 'boolean',
+		default: false,
+		description:
+			'Whether to control the return format of field description (multi-line text format) data, true means return in array rich text form',
+	},
+
+	TABLE_FIELD_ID: {
+		displayName: 'Field ID(字段唯一标识)',
+		name: 'field_id',
+		type: 'resourceLocator',
+		default: { mode: 'list', value: '' },
+		required: true,
+		description: 'Need to have the permission to view the Base above',
+		modes: [
+			{
+				displayName: 'From List',
+				name: 'list',
+				type: 'list',
+				placeholder: 'Select Field',
+				typeOptions: {
+					searchListMethod: 'searchTableFields',
+					searchFilterRequired: false,
+					searchable: false,
+				},
+			},
+			{
+				displayName: 'ID',
+				name: 'id',
+				type: 'string',
+				placeholder: 'Enter Field ID',
+				default: '',
+			},
+		],
+	},
+
 	AUTOMATIC_FIELDS: {
 		displayName: 'Whether to Return Automatic Fields(是否返回自动计算的字段)',
 		name: 'automatic_fields',

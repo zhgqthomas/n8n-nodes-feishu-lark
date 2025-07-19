@@ -30,6 +30,12 @@ export const WORDING = {
 	GetTableRecordList: 'Get Records | 批量获取记录',
 	BatchDeleteTableRecords: 'Batch Delete Records | 批量删除记录',
 
+	// Base Table Field
+	CreateTableField: 'Create Field | 新增字段',
+	UpdateTableField: 'Update Field | 更新字段',
+	GetTableFieldList: 'Get Fields | 列出字段',
+	DeleteTableField: 'Delete Field | 删除字段',
+
 	// Common
 	Options: 'Options(选项)',
 	AddField: 'Add Field | 添加字段',

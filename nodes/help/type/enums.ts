@@ -59,6 +59,12 @@ export declare const enum OperationType {
 	GetTableRecordList = 'getRecordList',
 	BatchDeleteTableRecords = 'batchDeleteRecords',
 
+	// Base Table Field
+	CreateTableField = 'createField',
+	UpdateTableField = 'updateField',
+	GetTableFieldList = 'getFieldList',
+	DeleteTableField = 'deleteField',
+
 	// Message
 	ParseMessageContent = 'parseContent',
 }

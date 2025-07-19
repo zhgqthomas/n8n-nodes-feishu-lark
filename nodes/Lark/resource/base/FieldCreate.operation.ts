@@ -1,86 +1,25 @@
 import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
-
-const REQUEST_BODY = {
-	field_name: '',
-	type: 1,
-};
+import { WORDING } from '../../../help/wording';
+import { OperationType } from '../../../help/type/enums';
+import { DESCRIPTIONS } from '../../../help/description';
 
 export default {
-	name: 'Create Field | 新增字段',
-	value: 'createField',
-	order: 100,
+	name: WORDING.CreateTableField,
+	value: OperationType.CreateTableField,
+	order: 177,
 	options: [
+		DESCRIPTIONS.BASE_APP_TOKEN,
+		DESCRIPTIONS.BASE_TABLE_ID,
+		DESCRIPTIONS.REQUEST_BODY,
 		{
-			displayName: 'Base App(多维表格)',
-			name: 'app_token',
-			type: 'resourceLocator',
-			default: { mode: 'list', value: '' },
-			required: true,
-			description: 'Need to have the permission to view all files in my space',
-			modes: [
-				{
-					displayName: 'From List',
-					name: 'list',
-					type: 'list',
-					placeholder: 'Select Base App',
-					typeOptions: {
-						searchListMethod: 'searchBitables',
-						searchFilterRequired: false,
-						searchable: false,
-					},
-				},
-				{
-					displayName: 'ID',
-					name: 'id',
-					type: 'string',
-					placeholder: 'Enter App Token',
-					default: '',
-				},
-			],
-		},
-		{
-			displayName: 'Table(数据表)',
-			name: 'table_id',
-			type: 'resourceLocator',
-			default: { mode: 'list', value: '' },
-			required: true,
-			description: 'Need to have the permission to view the Base above',
-			modes: [
-				{
-					displayName: 'From List',
-					name: 'list',
-					type: 'list',
-					placeholder: 'Select Table',
-					typeOptions: {
-						searchListMethod: 'searchTables',
-						searchFilterRequired: false,
-						searchable: false,
-					},
-				},
-				{
-					displayName: 'ID',
-					name: 'id',
-					type: 'string',
-					placeholder: 'Enter Table ID',
-					default: '',
-				},
-			],
-		},
-		{
-			displayName: 'Request ID(请求 ID)',
-			name: 'request_id',
-			type: 'string',
-			default: '',
-			description: 'Unique identifier for the request, used to ensure idempotency',
-		},
-		{
-			displayName: 'Request Body(请求体)',
-			name: 'body',
-			type: 'json',
-			required: true,
-			default: JSON.stringify(REQUEST_BODY),
+			displayName: WORDING.Options,
+			name: 'options',
+			type: 'collection',
+			placeholder: WORDING.AddField,
+			default: {},
+			options: [DESCRIPTIONS.REQUEST_ID],
 		},
 		{
 			displayName:
@@ -91,16 +30,13 @@ export default {
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
-		const app_token = this.getNodeParameter('app_token', index, undefined, {
-			extractValue: true,
-		}) as string;
-		const table_id = this.getNodeParameter('table_id', index, undefined, {
-			extractValue: true,
-		}) as string;
+		const app_token = this.getNodeParameter('app_token', index) as string;
+		const table_id = this.getNodeParameter('table_id', index) as string;
 		const body = this.getNodeParameter('body', index, undefined, {
 			ensureType: 'json',
 		}) as IDataObject;
-		const request_id = this.getNodeParameter('request_id', index, '') as string;
+		const options = this.getNodeParameter('options', index, {}) as IDataObject;
+		const request_id = options.request_id as string;
 
 		const {
 			data: { field },

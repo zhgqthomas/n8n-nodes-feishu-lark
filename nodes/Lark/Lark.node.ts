@@ -14,6 +14,7 @@ import { configuredOutputs } from '../help/utils';
 import { OutputType } from '../help/type/enums';
 import {
 	larkApiRequestBitableList,
+	larkApiRequestTableFieldList,
 	larkApiRequestTableList,
 	larkApiRequestTableViewList,
 } from './GenericFunctions';
@@ -58,9 +59,7 @@ export class Lark implements INodeType {
 				};
 			},
 			async searchTables(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
-				const appToken = this.getNodeParameter('app_token', undefined, {
-					extractValue: true,
-				}) as string;
+				const appToken = this.getNodeParameter('app_token') as string;
 				const tables = await larkApiRequestTableList.call(
 					this as unknown as IExecuteFunctions,
 					appToken,
@@ -74,12 +73,8 @@ export class Lark implements INodeType {
 			},
 
 			async searchTableViews(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
-				const app_token = this.getNodeParameter('app_token', undefined, {
-					extractValue: true,
-				}) as string;
-				const table_id = this.getNodeParameter('table_id', undefined, {
-					extractValue: true,
-				}) as string;
+				const app_token = this.getNodeParameter('app_token') as string;
+				const table_id = this.getNodeParameter('table_id') as string;
 				const user_id_type = this.getNodeParameter('user_id_type', 'open_id') as string;
 				const views = await larkApiRequestTableViewList.call(this as unknown as IExecuteFunctions, {
 					app_token,
@@ -90,6 +85,24 @@ export class Lark implements INodeType {
 					results: views.map((view) => ({
 						name: view.view_name as string,
 						value: view.view_id as string,
+					})),
+				};
+			},
+
+			async searchTableFields(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
+				const app_token = this.getNodeParameter('app_token') as string;
+				const table_id = this.getNodeParameter('table_id') as string;
+				const fields = await larkApiRequestTableFieldList.call(
+					this as unknown as IExecuteFunctions,
+					{
+						app_token,
+						table_id,
+					},
+				);
+				return {
+					results: fields.map((field) => ({
+						name: field.field_name as string,
+						value: field.field_id as string,
 					})),
 				};
 			},
