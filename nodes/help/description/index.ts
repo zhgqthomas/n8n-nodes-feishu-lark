@@ -1,4 +1,26 @@
 export const DESCRIPTIONS = {
+	AUTOMATIC_FIELDS: {
+		displayName: 'Whether to Return Automatic Fields(是否返回自动计算的字段)',
+		name: 'automatic_fields',
+		type: 'boolean',
+		default: false,
+	},
+
+	WITH_SHARED_URL: {
+		displayName: 'Whether to Return Shared Link(是否返回记录的分享链接)',
+		name: 'with_shared_url',
+		type: 'boolean',
+		default: false,
+	},
+
+	TABLE_RECORD_ID: {
+		displayName: 'Record ID(记录唯一标识)',
+		name: 'record_id',
+		type: 'string',
+		required: true,
+		default: '',
+	},
+
 	TABLE_VIEW_PROPERTY: {
 		displayName: 'View Property(视图属性)',
 		name: 'property',

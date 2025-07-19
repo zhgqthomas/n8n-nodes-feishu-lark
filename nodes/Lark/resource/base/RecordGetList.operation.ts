@@ -2,104 +2,31 @@ import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
 import { DESCRIPTIONS } from '../../../help/description';
-
-const REQUEST_BODY = {
-	record_ids: [],
-};
+import { WORDING } from '../../../help/wording';
+import { OperationType } from '../../../help/type/enums';
 
 export default {
-	name: 'Get Records | 批量获取记录',
-	value: 'getRecordList',
+	name: WORDING.GetTableRecordList,
+	value: OperationType.GetTableRecordList,
 	order: 179,
 	options: [
+		DESCRIPTIONS.BASE_APP_TOKEN,
+		DESCRIPTIONS.BASE_TABLE_ID,
+		DESCRIPTIONS.REQUEST_BODY,
 		{
-			displayName: 'Base App(多维表格)',
-			name: 'app_token',
-			type: 'resourceLocator',
-			default: { mode: 'list', value: '' },
-			required: true,
-			description: 'Need to have the permission to view all files in my space',
-			modes: [
-				{
-					displayName: 'From List',
-					name: 'list',
-					type: 'list',
-					placeholder: 'Select Base App',
-					typeOptions: {
-						searchListMethod: 'searchBitables',
-						searchFilterRequired: false,
-						searchable: false,
-					},
-				},
-				{
-					displayName: 'ID',
-					name: 'id',
-					type: 'string',
-					placeholder: 'Enter App Token',
-					default: '',
-				},
-			],
-		},
-		{
-			displayName: 'Table(数据表)',
-			name: 'table_id',
-			type: 'resourceLocator',
-			default: { mode: 'list', value: '' },
-			required: true,
-			description: 'Need to have the permission to view the Base above',
-			modes: [
-				{
-					displayName: 'From List',
-					name: 'list',
-					type: 'list',
-					placeholder: 'Select Table',
-					typeOptions: {
-						searchListMethod: 'searchTables',
-						searchFilterRequired: false,
-						searchable: false,
-					},
-				},
-				{
-					displayName: 'ID',
-					name: 'id',
-					type: 'string',
-					placeholder: 'Enter Table ID',
-					default: '',
-				},
-			],
-		},
-		{
-			displayName: 'Request Body(请求体)',
-			name: 'body',
-			type: 'json',
-			required: true,
-			default: JSON.stringify(REQUEST_BODY),
-		},
-		{
-			displayName: 'Options(选项)',
+			displayName: WORDING.Options,
 			name: 'options',
 			type: 'collection',
-			placeholder: 'Add Field',
+			placeholder: WORDING.AddField,
 			default: {},
 			options: [
 				DESCRIPTIONS.USER_ID_TYPE,
-				{
-					displayName: 'Whether to Return Shared Link(是否返回记录的分享链接)',
-					name: 'with_shared_url',
-					type: 'boolean',
-					default: false,
-				},
-				{
-					displayName: 'Whether to Return Automatic Fields(是否返回自动计算的字段)',
-					name: 'automatic_fields',
-					type: 'boolean',
-					default: false,
-				},
+				DESCRIPTIONS.WITH_SHARED_URL,
+				DESCRIPTIONS.AUTOMATIC_FIELDS,
 			],
 		},
 		{
-			displayName:
-				'<a target="_blank" href="https://open.feishu.cn/document/docs/bitable-v1/app-table-record/batch_get">Open official document</a>',
+			displayName: `<a target="_blank" href="https://open.feishu.cn/document/docs/bitable-v1/app-table-record/batch_get">${WORDING.OpenDocument}</a>`,
 			name: 'notice',
 			type: 'notice',
 			default: '',

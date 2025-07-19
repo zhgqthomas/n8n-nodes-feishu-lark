@@ -1,80 +1,16 @@
 import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
-
-const REQUEST_BODY = {
-	records: [],
-};
+import { WORDING } from '../../../help/wording';
+import { OperationType } from '../../../help/type/enums';
+import { DESCRIPTIONS } from '../../../help/description';
 
 export default {
-	name: 'Batch Delete Record | 批量删除记录',
-	value: 'batchDeleteRecords',
+	name: WORDING.BatchDeleteTableRecords,
+	value: OperationType.BatchDeleteTableRecords,
 	order: 178,
-	options: [
-		{
-			displayName: 'Base App(多维表格)',
-			name: 'app_token',
-			type: 'resourceLocator',
-			default: { mode: 'list', value: '' },
-			required: true,
-			description: 'Need to have the permission to view all files in my space',
-			modes: [
-				{
-					displayName: 'From List',
-					name: 'list',
-					type: 'list',
-					placeholder: 'Select Base App',
-					typeOptions: {
-						searchListMethod: 'searchBitables',
-						searchFilterRequired: false,
-						searchable: false,
-					},
-				},
-				{
-					displayName: 'ID',
-					name: 'id',
-					type: 'string',
-					placeholder: 'Enter App Token',
-					default: '',
-				},
-			],
-		},
-		{
-			displayName: 'Table(数据表)',
-			name: 'table_id',
-			type: 'resourceLocator',
-			default: { mode: 'list', value: '' },
-			required: true,
-			description: 'Need to have the permission to view the Base above',
-			modes: [
-				{
-					displayName: 'From List',
-					name: 'list',
-					type: 'list',
-					placeholder: 'Select Table',
-					typeOptions: {
-						searchListMethod: 'searchTables',
-						searchFilterRequired: false,
-						searchable: false,
-					},
-				},
-				{
-					displayName: 'ID',
-					name: 'id',
-					type: 'string',
-					placeholder: 'Enter Table ID',
-					default: '',
-				},
-			],
-		},
-		{
-			displayName: 'Request Body(请求体)',
-			name: 'body',
-			type: 'json',
-			required: true,
-			default: JSON.stringify(REQUEST_BODY),
-		},
-	],
+	options: [DESCRIPTIONS.BASE_APP_TOKEN, DESCRIPTIONS.BASE_TABLE_ID, DESCRIPTIONS.REQUEST_BODY],
+
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject[]> {
 		const app_token = this.getNodeParameter('app_token', index) as string;
 		const table_id = this.getNodeParameter('table_id', index) as string;

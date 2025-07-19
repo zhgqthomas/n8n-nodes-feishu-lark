@@ -20,7 +20,17 @@ export const WORDING = {
 	GetTableViewInfo: 'Get View Info | 获取视图',
 	DeleteTableView: 'Delete View | 删除视图',
 
-	CreateRecord: 'Create Record | 新增记录',
+	// Base Table Record
+	CreateTableRecord: 'Create Record | 新增记录',
+	UpdateTableRecord: 'Update Record | 更新记录',
+	SearchTableRecords: 'Search Records | 查询记录',
+	DeleteTableRecord: 'Delete Record | 删除记录',
+	BatchCreateTableRecords: 'Batch Create Records | 批量新增记录',
+	BatchUpdateTableRecords: 'Batch Update Records | 批量更新记录',
+	GetTableRecordList: 'Get Records | 批量获取记录',
+	BatchDeleteTableRecords: 'Batch Delete Records | 批量删除记录',
+
+	// Common
 	Options: 'Options(选项)',
 	AddField: 'Add Field | 添加字段',
 	OpenDocument: 'Open official document | 浏览官方文档',

@@ -6,8 +6,8 @@ import { OperationType } from '../../../help/type/enums';
 import { WORDING } from '../../../help/wording';
 
 export default {
-	name: WORDING.CreateRecord,
-	value: OperationType.CreateRecord,
+	name: WORDING.CreateTableRecord,
+	value: OperationType.CreateTableRecord,
 	order: 185,
 	options: [
 		DESCRIPTIONS.BASE_APP_NAME,
