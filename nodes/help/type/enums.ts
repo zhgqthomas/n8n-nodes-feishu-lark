@@ -42,6 +42,13 @@ export declare const enum OperationType {
 	DeleteBaseTable = 'deleteTable',
 	BatchDeleteBaseTables = 'batchDeleteTables',
 
+	// Base Table View
+	CreateTableView = 'createView',
+	UpdateTableView = 'updateView',
+	GetTableViewList = 'getViewList',
+	GetTableViewInfo = 'getViewInfo',
+	DeleteTableView = 'deleteView',
+
 	CreateRecord = 'createRecord',
 	// Message
 	ParseMessageContent = 'parseContent',

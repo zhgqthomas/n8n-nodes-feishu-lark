@@ -13,6 +13,13 @@ export const WORDING = {
 	DeleteBaseTable: 'Delete Table | 删除数据表',
 	BatchDeleteBaseTables: 'Batch Delete Tables | 批量删除数据表',
 
+	// Base Table View
+	CreateTableView: 'Create View | 新增视图',
+	UpdateTableView: 'Update View | 更新视图',
+	GetTableViewList: 'Get Views | 列出视图',
+	GetTableViewInfo: 'Get View Info | 获取视图',
+	DeleteTableView: 'Delete View | 删除视图',
+
 	CreateRecord: 'Create Record | 新增记录',
 	Options: 'Options(选项)',
 	AddField: 'Add Field | 添加字段',

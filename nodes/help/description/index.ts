@@ -1,4 +1,80 @@
 export const DESCRIPTIONS = {
+	TABLE_VIEW_PROPERTY: {
+		displayName: 'View Property(视图属性)',
+		name: 'property',
+		type: 'json',
+		default: '{}',
+	},
+
+	TABLE_VIEW_ID: {
+		displayName: 'View(视图)',
+		name: 'view_id',
+		type: 'resourceLocator',
+		default: { mode: 'list', value: '' },
+		required: true,
+		description: 'Need to have the permission to view the Base above',
+		modes: [
+			{
+				displayName: 'From List',
+				name: 'list',
+				type: 'list',
+				placeholder: 'Select View',
+				typeOptions: {
+					searchListMethod: 'searchTableViews',
+					searchFilterRequired: false,
+					searchable: false,
+				},
+			},
+			{
+				displayName: 'ID',
+				name: 'id',
+				type: 'string',
+				placeholder: 'Enter View ID',
+				default: '',
+			},
+		],
+	},
+
+	TABLE_VIEW_TYPE: {
+		displayName: 'View Type(视图类型)',
+		name: 'view_type',
+		required: true,
+		type: 'options',
+		options: [
+			{
+				name: 'Form View(表单视图)',
+				value: 'form',
+			},
+			{
+				name: 'Gallery View(画册视图)',
+				value: 'gallery',
+			},
+			{
+				name: 'Gantt View(甘特视图)',
+				value: 'gantt',
+			},
+			{
+				name: 'Grid View(表格视图)',
+				value: 'grid',
+			},
+			{
+				name: 'Kanban View(看板视图)',
+				value: 'kanban',
+			},
+		],
+		default: 'grid',
+	},
+
+	TABLE_VIEW_NAME: {
+		displayName: 'View Name(视图名称)',
+		name: 'view_name',
+		type: 'string',
+		required: true,
+		default: '',
+		description:
+			'Name cannot contain special characters, must be no more than 100 characters long, cannot be empty, and must not contain these special symbols: [ ]',
+	},
+
 	PAGE_SIZE: {
 		displayName: 'Page Size(分页大小)',
 		name: 'page_size',
