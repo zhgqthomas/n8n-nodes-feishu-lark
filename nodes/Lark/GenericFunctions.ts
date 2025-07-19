@@ -2,6 +2,35 @@ import { BINARY_ENCODING, IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import RequestUtils from '../help/utils/RequestUtils';
 import { FileType } from '../help/type/enums';
 
+export async function larkApiRequestBaseRoleList(
+	this: IExecuteFunctions,
+	options: IDataObject,
+): Promise<IDataObject[]> {
+	const allRoles: IDataObject[] = [];
+	let hasMore = false;
+	let pageToken = '';
+	const { app_token } = options;
+
+	do {
+		const {
+			data: { has_more, page_token, items },
+		} = await RequestUtils.request.call(this, {
+			method: 'GET',
+			url: `/open-apis/base/v2/apps/${app_token}/roles`,
+			qs: {
+				page_token: pageToken,
+				page_size: 100,
+			},
+		});
+
+		hasMore = has_more;
+		pageToken = page_token;
+		allRoles.push(...items);
+	} while (hasMore);
+
+	return allRoles;
+}
+
 export async function larkApiRequestTableFieldList(
 	this: IExecuteFunctions,
 	options: IDataObject,

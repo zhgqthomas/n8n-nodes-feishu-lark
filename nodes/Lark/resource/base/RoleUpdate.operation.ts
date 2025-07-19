@@ -1,61 +1,39 @@
 import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
-import NodeUtils from '../../../help/utils/NodeUtils';
-
-const REQUEST_BODY = {
-	role_name: '',
-	table_roles: [],
-};
+import { WORDING } from '../../../help/wording';
+import { OperationType } from '../../../help/type/enums';
+import { DESCRIPTIONS } from '../../../help/description';
 
 export default {
-	name: 'Update Role | 更新自定义角色',
-	value: 'updateRole',
-	order: 100,
+	name: WORDING.UpdateBaseRole,
+	value: OperationType.UpdateBaseRole,
+	order: 172,
 	options: [
+		DESCRIPTIONS.BASE_APP_TOKEN,
+		DESCRIPTIONS.BASE_ROLE_ID,
+		DESCRIPTIONS.REQUEST_BODY,
 		{
-			displayName: 'App Token(多维表格唯一标识)',
-			name: 'app_token',
-			type: 'string',
-			typeOptions: { password: true },
-			required: true,
+			displayName: `<a target="_blank" href="https://open.feishu.cn/document/docs/bitable-v1/advanced-permission/app-role/update-2">${WORDING.OpenDocument}</a>`,
+			name: 'notice',
+			type: 'notice',
 			default: '',
-			description: 'Https://open.feishu.cn/document/server-docs/docs/bitable-v1/bitable-overview#d03706e3',
-		},
-		{
-			displayName: 'Role ID(自定义角色唯一标识)',
-			name: 'role_id',
-			type: 'string',
-			required: true,
-			default: '',
-		},
-		{
-			displayName: 'Request Body(请求体)',
-			name: 'body',
-			type: 'json',
-			required: true,
-			default: JSON.stringify(REQUEST_BODY),
-			description: 'Https://open.feishu.cn/document/docs/bitable-v1/advanced-permission/app-role/update-2#requestBody',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
 		const app_token = this.getNodeParameter('app_token', index) as string;
 		const role_id = this.getNodeParameter('role_id', index) as string;
-		const body = NodeUtils.getNodeJsonData(this, 'body', index) as IDataObject;
+		const body = this.getNodeParameter('body', index, undefined, {
+			ensureType: 'json',
+		}) as IDataObject;
 
 		const {
-			code,
-			msg,
 			data: { role },
 		} = await RequestUtils.request.call(this, {
 			method: 'PUT',
 			url: `/open-apis/base/v2/apps/${app_token}/roles/${role_id}`,
 			body,
 		});
-
-		if (code !== 0) {
-			throw new Error(`Error update base role: code:${code}, message:${msg}`);
-		}
 
 		return role;
 	},

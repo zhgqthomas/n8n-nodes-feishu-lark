@@ -9,7 +9,17 @@ export default {
 	name: WORDING.DeleteTableField,
 	value: OperationType.DeleteTableField,
 	order: 174,
-	options: [DESCRIPTIONS.BASE_APP_TOKEN, DESCRIPTIONS.BASE_TABLE_ID, DESCRIPTIONS.TABLE_FIELD_ID],
+	options: [
+		DESCRIPTIONS.BASE_APP_TOKEN,
+		DESCRIPTIONS.BASE_TABLE_ID,
+		DESCRIPTIONS.TABLE_FIELD_ID,
+		{
+			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-field/delete">${WORDING.OpenDocument}</a>`,
+			name: 'notice',
+			type: 'notice',
+			default: '',
+		},
+	],
 
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
 		const app_token = this.getNodeParameter('app_token', index) as string;

@@ -1,4 +1,33 @@
 export const DESCRIPTIONS = {
+	BASE_ROLE_ID: {
+		displayName: 'Role ID(自定义角色唯一标识)',
+		name: 'role_id',
+		type: 'resourceLocator',
+		default: { mode: 'list', value: '' },
+		required: true,
+		description: 'Need to have the read permission of base role',
+		modes: [
+			{
+				displayName: 'From List',
+				name: 'list',
+				type: 'list',
+				placeholder: 'Select Field',
+				typeOptions: {
+					searchListMethod: 'searchBaseRoles',
+					searchFilterRequired: false,
+					searchable: false,
+				},
+			},
+			{
+				displayName: 'ID',
+				name: 'id',
+				type: 'string',
+				placeholder: 'Enter Role ID',
+				default: '',
+			},
+		],
+	},
+
 	TEXT_FIELD_AS_ARRAY: {
 		displayName: 'Text Field as Array(字段描述数组形式返回)',
 		name: 'text_field_as_array',

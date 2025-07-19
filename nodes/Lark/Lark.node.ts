@@ -13,6 +13,7 @@ import ResourceFactory from '../help/builder/ResourceFactory';
 import { configuredOutputs } from '../help/utils';
 import { OutputType } from '../help/type/enums';
 import {
+	larkApiRequestBaseRoleList,
 	larkApiRequestBitableList,
 	larkApiRequestTableFieldList,
 	larkApiRequestTableList,
@@ -103,6 +104,19 @@ export class Lark implements INodeType {
 					results: fields.map((field) => ({
 						name: field.field_name as string,
 						value: field.field_id as string,
+					})),
+				};
+			},
+
+			async searchBaseRoles(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
+				const app_token = this.getNodeParameter('app_token') as string;
+				const roles = await larkApiRequestBaseRoleList.call(this as unknown as IExecuteFunctions, {
+					app_token,
+				});
+				return {
+					results: roles.map((role) => ({
+						name: role.role_name as string,
+						value: role.role_id as string,
 					})),
 				};
 			},

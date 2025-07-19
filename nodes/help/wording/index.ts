@@ -36,6 +36,12 @@ export const WORDING = {
 	GetTableFieldList: 'Get Fields | 列出字段',
 	DeleteTableField: 'Delete Field | 删除字段',
 
+	// Base Role
+	CreateBaseRole: 'Create Role | 新增自定义角色',
+	UpdateBaseRole: 'Update Role | 更新自定义角色',
+	GetBaseRoleList: 'Get Roles | 列出自定义角色',
+	DeleteBaseRole: 'Delete Role | 删除自定义角色',
+
 	// Common
 	Options: 'Options(选项)',
 	AddField: 'Add Field | 添加字段',
