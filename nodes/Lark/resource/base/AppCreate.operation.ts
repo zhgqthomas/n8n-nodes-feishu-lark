@@ -29,7 +29,9 @@ export default {
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
 		const name = this.getNodeParameter('name', index) as string;
-		const folder_token = this.getNodeParameter('folder_token', index) as string;
+		const folder_token = this.getNodeParameter('folder_token', index, undefined, {
+			extractValue: true,
+		}) as string;
 		const options = this.getNodeParameter('options', index, {});
 		const time_zone = options.time_zone as string;
 

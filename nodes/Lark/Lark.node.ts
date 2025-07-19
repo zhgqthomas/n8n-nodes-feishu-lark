@@ -11,10 +11,10 @@ import {
 import ResourceFactory from '../help/builder/ResourceFactory';
 
 import { configuredOutputs } from '../help/utils';
-import { OutputType } from '../help/type/enums';
+import { FileType, OutputType } from '../help/type/enums';
 import {
+	getFileList,
 	larkApiRequestBaseRoleList,
-	larkApiRequestBitableList,
 	larkApiRequestTableFieldList,
 	larkApiRequestTableList,
 	larkApiRequestTableViewList,
@@ -51,7 +51,10 @@ export class Lark implements INodeType {
 	methods = {
 		listSearch: {
 			async searchBitables(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
-				const bitables = await larkApiRequestBitableList.call(this as unknown as IExecuteFunctions);
+				const bitables = await getFileList.call(
+					this as unknown as IExecuteFunctions,
+					FileType.Bitable,
+				);
 				return {
 					results: bitables.map((bitable) => ({
 						name: bitable.name as string,
@@ -60,6 +63,21 @@ export class Lark implements INodeType {
 					})),
 				};
 			},
+
+			async searchFolders(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
+				const folders = await getFileList.call(
+					this as unknown as IExecuteFunctions,
+					FileType.Folder,
+				);
+				return {
+					results: folders.map((folder) => ({
+						name: folder.name as string,
+						value: folder.token as string,
+						url: folder.url as string,
+					})),
+				};
+			},
+
 			async searchTables(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
 				const appToken = this.getNodeParameter('app_token', undefined, {
 					extractValue: true,

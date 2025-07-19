@@ -32,7 +32,9 @@ export default {
 		const app_token = this.getNodeParameter('app_token', index, undefined, {
 			extractValue: true,
 		}) as string;
-		const folder_token = this.getNodeParameter('folder_token', index) as string;
+		const folder_token = this.getNodeParameter('folder_token', index, undefined, {
+			extractValue: true,
+		}) as string;
 		const name = this.getNodeParameter('name', index) as string;
 		const options = this.getNodeParameter('options', index, {});
 		const without_content = options.without_content as boolean;

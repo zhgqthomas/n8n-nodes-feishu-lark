@@ -278,9 +278,29 @@ export const DESCRIPTIONS = {
 	FOLDER_TOKEN: {
 		displayName: 'Folder Token(文件夹唯一标识)',
 		name: 'folder_token',
-		type: 'string',
-		typeOptions: { password: true },
-		default: '',
+		type: 'resourceLocator',
+		default: { mode: 'list', value: '' },
+		description: 'Need to have the read permission of base role',
+		modes: [
+			{
+				displayName: 'From List',
+				name: 'list',
+				type: 'list',
+				placeholder: 'Select Folder',
+				typeOptions: {
+					searchListMethod: 'searchFolders',
+					searchFilterRequired: false,
+					searchable: false,
+				},
+			},
+			{
+				displayName: 'ID',
+				name: 'id',
+				type: 'string',
+				placeholder: 'Enter Folder Token',
+				default: '',
+			},
+		],
 	},
 
 	BASE_APP_NAME: {

@@ -138,10 +138,6 @@ export async function larkApiRequestMessageResourceData(
 	return Buffer.from(data).toString(BINARY_ENCODING);
 }
 
-export async function larkApiRequestBitableList(this: IExecuteFunctions): Promise<IDataObject[]> {
-	return await fetchBitableRecursively.call(this);
-}
-
 export async function larkApiRequestFolderList(
 	this: IExecuteFunctions,
 	body: {
@@ -167,13 +163,14 @@ export async function larkApiRequestFolderList(
 	});
 }
 
-async function fetchBitableRecursively(
+export async function getFileList(
 	this: IExecuteFunctions,
+	type: FileType,
 	folderToken?: string,
 ): Promise<IDataObject[]> {
 	let hasMore = true;
 	let pageToken = '';
-	const bitables: IDataObject[] = [];
+	const files: IDataObject[] = [];
 
 	while (hasMore) {
 		const response = await larkApiRequestFolderList.call(this, {
@@ -195,14 +192,14 @@ async function fetchBitableRecursively(
 		pageToken = nextPageToken || '';
 
 		for (const file of files) {
-			if (file.type === FileType.Bitable) {
-				bitables.push(file);
+			if (file.type === type) {
+				files.push(file);
 			} else if (file.type === FileType.Folder) {
-				const tables = await fetchBitableRecursively.call(this, file.token as string);
-				bitables.push(...tables);
+				const results = await getFileList.call(this, type, file.token as string);
+				files.push(...results);
 			}
 		}
 	}
 
-	return bitables;
+	return files;
 }
