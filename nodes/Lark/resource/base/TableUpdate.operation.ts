@@ -21,8 +21,12 @@ export default {
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
-		const app_token = this.getNodeParameter('app_token', index) as string;
-		const table_id = this.getNodeParameter('table_id', index) as string;
+		const app_token = this.getNodeParameter('app_token', index, undefined, {
+			extractValue: true,
+		}) as string;
+		const table_id = this.getNodeParameter('table_id', index, undefined, {
+			extractValue: true,
+		}) as string;
 		const name = this.getNodeParameter('name', index, '') as string;
 
 		const { data } = await RequestUtils.request.call(this, {

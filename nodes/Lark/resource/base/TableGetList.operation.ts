@@ -22,7 +22,9 @@ export default {
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
-		const app_token = this.getNodeParameter('app_token', index) as string;
+		const app_token = this.getNodeParameter('app_token', index, undefined, {
+			extractValue: true,
+		}) as string;
 		const whetherPaging = this.getNodeParameter('whether_paging', index, false) as boolean;
 		let pageToken = this.getNodeParameter('page_token', index, '') as string;
 		const pageSize = this.getNodeParameter('page_size', index, 100) as number;

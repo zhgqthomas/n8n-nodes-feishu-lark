@@ -61,7 +61,9 @@ export class Lark implements INodeType {
 				};
 			},
 			async searchTables(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
-				const appToken = this.getNodeParameter('app_token') as string;
+				const appToken = this.getNodeParameter('app_token', undefined, {
+					extractValue: true,
+				}) as string;
 				const tables = await larkApiRequestTableList.call(
 					this as unknown as IExecuteFunctions,
 					appToken,
@@ -75,8 +77,12 @@ export class Lark implements INodeType {
 			},
 
 			async searchTableViews(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
-				const app_token = this.getNodeParameter('app_token') as string;
-				const table_id = this.getNodeParameter('table_id') as string;
+				const app_token = this.getNodeParameter('app_token', undefined, {
+					extractValue: true,
+				}) as string;
+				const table_id = this.getNodeParameter('table_id', undefined, {
+					extractValue: true,
+				}) as string;
 				const user_id_type = this.getNodeParameter('user_id_type', 'open_id') as string;
 				const views = await larkApiRequestTableViewList.call(this as unknown as IExecuteFunctions, {
 					app_token,
@@ -92,8 +98,12 @@ export class Lark implements INodeType {
 			},
 
 			async searchTableFields(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
-				const app_token = this.getNodeParameter('app_token') as string;
-				const table_id = this.getNodeParameter('table_id') as string;
+				const app_token = this.getNodeParameter('app_token', undefined, {
+					extractValue: true,
+				}) as string;
+				const table_id = this.getNodeParameter('table_id', undefined, {
+					extractValue: true,
+				}) as string;
 				const fields = await larkApiRequestTableFieldList.call(
 					this as unknown as IExecuteFunctions,
 					{
@@ -110,7 +120,9 @@ export class Lark implements INodeType {
 			},
 
 			async searchBaseRoles(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
-				const app_token = this.getNodeParameter('app_token') as string;
+				const app_token = this.getNodeParameter('app_token', undefined, {
+					extractValue: true,
+				}) as string;
 				const roles = await larkApiRequestBaseRoleList.call(this as unknown as IExecuteFunctions, {
 					app_token,
 				});

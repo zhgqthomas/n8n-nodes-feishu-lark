@@ -21,7 +21,9 @@ export default {
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
-		const app_token = this.getNodeParameter('app_token', index) as string;
+		const app_token = this.getNodeParameter('app_token', index, undefined, {
+			extractValue: true,
+		}) as string;
 		const name = this.getNodeParameter('name', index) as string;
 		const is_advanced = this.getNodeParameter('is_advanced', index, false) as boolean;
 

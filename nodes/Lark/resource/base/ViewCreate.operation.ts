@@ -22,9 +22,13 @@ export default {
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
-		const app_token = this.getNodeParameter('app_token', index) as string;
-		const table_id = this.getNodeParameter('table_id', index) as string;
-		const view_name = this.getNodeParameter('view_name', index) as string;
+		const app_token = this.getNodeParameter('app_token', index, undefined, {
+			extractValue: true,
+		}) as string;
+		const table_id = this.getNodeParameter('table_id', index, undefined, {
+			extractValue: true,
+		}) as string;
+		const view_name = this.getNodeParameter('view_name', index, '') as string;
 		const view_type = this.getNodeParameter('view_type', index, 'grid') as string;
 
 		const {

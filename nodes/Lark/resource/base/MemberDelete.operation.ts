@@ -22,10 +22,16 @@ export default {
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
-		const app_token = this.getNodeParameter('app_token', index) as string;
-		const role_id = this.getNodeParameter('role_id', index) as string;
+		const app_token = this.getNodeParameter('app_token', index, undefined, {
+			extractValue: true,
+		}) as string;
+		const role_id = this.getNodeParameter('role_id', index, undefined, {
+			extractValue: true,
+		}) as string;
 		const member_id_type = this.getNodeParameter('member_id_type', index, 'open_id') as string;
-		const member_id = this.getNodeParameter('member_id', index) as string;
+		const member_id = this.getNodeParameter('member_id', index, undefined, {
+			extractValue: true,
+		}) as string;
 
 		await RequestUtils.request.call(this, {
 			method: 'DELETE',
