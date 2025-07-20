@@ -81,6 +81,11 @@ export declare const enum OperationType {
 	// Message
 	SendMessage = 'send',
 	ReplyMessage = 'reply',
+	EditMessage = 'edit',
+	ForwardMessage = 'forward',
+	RecallMessage = 'recall',
+	GetMessageContentResource = 'getContentResource',
+	GetMessageContentInfo = 'getContentInfo',
 	ParseMessageContent = 'parseContent',
 
 	// Calendar

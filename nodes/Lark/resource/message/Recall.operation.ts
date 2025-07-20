@@ -1,33 +1,34 @@
 import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
+import { WORDING } from '../../../help/wording';
+import { OperationType } from '../../../help/type/enums';
+import { DESCRIPTIONS } from '../../../help/description';
 
 export default {
-	name: 'Recall Message | 撤回消息',
-	value: 'recall',
+	name: WORDING.RecallMessage,
+	value: OperationType.RecallMessage,
+	order: 196,
 	options: [
+		DESCRIPTIONS.MESSAGE_ID,
 		{
-			displayName: 'Message ID(消息ID)',
-			name: 'message_id',
-			type: 'string',
-			required: true,
+			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/im-v1/message/delete">${WORDING.OpenDocument}</a>`,
+			name: 'notice',
+			type: 'notice',
 			default: '',
-			description: 'Https://open.feishu.cn/document/server-docs/im-v1/message/delete#pathParams',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
 		const message_id = this.getNodeParameter('message_id', index) as string;
 
-		const { code, msg } = await RequestUtils.request.call(this, {
+		await RequestUtils.request.call(this, {
 			method: 'DELETE',
 			url: `/open-apis/im/v1/messages/${message_id}`,
 		});
-		if (code !== 0) {
-			throw new Error(`Recall message failed, code: ${code}, message: ${msg}`);
-		}
+
 		return {
 			recalled: true,
 			message_id,
-		} as IDataObject;
+		};
 	},
 } as ResourceOperation;

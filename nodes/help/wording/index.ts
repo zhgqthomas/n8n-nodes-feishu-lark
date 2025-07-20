@@ -52,8 +52,14 @@ export const WORDING = {
 	RoleMemberIdList: 'Member IDs(协作者 ID 列表)',
 
 	// Message
-	SendMessage: 'Send Message | 发送消息',
-	ReplyMessage: 'Reply Message | 回复消息',
+	SendMessage: 'Send | 发送消息',
+	ReplyMessage: 'Reply | 回复消息',
+	EditMessage: 'Edit | 编辑消息',
+	ForwardMessage: 'Forward | 转发消息',
+	RecallMessage: 'Recall | 撤回消息',
+	GetMessageContentResource: 'Get Content Resource | 获取消息中的资源文件',
+	GetMessageContentInfo: 'Get Content Info | 获取消息内容',
+	ParseMessageContent: 'Parse Content | 解析消息中的内容',
 
 	// Calendar
 	CreateCalendar: 'Create Calendar | 创建共享日历',

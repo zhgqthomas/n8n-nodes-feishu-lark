@@ -7,6 +7,8 @@ import {
 import { ResourceOperation } from '../../../help/type/IResource';
 import { MessageType, OperationType, OutputType, TriggerEventType } from '../../../help/type/enums';
 import { larkApiRequestMessageResourceData } from '../../GenericFunctions';
+import { WORDING } from '../../../help/wording';
+import { DESCRIPTIONS } from '../../../help/description';
 
 interface IMessageContent {
 	event_id?: string;
@@ -49,88 +51,10 @@ interface IMessageContent {
 }
 
 export default {
-	name: 'Parse Message Content | 解析消息中的内容',
+	name: WORDING.ParseMessageContent,
 	value: OperationType.ParseMessageContent,
-	options: [
-		{
-			displayName: 'Message Type(消息类型)',
-			name: 'messageTypes',
-			type: 'multiOptions',
-			options: [
-				{
-					name: 'Image(图片)',
-					value: MessageType.Image,
-					description: MessageType.Image,
-				},
-				{
-					name: 'File(文件)',
-					value: MessageType.File,
-					description: MessageType.File,
-				},
-				{
-					name: 'Rich Text(富文本)',
-					value: MessageType.RichText,
-					description: MessageType.RichText,
-				},
-				{
-					name: 'Audio(音频)',
-					value: MessageType.Audio,
-					description: MessageType.Audio,
-				},
-				{
-					name: 'Video(视频)',
-					value: MessageType.Video,
-					description: MessageType.Video,
-				},
-				{
-					name: 'Card(卡片)',
-					value: MessageType.Card,
-					description: MessageType.Card,
-				},
-				{
-					name: '位置(Location)',
-					value: MessageType.Location,
-					description: MessageType.Location,
-				},
-				{
-					name: 'Todo(任务)',
-					value: MessageType.Todo,
-					description: MessageType.Todo,
-				},
-				{
-					name: 'Calendar Event(日程)',
-					value: MessageType.CalendarEvent,
-					description: MessageType.CalendarEvent,
-				},
-				{
-					name: 'Text(文本)',
-					value: MessageType.Text,
-					description: MessageType.Text,
-				},
-			],
-			required: true,
-			default: [MessageType.Text],
-		},
-		{
-			displayName: 'Whether Download Resource(是否下载资源)',
-			name: 'downloadResource',
-			type: 'boolean',
-			default: false,
-			required: true,
-			description: 'Whether to download resources such as images, files, etc',
-			displayOptions: {
-				show: {
-					messageTypes: [
-						MessageType.Image,
-						MessageType.File,
-						MessageType.Audio,
-						MessageType.Video,
-						MessageType.RichText,
-					],
-				},
-			},
-		},
-	],
+	order: 201,
+	options: [DESCRIPTIONS.RECEIVE_MESSAGE_TYPES, DESCRIPTIONS.DOWNLOAD_RESOURCE],
 
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
 		const inputData = this.getInputData() as INodeExecutionData[];

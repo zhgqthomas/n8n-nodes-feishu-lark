@@ -1,38 +1,37 @@
 import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
+import { WORDING } from '../../../help/wording';
+import { OperationType } from '../../../help/type/enums';
+import { DESCRIPTIONS } from '../../../help/description';
 
 export default {
-	name: 'Get Message Content | 获取消息内容',
-	value: 'getContent',
+	name: WORDING.GetMessageContentInfo,
+	value: OperationType.GetMessageContentInfo,
+	order: 194,
 	options: [
+		DESCRIPTIONS.MESSAGE_ID,
 		{
-			displayName: 'Message ID(消息ID)',
-			name: 'message_id',
-			type: 'string',
-			required: true,
-			default: '',
-			description: 'Https://open.feishu.cn/document/server-docs/im-v1/message/get#pathParams',
+			displayName: WORDING.Options,
+			name: 'options',
+			type: 'collection',
+			placeholder: WORDING.AddField,
+			default: {},
+			options: [DESCRIPTIONS.USER_ID_TYPE],
 		},
 		{
-			displayName: 'User ID Type(用户 ID 类型)',
-			name: 'user_id_type',
-			type: 'options',
-			options: [
-				{ name: 'Open ID', value: 'open_id' },
-				{ name: 'Union ID', value: 'union_id' },
-				{ name: 'User ID', value: 'user_id' },
-			],
-			default: 'open_id',
+			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/im-v1/message/get">${WORDING.OpenDocument}</a>`,
+			name: 'notice',
+			type: 'notice',
+			default: '',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject[]> {
 		const message_id = this.getNodeParameter('message_id', index) as string;
-		const user_id_type = this.getNodeParameter('user_id_type', index, 'open_id') as string;
+		const options = this.getNodeParameter('options', index, {}) as IDataObject;
+		const user_id_type = (options.user_id_type as string) || 'open_id';
 
 		const {
-			code,
-			msg,
 			data: { items },
 		} = await RequestUtils.request.call(this, {
 			method: 'GET',
@@ -41,9 +40,7 @@ export default {
 				user_id_type,
 			},
 		});
-		if (code !== 0) {
-			throw new Error(`Get message content failed, code: ${code}, message: ${msg}`);
-		}
-		return items as IDataObject[];
+
+		return items || [];
 	},
 } as ResourceOperation;

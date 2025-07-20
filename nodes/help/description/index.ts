@@ -1,4 +1,114 @@
+import { MessageType } from '../type/enums';
+
 export const DESCRIPTIONS = {
+	DOWNLOAD_RESOURCE: {
+		displayName: 'Whether Download Resource(是否下载资源)',
+		name: 'downloadResource',
+		type: 'boolean',
+		default: false,
+		required: true,
+		description: 'Whether to download resources such as images, files, etc',
+		displayOptions: {
+			show: {
+				messageTypes: [
+					MessageType.Image,
+					MessageType.File,
+					MessageType.Audio,
+					MessageType.Video,
+					MessageType.RichText,
+				],
+			},
+		},
+	},
+
+	RECEIVE_MESSAGE_TYPES: {
+		displayName: 'Message Type(消息类型)',
+		name: 'messageTypes',
+		type: 'multiOptions',
+		options: [
+			{
+				name: 'Image(图片)',
+				value: MessageType.Image,
+				description: MessageType.Image,
+			},
+			{
+				name: 'File(文件)',
+				value: MessageType.File,
+				description: MessageType.File,
+			},
+			{
+				name: 'Rich Text(富文本)',
+				value: MessageType.RichText,
+				description: MessageType.RichText,
+			},
+			{
+				name: 'Audio(音频)',
+				value: MessageType.Audio,
+				description: MessageType.Audio,
+			},
+			{
+				name: 'Video(视频)',
+				value: MessageType.Video,
+				description: MessageType.Video,
+			},
+			{
+				name: 'Card(卡片)',
+				value: MessageType.Card,
+				description: MessageType.Card,
+			},
+			{
+				name: '位置(Location)',
+				value: MessageType.Location,
+				description: MessageType.Location,
+			},
+			{
+				name: 'Todo(任务)',
+				value: MessageType.Todo,
+				description: MessageType.Todo,
+			},
+			{
+				name: 'Calendar Event(日程)',
+				value: MessageType.CalendarEvent,
+				description: MessageType.CalendarEvent,
+			},
+			{
+				name: 'Text(文本)',
+				value: MessageType.Text,
+				description: MessageType.Text,
+			},
+		],
+		required: true,
+		default: [MessageType.Text],
+	},
+
+	RESOURCE_KEY: {
+		displayName: 'Resource Key(资源唯一标识)',
+		name: 'file_key',
+		type: 'string',
+		required: true,
+		default: '',
+		description: 'The key of the resource to be queried',
+	},
+
+	RESOURCE_TYPE: {
+		displayName: 'Resource Type(资源类型)',
+		name: 'type',
+		type: 'options',
+		options: [
+			{
+				name: 'Image(图片)',
+				value: 'image',
+				description: 'The image in the content',
+			},
+			{
+				name: 'File(文件)',
+				value: 'file',
+				description: 'The file, audio, video (except emoticons) in the content',
+			},
+		],
+		default: 'image',
+	},
+
 	MESSAGE_REPLY_IN_THREAD: {
 		displayName: 'Whether Reply in Thread(是否以话题形式回复)',
 		name: 'reply_in_thread',
