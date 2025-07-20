@@ -47,9 +47,9 @@ export default {
 			ensureType: 'json',
 		}) as IDataObject;
 		const options = this.getNodeParameter('options', index, {});
-		const user_id_type = options.user_id_type as string;
-		const with_shared_url = options.with_shared_url as boolean;
-		const automatic_fields = options.automatic_fields as boolean;
+		const user_id_type = options.user_id_type as string || 'open_id';
+		const with_shared_url = options.with_shared_url as boolean || false;
+		const automatic_fields = options.automatic_fields as boolean || false;
 
 		if (!Array.isArray(recordIds)) {
 			throw new NodeOperationError(this.getNode(), 'Record IDs must be an array.');

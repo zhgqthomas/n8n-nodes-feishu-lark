@@ -43,9 +43,9 @@ export default {
 			ensureType: 'json',
 		}) as IDataObject;
 		const options = this.getNodeParameter('options', index, {});
-		const user_id_type = options.user_id_type as string;
-		const ignore_consistency_check = options.ignore_consistency_check as boolean;
-		const client_token = options.request_id as string;
+		const user_id_type = options.user_id_type as string || 'open_id';
+		const ignore_consistency_check = options.ignore_consistency_check as boolean || true;
+		const client_token = options.request_id as string | undefined;
 
 		const {
 			data: { record },

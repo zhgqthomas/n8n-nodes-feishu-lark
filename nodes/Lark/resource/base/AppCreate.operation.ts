@@ -33,7 +33,7 @@ export default {
 			extractValue: true,
 		}) as string;
 		const options = this.getNodeParameter('options', index, {});
-		const time_zone = options.time_zone as string;
+		const time_zone = options.time_zone as string | undefined;
 
 		const {
 			data: { app },

@@ -79,7 +79,12 @@ export declare const enum OperationType {
 	BatchDeleteBaseRoleMembers = 'batchDeleteMembers',
 
 	// Message
+	SendMessage = 'send',
+	ReplyMessage = 'reply',
 	ParseMessageContent = 'parseContent',
+
+	// Calendar
+	CreateCalendar = 'create',
 }
 
 export declare const enum OutputType {

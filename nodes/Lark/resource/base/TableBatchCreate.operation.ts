@@ -35,7 +35,7 @@ export default {
 			ensureType: 'json',
 		}) as IDataObject;
 		const options = this.getNodeParameter('options', index, {});
-		const user_id_type = options.user_id_type as string;
+		const user_id_type = options.user_id_type as string || 'open_id';
 
 		const {
 			data: { table_ids },

@@ -40,8 +40,8 @@ export default {
 			ensureType: 'json',
 		}) as IDataObject;
 		const options = this.getNodeParameter('options', index, {});
-		const ignore_consistency_check = options.ignore_consistency_check as boolean;
-		const user_id_type = options.user_id_type as string;
+		const ignore_consistency_check = options.ignore_consistency_check as boolean || true;
+		const user_id_type = options.user_id_type as string || 'open_id';
 		const record_id = this.getNodeParameter('record_id', index) as string;
 
 		const {

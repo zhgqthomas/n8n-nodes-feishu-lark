@@ -37,8 +37,8 @@ export default {
 		}) as string;
 		const name = this.getNodeParameter('name', index) as string;
 		const options = this.getNodeParameter('options', index, {});
-		const without_content = options.without_content as boolean;
-		const time_zone = options.time_zone as string;
+		const without_content = (options.without_content as boolean) || false;
+		const time_zone = options.time_zone as string | undefined;
 
 		const {
 			data: { app },
@@ -46,7 +46,7 @@ export default {
 			method: 'POST',
 			url: `/open-apis/bitable/v1/apps/${app_token}/copy`,
 			body: {
-				time_zone,
+				...(time_zone && { time_zone }),
 				without_content: !without_content,
 				...(folder_token && { folder_token }),
 				...(name && { name }),

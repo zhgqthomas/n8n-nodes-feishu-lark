@@ -39,7 +39,7 @@ export default {
 			ensureType: 'json',
 		}) as IDataObject;
 		const options = this.getNodeParameter('options', index, {}) as IDataObject;
-		const request_id = options.request_id as string;
+		const request_id = options.request_id as string | undefined;
 
 		const {
 			data: { field },
@@ -48,7 +48,7 @@ export default {
 			url: `/open-apis/bitable/v1/apps/${app_token}/tables/${table_id}/fields`,
 			body: body,
 			qs: {
-				client_token: request_id,
+				...(request_id && { client_token: request_id }),
 			},
 		});
 

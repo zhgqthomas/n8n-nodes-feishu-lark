@@ -1,4 +1,130 @@
 export const DESCRIPTIONS = {
+	MESSAGE_REPLY_IN_THREAD: {
+		displayName: 'Whether Reply in Thread(是否以话题形式回复)',
+		name: 'reply_in_thread',
+		type: 'boolean',
+		default: false,
+		description:
+			'Whether to reply in thread form. If the value is true, the reply will be in thread form.',
+	},
+
+	MESSAGE_ID: {
+		displayName: 'Message ID(消息ID)',
+		name: 'message_id',
+		type: 'string',
+		required: true,
+		default: '',
+	},
+
+	MESSAGE_CONTENT: {
+		displayName: 'Message Content(消息内容)',
+		name: 'content',
+		type: 'json',
+		default: '{}',
+		required: true,
+	},
+
+	MESSAGE_TYPE: {
+		displayName: 'Message Type(消息类型)',
+		name: 'msg_type',
+		type: 'options',
+		options: [
+			{ name: 'Audio(语音)', value: 'audio' },
+			{ name: 'File(文件)', value: 'file' },
+			{ name: 'Image(图片)', value: 'image' },
+			{ name: 'Interactive Card(卡片)', value: 'interactive' },
+			{ name: 'Rich Text(富文本)', value: 'post' },
+			{ name: 'Share Chat(分享群名片)', value: 'share_chat' },
+			{ name: 'Share User(分享个人名片)', value: 'share_user' },
+			{ name: 'Sticker(表情包)', value: 'sticker' },
+			{ name: 'System Message(系统消息)', value: 'system' },
+			{ name: 'Text(文本)', value: 'text' },
+			{ name: 'Video(视频)', value: 'media' },
+		],
+		required: true,
+		default: 'text',
+	},
+
+	RECEIVE_ID_TYPE: {
+		displayName: 'Receiver ID Type(接收者ID类型)',
+		name: 'receive_id_type',
+		type: 'options',
+		options: [
+			{
+				name: 'Chat ID',
+				value: 'chat_id',
+				description: 'Identifies group chats by chat_id',
+			},
+			{
+				name: 'Email',
+				value: 'email',
+				description: 'Identifies users by "email"',
+			},
+			{
+				name: 'Open ID',
+				value: 'open_id',
+				description: 'Identifies a user to an app',
+			},
+			{
+				name: 'Union ID',
+				value: 'union_id',
+				description: 'Identifies a user to a tenant that acts as a developer',
+			},
+			{
+				name: 'User ID',
+				value: 'user_id',
+				description: 'Identifies a user to a tenant',
+			},
+		],
+		required: true,
+		default: 'open_id',
+	},
+
+	CALENDAR_COLOR: {
+		displayName: 'Color(日历颜色)',
+		name: 'color',
+		type: 'color',
+		default: '',
+	},
+
+	CALENDAR_SUMMARY_ALIAS: {
+		displayName: 'Summary Alias(日历备注名)',
+		name: 'summary_alias',
+		type: 'string',
+		default: '',
+		description:
+			'Setting this field (including subsequent modification of this field) only takes effect for the current identity',
+	},
+
+	CALENDAR_PERMISSIONS: {
+		displayName: 'Permissions(日历公开范围)',
+		name: 'permissions',
+		type: 'options',
+		options: [
+			{ name: 'Private | 私密', value: 'private' },
+			{ name: 'Show Only Free Busy | 仅展示忙闲信息', value: 'show_only_free_busy' },
+			{ name: 'Public | 公开，他人可查看日程详情', value: 'public' },
+		],
+		default: 'show_only_free_busy',
+		description: 'Calendar visibility range',
+	},
+
+	CALENDAR_DESCRIPTION: {
+		displayName: 'Description(日历描述)',
+		name: 'description',
+		type: 'string',
+		default: '',
+		description: 'Maximum length: 255 characters',
+	},
+
+	CALENDAR_TITLE: {
+		displayName: 'Summary(日历标题)',
+		name: 'summary',
+		type: 'string',
+		default: '',
+		description: 'Maximum length: 255 characters',
+	},
+
 	MEMBER_ID: {
 		displayName: 'Member ID(自定义角色协作者 ID)',
 		name: 'member_id',
@@ -28,6 +154,7 @@ export const DESCRIPTIONS = {
 			},
 		],
 	},
+
 	MEMBER_ID_TYPE: {
 		displayName: 'Member ID Type(协作者 ID 类型)',
 		name: 'member_id_type',

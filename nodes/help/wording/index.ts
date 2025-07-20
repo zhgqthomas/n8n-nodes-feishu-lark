@@ -51,6 +51,13 @@ export const WORDING = {
 	BatchDeleteBaseRoleMembers: 'Batch Delete Role Members | 批量删除协作者',
 	RoleMemberIdList: 'Member IDs(协作者 ID 列表)',
 
+	// Message
+	SendMessage: 'Send Message | 发送消息',
+	ReplyMessage: 'Reply Message | 回复消息',
+
+	// Calendar
+	CreateCalendar: 'Create Calendar | 创建共享日历',
+
 	// Common
 	Options: 'Options(选项)',
 	AddField: 'Add Field | 添加字段',

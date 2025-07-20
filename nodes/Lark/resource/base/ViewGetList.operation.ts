@@ -41,7 +41,7 @@ export default {
 		const pageSize = this.getNodeParameter('page_size', index, 100) as string;
 		let pageToken = this.getNodeParameter('page_token', index, '') as string;
 		const options = this.getNodeParameter('options', index, {});
-		const user_id_type = options.user_id_type as string;
+		const user_id_type = options.user_id_type as string || 'open_id';
 
 		const allViews: IDataObject[] = [];
 		let hasMore = false;

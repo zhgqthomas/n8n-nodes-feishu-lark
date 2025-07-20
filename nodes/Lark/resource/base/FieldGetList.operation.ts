@@ -45,7 +45,7 @@ export default {
 		let pageToken = this.getNodeParameter('page_token', index, '') as string;
 		const pageSize = this.getNodeParameter('page_size', index, 100) as number;
 		const options = this.getNodeParameter('options', index, {}) as IDataObject;
-		const text_field_as_array = options.text_field_as_array as boolean;
+		const text_field_as_array = options.text_field_as_array as boolean || false;
 
 		const allFields: IDataObject[] = [];
 		let hasMore = false;

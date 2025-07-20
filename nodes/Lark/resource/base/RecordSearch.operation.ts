@@ -45,7 +45,7 @@ export default {
 		const pageSize = this.getNodeParameter('page_size', index, 500) as number;
 		const whetherPaging = this.getNodeParameter('whether_paging', index, false) as boolean;
 		const options = this.getNodeParameter('options', index, {});
-		const user_id_type = options.user_id_type as string;
+		const user_id_type = options.user_id_type as string || 'open_id';
 
 		const allRecords: IDataObject[] = [];
 		let hasMore = false;
