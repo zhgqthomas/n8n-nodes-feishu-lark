@@ -38,19 +38,21 @@ export default {
 				method: 'GET',
 				url: `/open-apis/base/v2/apps/${app_token}/roles`,
 				qs: {
-					page_token: pageToken,
+					...(pageToken && { page_token: pageToken }),
 					page_size: pageSize,
 				},
 			});
 
 			hasMore = has_more;
 			pageToken = page_token;
-			allRoles.push(...items);
+			if (items) {
+				allRoles.push(...items);
+			}
 		} while (!whetherPaging && hasMore);
 
 		return {
 			has_more: hasMore,
-			page_token: pageToken,
+			page_token: pageToken || '',
 			items: allRoles,
 		};
 	},

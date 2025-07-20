@@ -29,6 +29,7 @@ export const WORDING = {
 	BatchUpdateTableRecords: 'Batch Update Records | 批量更新记录',
 	GetTableRecordList: 'Get Records | 批量获取记录',
 	BatchDeleteTableRecords: 'Batch Delete Records | 批量删除记录',
+	TableRecordIdList: 'Record IDs(记录 ID 列表)',
 
 	// Base Table Field
 	CreateTableField: 'Create Field | 新增字段',
@@ -48,6 +49,7 @@ export const WORDING = {
 	GetBaseRoleMemberList: 'Get Role Members | 列出协作者',
 	DeleteBaseRoleMember: 'Delete Role Member | 删除协作者',
 	BatchDeleteBaseRoleMembers: 'Batch Delete Role Members | 批量删除协作者',
+	RoleMemberIdList: 'Member IDs(协作者 ID 列表)',
 
 	// Common
 	Options: 'Options(选项)',

@@ -31,7 +31,7 @@ export default {
 			default: '',
 		},
 	],
-	async call(this: IExecuteFunctions, index: number): Promise<IDataObject[]> {
+	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
 		const app_token = this.getNodeParameter('app_token', index, undefined, {
 			extractValue: true,
 		}) as string;
@@ -65,9 +65,15 @@ export default {
 
 			hasMore = has_more;
 			pageToken = page_token;
-			allFields.push(...items);
+			if (items) {
+				allFields.push(...items);
+			}
 		} while (!whetherPaging && hasMore);
 
-		return allFields;
+		return {
+			has_more: hasMore,
+			page_token: pageToken || '',
+			items: allFields,
+		};
 	},
 } as ResourceOperation;

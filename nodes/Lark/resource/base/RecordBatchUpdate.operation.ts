@@ -55,6 +55,6 @@ export default {
 			body: body,
 		});
 
-		return records as IDataObject[];
+		return records;
 	},
 } as ResourceOperation;

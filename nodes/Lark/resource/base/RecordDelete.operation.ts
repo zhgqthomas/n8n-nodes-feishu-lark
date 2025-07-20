@@ -34,6 +34,6 @@ export default {
 			url: `/open-apis/bitable/v1/apps/${app_token}/tables/${table_id}/records/${record_id}`,
 		});
 
-		return data as IDataObject;
+		return data;
 	},
 } as ResourceOperation;

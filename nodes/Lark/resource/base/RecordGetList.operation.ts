@@ -14,7 +14,7 @@ export default {
 		DESCRIPTIONS.BASE_TABLE_ID,
 		{
 			...DESCRIPTIONS.REQUEST_BODY,
-			displayName: 'Record IDs(记录 ID 列表)',
+			displayName: WORDING.TableRecordIdList,
 			default: '[]',
 		},
 		{
@@ -43,7 +43,7 @@ export default {
 		const table_id = this.getNodeParameter('table_id', index, undefined, {
 			extractValue: true,
 		}) as string;
-		const records = this.getNodeParameter('body', index, undefined, {
+		const recordIds = this.getNodeParameter('body', index, undefined, {
 			ensureType: 'json',
 		}) as IDataObject;
 		const options = this.getNodeParameter('options', index, {});
@@ -51,8 +51,7 @@ export default {
 		const with_shared_url = options.with_shared_url as boolean;
 		const automatic_fields = options.automatic_fields as boolean;
 
-		this.logger.info(`Fetching table records: ${records}`);
-		if (!Array.isArray(records)) {
+		if (!Array.isArray(recordIds)) {
 			throw new NodeOperationError(this.getNode(), 'Record IDs must be an array.');
 		}
 
@@ -60,7 +59,7 @@ export default {
 			method: 'POST',
 			url: `/open-apis/bitable/v1/apps/${app_token}/tables/${table_id}/records/batch_get`,
 			body: {
-				record_ids: records || [],
+				record_ids: recordIds || [],
 				user_id_type,
 				with_shared_url,
 				automatic_fields,

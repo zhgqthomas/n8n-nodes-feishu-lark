@@ -45,12 +45,14 @@ export default {
 
 			hasMore = has_more;
 			pageToken = page_token;
-			allTables.push(...items);
+			if (items) {
+				allTables.push(...items);
+			}
 		} while (!whetherPaging && hasMore);
 
 		return {
 			has_more: hasMore,
-			page_token: pageToken,
+			page_token: pageToken || '',
 			items: allTables,
 		};
 	},

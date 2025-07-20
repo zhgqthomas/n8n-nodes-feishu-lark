@@ -66,12 +66,14 @@ export default {
 
 			hasMore = has_more;
 			pageToken = page_token;
-			allViews.push(...items);
+			if (items) {
+				allViews.push(...items);
+			}
 		} while (!whetherPaging && hasMore);
 
 		return {
 			has_more: hasMore,
-			page_token: pageToken,
+			page_token: pageToken || '',
 			items: allViews,
 		};
 	},

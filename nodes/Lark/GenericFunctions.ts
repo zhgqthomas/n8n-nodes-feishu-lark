@@ -18,7 +18,7 @@ export async function larkApiRequestBaseRoleList(
 			method: 'GET',
 			url: `/open-apis/base/v2/apps/${app_token}/roles`,
 			qs: {
-				page_token: pageToken,
+				...(pageToken && { page_token: pageToken }),
 				page_size: 100,
 			},
 		});

@@ -33,6 +33,6 @@ export default {
 			body,
 		});
 
-		return data as IDataObject;
+		return data;
 	},
 } as ResourceOperation;

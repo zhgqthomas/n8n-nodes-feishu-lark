@@ -22,8 +22,7 @@ export default {
 			options: [DESCRIPTIONS.REQUEST_ID],
 		},
 		{
-			displayName:
-				'<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-record/create">Open official document</a>',
+			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-field/create">${WORDING.OpenDocument}</a>`,
 			name: 'notice',
 			type: 'notice',
 			default: '',

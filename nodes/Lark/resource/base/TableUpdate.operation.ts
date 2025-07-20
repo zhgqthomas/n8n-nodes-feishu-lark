@@ -40,6 +40,6 @@ export default {
 		return {
 			table_id,
 			name: data.name,
-		} as IDataObject;
+		};
 	},
 } as ResourceOperation;

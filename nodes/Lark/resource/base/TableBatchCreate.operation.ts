@@ -50,6 +50,6 @@ export default {
 
 		return table_ids.map((table_id: string) => ({
 			table_id,
-		})) as IDataObject[];
+		}));
 	},
 } as ResourceOperation;
