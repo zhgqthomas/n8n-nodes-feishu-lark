@@ -1,6 +1,16 @@
 import { MessageType } from '../type/enums';
 
 export const DESCRIPTIONS = {
+	BINARY_PROPERTY_NAME: {
+		displayName: 'Binary Field(二进制字段名称)',
+		name: 'binaryPropertyName',
+		type: 'string',
+		default: 'data',
+		required: true,
+		placeholder: '',
+		description: 'The name of the input binary field containing the file/image to be uploaded',
+	},
+
 	DOWNLOAD_RESOURCE: {
 		displayName: 'Whether Download Resource(是否下载资源)',
 		name: 'downloadResource',

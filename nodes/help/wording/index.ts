@@ -60,6 +60,7 @@ export const WORDING = {
 	GetMessageContentResource: 'Get Content Resource | 获取消息中的资源文件',
 	GetMessageContentInfo: 'Get Content Info | 获取消息内容',
 	ParseMessageContent: 'Parse Content | 解析消息中的内容',
+	UploadImage: 'Upload Image | 上传图片',
 
 	// Calendar
 	CreateCalendar: 'Create Calendar | 创建共享日历',

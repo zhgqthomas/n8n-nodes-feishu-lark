@@ -131,7 +131,7 @@ export async function larkApiRequestMessageResourceData(
 		qs: {
 			type,
 		},
-		encoding: null,
+		encoding: 'arraybuffer',
 		json: false,
 	});
 

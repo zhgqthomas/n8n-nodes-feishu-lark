@@ -58,16 +58,17 @@
 		"eslint-plugin-n8n-nodes-base": "^1.16.3",
 		"glob": "^11.0.3",
 		"gulp": "^5.0.1",
+		"jest": "^29.7.0",
 		"prettier": "^3.6.2",
-		"typescript": "^5.8.3",
 		"ts-jest": "^29.2.6",
-		"jest": "^29.7.0"
+		"typescript": "^5.8.3"
 	},
 	"dependencies": {
-		"protobufjs": "^7.5.3",
-		"ws": "^8.18.3",
 		"@langchain/core": "0.3.43",
 		"@modelcontextprotocol/sdk": "^1.15.0",
+		"form-data": "^4.0.4",
+		"protobufjs": "^7.5.3",
+		"ws": "^8.18.3",
 		"zod": "^3.25.76",
 		"zod-to-json-schema": "^3.24.6"
 	},

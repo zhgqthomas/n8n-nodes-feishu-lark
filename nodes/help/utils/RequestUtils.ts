@@ -1,27 +1,25 @@
-import { IExecuteFunctions, IRequestOptions } from 'n8n-workflow';
+import { IExecuteFunctions, IHttpRequestOptions } from 'n8n-workflow';
 
 class RequestUtils {
 	static async originRequest(
 		this: IExecuteFunctions,
-		options: IRequestOptions,
+		options: IHttpRequestOptions,
 		clearAccessToken = false,
 	) {
 		const credentials = await this.getCredentials('larkCredentialsApi');
 
-		return this.helpers.requestWithAuthentication.call(this, 'larkCredentialsApi', options, {
+		return this.helpers.httpRequestWithAuthentication.call(this, 'larkCredentialsApi', options, {
+			// @ts-ignore
 			credentialsDecrypted: {
 				data: {
 					...credentials,
 					accessToken: clearAccessToken ? '' : credentials.accessToken,
 				},
-				id: '',
-				name: '',
-				type: '',
 			},
 		});
 	}
 
-	static async request(this: IExecuteFunctions, options: IRequestOptions) {
+	static async request(this: IExecuteFunctions, options: IHttpRequestOptions) {
 		if (options.json === undefined) options.json = true;
 
 		return RequestUtils.originRequest.call(this, options).then((data) => {

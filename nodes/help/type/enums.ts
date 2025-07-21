@@ -87,6 +87,7 @@ export declare const enum OperationType {
 	GetMessageContentResource = 'getContentResource',
 	GetMessageContentInfo = 'getContentInfo',
 	ParseMessageContent = 'parseContent',
+	UploadImage = 'uploadImage',
 
 	// Calendar
 	CreateCalendar = 'create',
