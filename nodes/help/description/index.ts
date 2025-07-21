@@ -5,6 +5,7 @@ export const DESCRIPTIONS = {
 		displayName: 'File Duration(文件时长)',
 		name: 'file_duration',
 		type: 'number',
+		default: 0,
 		typeOptions: {
 			minValue: 0,
 			numberPrecision: 0,

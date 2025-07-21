@@ -33,10 +33,6 @@ export default {
 		const fileType = this.getNodeParameter('file_type', index);
 		const options = this.getNodeParameter('options', index, {});
 		const fileDuration = options.file_duration as number | undefined;
-		if (fileDuration && fileDuration <= 0) {
-			throw new NodeOperationError(this.getNode(), 'File duration must be greater than 0');
-		}
-
 		const fileName = options.file_name as string | undefined;
 		const binaryPropertyName = this.getNodeParameter('binaryPropertyName', index);
 		const dataBuffer = await this.helpers.getBinaryDataBuffer(index, binaryPropertyName);
