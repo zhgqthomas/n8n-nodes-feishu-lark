@@ -1,6 +1,69 @@
 import { MessageType } from '../type/enums';
 
 export const DESCRIPTIONS = {
+	FILE_DURATION: {
+		displayName: 'File Duration(文件时长)',
+		name: 'file_duration',
+		type: 'number',
+		typeOptions: {
+			minValue: 0,
+			numberPrecision: 0,
+		},
+		displayOptions: {
+			show: {
+				file_type: ['mp4', 'opus'],
+			},
+		},
+	},
+
+	FILE_NAME: {
+		displayName: 'File Name(文件名称)',
+		name: 'file_name',
+		type: 'string',
+		default: '',
+		hint: 'File name with a suffix, like test.mp4',
+	},
+
+	FILE_TYPE: {
+		displayName: 'File Type(文件类型)',
+		name: 'file_type',
+		type: 'options',
+		options: [
+			{
+				name: 'DOC(文档)',
+				value: 'doc',
+			},
+			{
+				name: 'MP4(视频)',
+				value: 'mp4',
+				description: 'Only supports mp4 format for video',
+			},
+			{
+				name: 'OPUS(音频)',
+				value: 'opus',
+				description: 'Only supports opus format for audio',
+			},
+			{
+				name: 'PDF',
+				value: 'pdf',
+			},
+			{
+				name: 'PPT(幻灯片)',
+				value: 'ppt',
+			},
+			{
+				name: 'Stream(流)',
+				value: 'stream',
+				description: 'For other format that not listed',
+			},
+			{
+				name: 'XLS(表格)',
+				value: 'xls',
+			},
+		],
+		default: 'opus',
+	},
+
 	BINARY_PROPERTY_NAME: {
 		displayName: 'Binary Field(二进制字段名称)',
 		name: 'binaryPropertyName',

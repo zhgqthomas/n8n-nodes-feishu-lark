@@ -61,6 +61,9 @@ export const WORDING = {
 	GetMessageContentInfo: 'Get Content Info | 获取消息内容',
 	ParseMessageContent: 'Parse Content | 解析消息中的内容',
 	UploadImage: 'Upload Image | 上传图片',
+	DownloadImage: 'Download Image | 下载图片',
+	UploadFile: 'Upload File | 上传文件',
+	DownloadFile: 'Download File | 下载文件',
 
 	// Calendar
 	CreateCalendar: 'Create Calendar | 创建共享日历',
