@@ -1,4 +1,4 @@
-import { IDataObject, IExecuteFunctions, NodeOperationError } from 'n8n-workflow';
+import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import FormData from 'form-data';
 import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
