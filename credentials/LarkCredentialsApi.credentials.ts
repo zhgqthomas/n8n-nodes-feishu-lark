@@ -78,8 +78,6 @@ export class LarkCredentialsApi implements ICredentialType {
 			throw new Error('Authentication failed:' + code + ', ' + msg);
 		}
 
-		console.log('tenant_access_token', tenant_access_token);
-
 		return { accessToken: tenant_access_token };
 	}
 
@@ -92,8 +90,6 @@ export class LarkCredentialsApi implements ICredentialType {
 			...(requestOptions.headers || {}),
 			Authorization: 'Bearer ' + credentials.accessToken,
 		};
-
-		console.log('accessToken', credentials.accessToken);
 
 		return requestOptions;
 	}
