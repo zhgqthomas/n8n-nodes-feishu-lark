@@ -1,6 +1,26 @@
 import { MessageType } from '../type/enums';
 
 export const DESCRIPTIONS = {
+	CONVERT_BLOCK_CONTENT_TYPE: {
+		displayName: 'Content Type(内容类型)',
+		name: 'content_type',
+		type: 'options',
+		default: 'markdown',
+		required: true,
+		options: [
+			{ name: 'Markdown', value: 'markdown' },
+			{ name: 'HTML', value: 'html' },
+		],
+	},
+
+	CONVERT_BLOCK_CONTENT: {
+		displayName: 'Markdown/HTML Content(Markdown/HTML 内容)',
+		name: 'content',
+		type: 'string',
+		default: '',
+		required: true,
+	},
+
 	SPREADSHEET_ID: {
 		displayName: 'Spreadsheet ID(电子表格 ID)',
 		name: 'spreadsheet_id',

@@ -77,6 +77,7 @@ export const WORDING = {
 	UpdateDocumentBlock: 'Update Block | 更新文档块内容',
 	GetDocumentBlock: 'Get Block | 获取文档块内容',
 	DeleteDocumentBlock: 'Delete Block | 删除文档块',
+	ConvertDocumentBlock: 'Convert Block | Markdown/HTML 内容转换为文档块',
 
 	// Spreadsheet
 	CreateSpreadsheet: 'Create | 创建电子表格',
