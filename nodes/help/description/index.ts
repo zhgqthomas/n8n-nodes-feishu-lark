@@ -55,6 +55,7 @@ export const DESCRIPTIONS = {
 		displayName: 'File Type(文件类型)',
 		name: 'space_file_type',
 		type: 'options',
+		default: 'bitable',
 		required: true,
 		options: [
 			{
@@ -90,7 +91,6 @@ export const DESCRIPTIONS = {
 				value: FileType.Sheet,
 			},
 		],
-		default: FileType.Bitable,
 	},
 
 	NAME: {
