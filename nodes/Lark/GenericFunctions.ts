@@ -202,7 +202,9 @@ export async function getFileList(
 		for (const file of files) {
 			if (file.type === type) {
 				allFiles.push(file);
-			} else if (file.type === FileType.Folder) {
+			}
+
+			if (file.type === FileType.Folder) {
 				const results = await getFileList.call(this, type, file.token as string);
 				allFiles.push(...results);
 			}
