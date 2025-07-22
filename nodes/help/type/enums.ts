@@ -112,3 +112,9 @@ export declare const enum FileType {
 	Folder = 'folder',
 	Shortcut = 'shortcut',
 }
+
+export declare const enum Credentials {
+	Name = 'larkCredentialsApi',
+	Id = '33f755b6-3486-4507-9049-1407c6ddfc91',
+	Type = 'lark',
+}

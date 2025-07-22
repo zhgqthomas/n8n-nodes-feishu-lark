@@ -14,6 +14,7 @@ import { RequestOptions } from '@modelcontextprotocol/sdk/shared/protocol';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
 import { Transport } from '@modelcontextprotocol/sdk/shared/transport.js';
 import { CallToolResultSchema } from '@modelcontextprotocol/sdk/types.js';
+import { Credentials } from '../help/type/enums';
 
 // Add Node.js process type declaration
 declare const process: {
@@ -38,7 +39,7 @@ export class LarkMcp implements INodeType {
 		usableAsTool: true,
 		credentials: [
 			{
-				name: 'larkCredentialsApi',
+				name: Credentials.Name,
 				required: true,
 			},
 		],
@@ -152,7 +153,7 @@ export class LarkMcp implements INodeType {
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		// Explicit type assertion for credentials
-		const credentials = (await this.getCredentials('larkCredentialsApi')) as {
+		const credentials = (await this.getCredentials(Credentials.Name)) as {
 			appid: string;
 			appsecret: string;
 			baseUrl: string;

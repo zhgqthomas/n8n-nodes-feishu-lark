@@ -9,7 +9,7 @@ import {
 } from 'n8n-workflow';
 import { WSClient } from '../wsclient';
 import { EventDispatcher } from '../wsclient/dispatcher';
-import { TriggerEventType } from '../help/type/enums';
+import { Credentials, TriggerEventType } from '../help/type/enums';
 
 export class LarkTrigger implements INodeType {
 	description: INodeTypeDescription = {
@@ -28,7 +28,7 @@ export class LarkTrigger implements INodeType {
 		outputs: [NodeConnectionType.Main],
 		credentials: [
 			{
-				name: 'larkCredentialsApi',
+				name: Credentials.Name,
 				required: true,
 			},
 		],
@@ -90,7 +90,7 @@ export class LarkTrigger implements INodeType {
 	};
 
 	async trigger(this: ITriggerFunctions): Promise<ITriggerResponse> {
-		const credentials = await this.getCredentials('larkCredentialsApi');
+		const credentials = await this.getCredentials(Credentials.Name);
 
 		if (!(credentials.appid && credentials.appsecret)) {
 			throw new NodeOperationError(this.getNode(), 'Missing required Lark credentials');

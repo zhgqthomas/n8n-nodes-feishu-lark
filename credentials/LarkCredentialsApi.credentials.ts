@@ -7,9 +7,10 @@ import {
 	Icon,
 } from 'n8n-workflow';
 import { IHttpRequestOptions } from 'n8n-workflow/dist/Interfaces';
+import { Credentials } from '../nodes/help/type/enums';
 
 export class LarkCredentialsApi implements ICredentialType {
-	name = 'larkCredentialsApi';
+	name = Credentials.Name;
 	displayName = 'Lark API';
 	icon: Icon = 'file:lark_icon.svg';
 	documentationUrl = 'https://open.feishu.cn/document/faq/trouble-shooting/how-to-obtain-app-id';
@@ -61,21 +62,25 @@ export class LarkCredentialsApi implements ICredentialType {
 		},
 	];
 
+	// method will only be called if "accessToken" (the expirable property)
+	// is empty or is expired
 	async preAuthentication(this: IHttpRequestHelper, credentials: ICredentialDataDecryptedObject) {
-		const res = (await this.helpers.httpRequest({
+		const { code, msg, tenant_access_token } = (await this.helpers.httpRequest({
 			method: 'POST',
 			url: `https://${credentials.baseUrl}/open-apis/auth/v3/tenant_access_token/internal`,
 			body: {
 				app_id: credentials.appid,
 				app_secret: credentials.appsecret,
 			},
-		})) as any;
+		})) as { code: number; msg: string; tenant_access_token: string };
 
-		if (res.code && res.code !== 0) {
-			throw new Error('Authentication failed:' + res.code + ', ' + res.msg);
+		if (code && code !== 0) {
+			throw new Error('Authentication failed:' + code + ', ' + msg);
 		}
 
-		return { accessToken: res.tenant_access_token };
+		console.log('tenant_access_token', tenant_access_token);
+
+		return { accessToken: tenant_access_token };
 	}
 
 	async authenticate(
@@ -87,6 +92,8 @@ export class LarkCredentialsApi implements ICredentialType {
 			...(requestOptions.headers || {}),
 			Authorization: 'Bearer ' + credentials.accessToken,
 		};
+
+		console.log('accessToken', credentials.accessToken);
 
 		return requestOptions;
 	}

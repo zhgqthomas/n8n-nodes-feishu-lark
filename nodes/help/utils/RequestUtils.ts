@@ -1,4 +1,5 @@
 import { IExecuteFunctions, IHttpRequestOptions } from 'n8n-workflow';
+import { Credentials } from '../type/enums';
 
 class RequestUtils {
 	static async originRequest(
@@ -6,11 +7,13 @@ class RequestUtils {
 		options: IHttpRequestOptions,
 		clearAccessToken = false,
 	) {
-		const credentials = await this.getCredentials('larkCredentialsApi');
+		const credentials = await this.getCredentials(Credentials.Name);
 
-		return this.helpers.requestWithAuthentication.call(this, 'larkCredentialsApi', options, {
-			// @ts-ignore
+		return this.helpers.httpRequestWithAuthentication.call(this, Credentials.Name, options, {
 			credentialsDecrypted: {
+				id: Credentials.Id,
+				name: Credentials.Name,
+				type: Credentials.Type,
 				data: {
 					...credentials,
 					accessToken: clearAccessToken ? '' : credentials.accessToken,

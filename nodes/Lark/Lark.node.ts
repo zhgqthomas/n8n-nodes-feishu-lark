@@ -11,7 +11,7 @@ import {
 import ResourceFactory from '../help/builder/ResourceFactory';
 
 import { configuredOutputs } from '../help/utils';
-import { FileType, OutputType } from '../help/type/enums';
+import { Credentials, FileType, OutputType } from '../help/type/enums';
 import {
 	getFileList,
 	larkApiRequestBaseRoleList,
@@ -41,7 +41,7 @@ export class Lark implements INodeType {
 		outputs: `={{(${configuredOutputs})($parameter)}}`,
 		credentials: [
 			{
-				name: 'larkCredentialsApi',
+				name: Credentials.Name,
 				required: true,
 			},
 		],
