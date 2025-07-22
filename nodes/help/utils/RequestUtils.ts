@@ -8,7 +8,7 @@ class RequestUtils {
 	) {
 		const credentials = await this.getCredentials('larkCredentialsApi');
 
-		return this.helpers.httpRequestWithAuthentication.call(this, 'larkCredentialsApi', options, {
+		return this.helpers.requestWithAuthentication.call(this, 'larkCredentialsApi', options, {
 			// @ts-ignore
 			credentialsDecrypted: {
 				data: {
