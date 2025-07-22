@@ -79,6 +79,10 @@ export const WORDING = {
 	DeleteDocumentBlock: 'Delete Block | 删除文档块',
 	ConvertDocumentBlock: 'Convert Block | Markdown/HTML 内容转换为文档块',
 
+	// Space
+	CreateFolder: 'Create Folder | 创建文件夹',
+	DeleteFileOrFolder: 'Delete File or Folder | 删除文件或文件夹',
+
 	// Spreadsheet
 	CreateSpreadsheet: 'Create | 创建电子表格',
 	UpdateSpreadsheet: 'Update | 更新电子表格',

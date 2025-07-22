@@ -106,6 +106,10 @@ export declare const enum OperationType {
 	DeleteDocumentBlock = 'deleteBlock',
 	ConvertDocumentBlock = 'convertBlock',
 
+	//
+	CreateFolder = 'createFolder',
+	DeleteFileOrFolder = 'deleteFileOrFolder',
+
 	// Spreadsheet
 	CreateSpreadsheet = 'create',
 	UpdateSpreadsheet = 'update',

@@ -1,6 +1,63 @@
 import { MessageType } from '../type/enums';
 
 export const DESCRIPTIONS = {
+	FILE_TOKEN: {
+		displayName: 'File Token(文件唯一标识)',
+		name: 'file_token',
+		type: 'string',
+		required: true,
+	},
+
+	SPACE_FILE_TYPE: {
+		displayName: 'File Type(文件类型)',
+		name: 'space_file_type',
+		type: 'options',
+		required: true,
+		options: [
+			{
+				name: 'Bitable(多维表格)',
+				value: 'bitable',
+			},
+			{
+				name: 'Doc(文档)',
+				value: 'doc',
+			},
+			{
+				name: 'Docx(新版文档类型)',
+				value: 'docx',
+			},
+			{
+				name: 'Folder(文件夹)',
+				value: 'folder',
+			},
+			{
+				name: 'Mindnote(思维笔记)',
+				value: 'mindnote',
+			},
+			{
+				name: 'Shortcut(快捷方式)',
+				value: 'shortcut',
+			},
+			{
+				name: 'Slides(幻灯片)',
+				value: 'slides',
+			},
+			{
+				name: 'Spreadsheet(电子表格)',
+				value: 'sheet',
+			},
+		],
+		default: 'bitable',
+	},
+
+	NAME: {
+		displayName: 'Name(名称)',
+		name: 'name',
+		type: 'string',
+		default: '',
+		required: true,
+	},
+
 	CONVERT_BLOCK_CONTENT_TYPE: {
 		displayName: 'Content Type(内容类型)',
 		name: 'content_type',
@@ -133,7 +190,7 @@ export const DESCRIPTIONS = {
 		hint: 'File name with a suffix, like test.mp4',
 	},
 
-	FILE_TYPE: {
+	MESSAGE_UPLOAD_FILE_TYPE: {
 		displayName: 'File Type(文件类型)',
 		name: 'file_type',
 		type: 'options',

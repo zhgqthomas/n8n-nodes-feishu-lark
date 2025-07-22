@@ -11,7 +11,7 @@ export default {
 	value: OperationType.UploadFile,
 	order: 191,
 	options: [
-		DESCRIPTIONS.FILE_TYPE,
+		DESCRIPTIONS.MESSAGE_UPLOAD_FILE_TYPE,
 		DESCRIPTIONS.FILE_DURATION,
 		DESCRIPTIONS.BINARY_PROPERTY_NAME,
 		{
