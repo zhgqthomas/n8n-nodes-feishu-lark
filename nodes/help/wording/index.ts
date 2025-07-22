@@ -65,6 +65,19 @@ export const WORDING = {
 	UploadFile: 'Upload File | 上传文件',
 	DownloadFile: 'Download File | 下载文件',
 
+	// Document
+	CreateDocument: 'Create | 创建文档',
+	GetDocumentInfo: 'Get Info | 获取文档信息',
+	GetRawContent: 'Get Raw Content | 获取文档纯文本内容',
+	GetBlockList: 'Get Block List | 获取文档块列表',
+
+	// Document Block
+	CreateDocumentBlock: 'Create Block | 创建文档块',
+	CreateNestedDocumentBlock: 'Create Nested Block | 创建嵌套文档块',
+	UpdateDocumentBlock: 'Update Block | 更新文档块内容',
+	GetDocumentBlock: 'Get Block | 获取文档块内容',
+	DeleteDocumentBlock: 'Delete Block | 删除文档块',
+
 	// Calendar
 	CreateCalendar: 'Create Calendar | 创建共享日历',
 

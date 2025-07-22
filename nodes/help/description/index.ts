@@ -1,6 +1,65 @@
 import { MessageType } from '../type/enums';
 
 export const DESCRIPTIONS = {
+	DOCUMENT_BLOCK_ID: {
+		displayName: 'Parent Block ID(父块 ID)',
+		name: 'block_id',
+		type: 'string',
+		default: '',
+		required: true,
+		description: 'The block_id of the parent block',
+	},
+
+	DOCUMENT_REVISION_ID: {
+		displayName: 'Document Version ID(文档版本)',
+		name: 'document_revision_id',
+		type: 'number',
+		typeOptions: {
+			minValue: -1,
+			numberPrecision: 0,
+		},
+		default: -1,
+		description:
+			'-1 indicates the latest version of the document. Once the document is created, the document_revision_id is 1.',
+	},
+
+	DOCUMENT_ID: {
+		displayName: 'Document ID(文档 ID)',
+		name: 'document_id',
+		type: 'resourceLocator',
+		default: { mode: 'id', value: '' },
+		required: true,
+		description: 'Need to have the read permission of base role',
+		modes: [
+			{
+				displayName: 'From List',
+				name: 'list',
+				type: 'list',
+				placeholder: 'Select Document',
+				typeOptions: {
+					searchListMethod: 'searchDocuments',
+					searchFilterRequired: false,
+					searchable: false,
+				},
+			},
+			{
+				displayName: 'ID',
+				name: 'id',
+				type: 'string',
+				placeholder: 'Enter Document ID',
+				default: '',
+			},
+		],
+	},
+
+	TITLE: {
+		displayName: 'Title(标题)',
+		name: 'title',
+		type: 'string',
+		default: '',
+		description: 'Only supports plain text. Length range: 1 characters ～ 800 characters.',
+	},
+
 	FILE_DURATION: {
 		displayName: 'File Duration(文件时长)',
 		name: 'file_duration',
@@ -321,7 +380,6 @@ export const DESCRIPTIONS = {
 				displayName: 'From List',
 				name: 'list',
 				type: 'list',
-				initType: 'user_id',
 				placeholder: 'Input phone number or email',
 				typeOptions: {
 					searchListMethod: 'searchUserIds',

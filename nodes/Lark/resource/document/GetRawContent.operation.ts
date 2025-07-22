@@ -6,36 +6,33 @@ import { OperationType } from '../../../help/type/enums';
 import { DESCRIPTIONS } from '../../../help/description';
 
 export default {
-	name: WORDING.CreateDocument,
-	value: OperationType.CreateDocument,
-	order: 200,
+	name: WORDING.GetRawContent,
+	value: OperationType.GetRawContent,
+	order: 198,
 	options: [
-		DESCRIPTIONS.TITLE,
-		DESCRIPTIONS.FOLDER_TOKEN,
+		DESCRIPTIONS.DOCUMENT_ID,
 		{
-			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/docs/docx-v1/document/create">${WORDING.OpenDocument}</a>`,
+			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/docs/docx-v1/document/raw_content">${WORDING.OpenDocument}</a>`,
 			name: 'notice',
 			type: 'notice',
 			default: '',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
-		const title = this.getNodeParameter('title', index) as string;
-		const folder_token = this.getNodeParameter('folder_token', index, undefined, {
+		const document_id = this.getNodeParameter('document_id', index, undefined, {
 			extractValue: true,
 		}) as string;
 
 		const {
-			data: { document },
+			data: { content },
 		} = await RequestUtils.request.call(this, {
-			method: 'POST',
-			url: '/open-apis/docx/v1/documents',
-			body: {
-				...(title && { title }),
-				...(folder_token && { folder_token }),
-			},
+			method: 'GET',
+			url: `/open-apis/docx/v1/documents/${document_id}/raw_content`,
 		});
 
-		return document;
+		return {
+			content,
+			document_id,
+		};
 	},
 } as ResourceOperation;

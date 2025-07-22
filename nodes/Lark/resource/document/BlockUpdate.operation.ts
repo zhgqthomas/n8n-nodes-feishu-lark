@@ -6,13 +6,16 @@ import { OperationType } from '../../../help/type/enums';
 import { DESCRIPTIONS } from '../../../help/description';
 
 export default {
-	name: WORDING.CreateDocumentBlock,
-	value: OperationType.CreateDocumentBlock,
-	order: 196,
+	name: WORDING.UpdateDocumentBlock,
+	value: OperationType.UpdateDocumentBlock,
+	order: 194,
 	options: [
 		DESCRIPTIONS.DOCUMENT_ID,
 		DESCRIPTIONS.DOCUMENT_BLOCK_ID,
-		DESCRIPTIONS.REQUEST_BODY,
+		{
+			...DESCRIPTIONS.REQUEST_BODY,
+			required: false,
+		},
 		{
 			displayName: WORDING.Options,
 			name: 'options',
@@ -26,7 +29,7 @@ export default {
 			],
 		},
 		{
-			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/docs/docx-v1/document-block/create">${WORDING.OpenDocument}</a>`,
+			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/docs/docx-v1/document-block/patch">${WORDING.OpenDocument}</a>`,
 			name: 'notice',
 			type: 'notice',
 			default: '',
@@ -36,7 +39,7 @@ export default {
 		const document_id = this.getNodeParameter('document_id', index, undefined, {
 			extractValue: true,
 		}) as string;
-		const block_id = this.getNodeParameter('block_id', index, document_id) as string;
+		const block_id = this.getNodeParameter('block_id', index) as string;
 		const body = this.getNodeParameter('body', index, undefined, {
 			ensureType: 'json',
 		}) as IDataObject;
@@ -46,8 +49,8 @@ export default {
 		const request_id = (options.request_id as string) || undefined;
 
 		const { data } = await RequestUtils.request.call(this, {
-			method: 'POST',
-			url: `/open-apis/docx/v1/documents/${document_id}/blocks/${block_id}/children`,
+			method: 'PATCH',
+			url: `/open-apis/docx/v1/documents/${document_id}/blocks/${block_id}`,
 			qs: {
 				document_revision_id,
 				user_id_type,

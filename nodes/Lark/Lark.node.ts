@@ -7,6 +7,7 @@ import {
 	INodeTypeDescription,
 	NodeConnectionType,
 	NodeOperationError,
+	IDataObject,
 } from 'n8n-workflow';
 import ResourceFactory from '../help/builder/ResourceFactory';
 
@@ -190,6 +191,26 @@ export class Lark implements INodeType {
 
 				return {
 					results,
+				};
+			},
+
+			async searchDocuments(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
+				const allDocs: IDataObject[] = [];
+
+				const docList = await getFileList.call(this as unknown as IExecuteFunctions, FileType.Doc);
+				allDocs.push(...docList);
+
+				const docxList = await getFileList.call(
+					this as unknown as IExecuteFunctions,
+					FileType.Docx,
+				);
+				allDocs.push(...docxList);
+
+				return {
+					results: allDocs.map((doc) => ({
+						name: doc.title as string,
+						value: doc.document_id as string,
+					})),
 				};
 			},
 		},

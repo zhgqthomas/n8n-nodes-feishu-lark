@@ -92,6 +92,19 @@ export declare const enum OperationType {
 	UploadFile = 'uploadFile',
 	DownloadFile = 'downloadFile',
 
+	// Document
+	CreateDocument = 'create',
+	GetDocumentInfo = 'get',
+	GetRawContent = 'getRawContent',
+	GetBlockList = 'getBlocks',
+
+	// Document Block
+	CreateDocumentBlock = 'createBlock',
+	CreateNestedDocumentBlock = 'createNestedBlock',
+	UpdateDocumentBlock = 'updateBlock',
+	GetDocumentBlock = 'getBlock',
+	DeleteDocumentBlock = 'deleteBlock',
+
 	// Calendar
 	CreateCalendar = 'create',
 }

@@ -25,7 +25,9 @@ export async function larkApiRequestBaseRoleList(
 
 		hasMore = has_more;
 		pageToken = page_token;
-		allRoles.push(...items);
+		if (items) {
+			allRoles.push(...items);
+		}
 	} while (hasMore);
 
 	return allRoles;
@@ -54,7 +56,9 @@ export async function larkApiRequestTableFieldList(
 
 		hasMore = has_more;
 		pageToken = page_token;
-		allFields.push(...items);
+		if (items) {
+			allFields.push(...items);
+		}
 	} while (hasMore);
 
 	return allFields;
@@ -83,7 +87,9 @@ export async function larkApiRequestTableViewList(
 
 		hasMore = has_more;
 		pageToken = page_token;
-		allViews.push(...items);
+		if (items) {
+			allViews.push(...items);
+		}
 	} while (hasMore);
 
 	return allViews;
@@ -110,7 +116,9 @@ export async function larkApiRequestTableList(
 
 		hasMore = has_more;
 		pageToken = page_token;
-		allTables.push(...items);
+		if (items) {
+			allTables.push(...items);
+		}
 	} while (hasMore);
 
 	return allTables;
