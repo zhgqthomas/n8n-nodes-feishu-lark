@@ -214,6 +214,20 @@ export class Lark implements INodeType {
 					})),
 				};
 			},
+
+			async searchSpreadsheets(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
+				const spreadsheets = await getFileList.call(
+					this as unknown as IExecuteFunctions,
+					FileType.Sheet,
+				);
+				return {
+					results: spreadsheets.map((spreadsheet) => ({
+						name: spreadsheet.name as string,
+						value: spreadsheet.token as string,
+						url: spreadsheet.url as string,
+					})),
+				};
+			},
 		},
 	};
 

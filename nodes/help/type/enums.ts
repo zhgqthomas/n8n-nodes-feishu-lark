@@ -105,6 +105,11 @@ export declare const enum OperationType {
 	GetDocumentBlock = 'getBlock',
 	DeleteDocumentBlock = 'deleteBlock',
 
+	// Spreadsheet
+	CreateSpreadsheet = 'create',
+	UpdateSpreadsheet = 'update',
+	GetSpreadsheetInfo = 'get',
+
 	// Calendar
 	CreateCalendar = 'create',
 }

@@ -5,7 +5,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 export default {
 	name: '新增工作表',
 	value: 'addSheets',
-	order: 95,
+	order: 196,
 	options: [
 		{
 			displayName: '电子表格 Token',

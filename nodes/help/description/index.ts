@@ -1,6 +1,35 @@
 import { MessageType } from '../type/enums';
 
 export const DESCRIPTIONS = {
+	SPREADSHEET_ID: {
+		displayName: 'Spreadsheet ID(电子表格 ID)',
+		name: 'spreadsheet_id',
+		type: 'resourceLocator',
+		default: { mode: 'id', value: '' },
+		required: true,
+		description: 'Need to have the read permission of base role',
+		modes: [
+			{
+				displayName: 'From List',
+				name: 'list',
+				type: 'list',
+				placeholder: 'Select Spreadsheet',
+				typeOptions: {
+					searchListMethod: 'searchSpreadsheets',
+					searchFilterRequired: false,
+					searchable: false,
+				},
+			},
+			{
+				displayName: 'ID',
+				name: 'id',
+				type: 'string',
+				placeholder: 'Enter Spreadsheet ID',
+				default: '',
+			},
+		],
+	},
+
 	DOCUMENT_BLOCK_ID: {
 		displayName: 'Parent Block ID(父块 ID)',
 		name: 'block_id',

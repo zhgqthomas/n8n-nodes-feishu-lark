@@ -1,42 +1,41 @@
 import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
+import { WORDING } from '../../../help/wording';
+import { OperationType } from '../../../help/type/enums';
+import { DESCRIPTIONS } from '../../../help/description';
 
 export default {
-	name: '创建电子表格',
-	value: 'create',
-	order: 100,
+	name: WORDING.CreateSpreadsheet,
+	value: OperationType.CreateSpreadsheet,
+	order: 200,
 	options: [
+		DESCRIPTIONS.TITLE,
+		DESCRIPTIONS.FOLDER_TOKEN,
 		{
-			displayName: '表格标题',
-			name: 'title',
-			type: 'string',
-			default: '',
-			description: '表格标题。',
-		},
-		{
-			displayName: '文件夹 Token',
-			name: 'folder_toke',
-			type: 'string',
+			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet/create">${WORDING.OpenDocument}</a>`,
+			name: 'notice',
+			type: 'notice',
 			default: '',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
-		const title = this.getNodeParameter('title', index) as string;
-		const folder_token = this.getNodeParameter('folder_toke', index) as string;
+		const title = this.getNodeParameter('title', index, '') as string;
+		const folder_token = this.getNodeParameter('folder_token', index, undefined, {
+			extractValue: true,
+		}) as string;
 
-		const body: IDataObject = {};
-		if (title) {
-			body.title = title;
-		}
-		if (folder_token) {
-			body.folder_token = folder_token;
-		}
-
-		return RequestUtils.request.call(this, {
+		const {
+			data: { spreadsheet },
+		} = await RequestUtils.request.call(this, {
 			method: 'POST',
 			url: '/open-apis/sheets/v3/spreadsheets',
-			body,
+			body: {
+				...(title && { title }),
+				...(folder_token && { folder_token }),
+			},
 		});
+
+		return spreadsheet;
 	},
 } as ResourceOperation;

@@ -78,6 +78,11 @@ export const WORDING = {
 	GetDocumentBlock: 'Get Block | 获取文档块内容',
 	DeleteDocumentBlock: 'Delete Block | 删除文档块',
 
+	// Spreadsheet
+	CreateSpreadsheet: 'Create | 创建电子表格',
+	UpdateSpreadsheet: 'Update | 更新电子表格',
+	GetSpreadsheetInfo: 'Get Info | 获取电子表格信息',
+
 	// Calendar
 	CreateCalendar: 'Create Calendar | 创建共享日历',
 
