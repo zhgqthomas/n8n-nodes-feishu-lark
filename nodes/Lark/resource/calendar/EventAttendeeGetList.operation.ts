@@ -119,7 +119,7 @@ export default {
 
 		return {
 			has_more: hasMore,
-			page_token: pageToken,
+			...(pageToken && { page_token: pageToken }),
 			items: allAttendees,
 		};
 	},

@@ -208,8 +208,9 @@ export class Lark implements INodeType {
 
 				return {
 					results: allDocs.map((doc) => ({
-						name: doc.title as string,
-						value: doc.document_id as string,
+						name: doc.name as string,
+						value: doc.token as string,
+						url: doc.url as string,
 					})),
 				};
 			},
