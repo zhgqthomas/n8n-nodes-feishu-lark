@@ -146,34 +146,12 @@ export async function larkApiRequestMessageResourceData(
 	return Buffer.from(data).toString(BINARY_ENCODING);
 }
 
-export async function larkApiRequestFolderList(
-	this: IExecuteFunctions,
-	body: {
-		page_size: number;
-		page_token?: string;
-		folder_token?: string;
-		order_by: 'EditedTime' | 'CreatedTime';
-		direction: 'ASC' | 'DESC';
-		user_id_type: 'user_id' | 'open_id' | 'union_id';
-	},
-): Promise<IDataObject> {
-	return await RequestUtils.request.call(this, {
-		method: 'GET',
-		url: `/open-apis/drive/v1/files`,
-		qs: {
-			page_size: body.page_size,
-			page_token: body.page_token,
-			folder_token: body.folder_token,
-			order_by: body.order_by,
-			direction: body.direction,
-			user_id_type: body.user_id_type,
-		},
-	});
-}
-
 export async function getFileList(
 	this: IExecuteFunctions,
 	type: FileType,
+	order_by: string = 'EditedTime',
+	direction: string = 'DESC',
+	user_id_type: string = 'open_id',
 	folderToken?: string,
 ): Promise<IDataObject[]> {
 	let hasMore = true;
@@ -181,14 +159,19 @@ export async function getFileList(
 	const allFiles: IDataObject[] = [];
 
 	while (hasMore) {
-		const response = await larkApiRequestFolderList.call(this, {
-			page_size: 100,
-			page_token: pageToken,
-			folder_token: folderToken,
-			order_by: 'EditedTime',
-			direction: 'DESC',
-			user_id_type: 'open_id',
+		const response = await RequestUtils.request.call(this, {
+			method: 'GET',
+			url: `/open-apis/drive/v1/files`,
+			qs: {
+				page_size: 100,
+				page_token: pageToken,
+				folder_token: folderToken,
+				order_by,
+				direction,
+				user_id_type,
+			},
 		});
+
 		const responseData = response.data as IDataObject & {
 			files: IDataObject[];
 			has_more: boolean;
@@ -205,7 +188,14 @@ export async function getFileList(
 			}
 
 			if (file.type === FileType.Folder) {
-				const results = await getFileList.call(this, type, file.token as string);
+				const results = await getFileList.call(
+					this,
+					type,
+					order_by,
+					direction,
+					user_id_type,
+					file.token as string,
+				);
 				allFiles.push(...results);
 			}
 		}

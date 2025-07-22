@@ -8,7 +8,7 @@ import { DESCRIPTIONS } from '../../../help/description';
 export default {
 	name: WORDING.CreateFolder,
 	value: OperationType.CreateFolder,
-	order: 200,
+	order: 199,
 	options: [
 		DESCRIPTIONS.NAME,
 		DESCRIPTIONS.FOLDER_TOKEN,
@@ -30,7 +30,7 @@ export default {
 			url: '/open-apis/drive/v1/files/create_folder',
 			body: {
 				name,
-				...(folder_token && { folder_token }),
+				folder_token: folder_token || '',
 			},
 		});
 

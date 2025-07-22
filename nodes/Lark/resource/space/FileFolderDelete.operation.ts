@@ -8,7 +8,7 @@ import { DESCRIPTIONS } from '../../../help/description';
 export default {
 	name: WORDING.DeleteFileOrFolder,
 	value: OperationType.DeleteFileOrFolder,
-	order: 200,
+	order: 198,
 	options: [
 		DESCRIPTIONS.SPACE_FILE_TYPE,
 		DESCRIPTIONS.FILE_TOKEN,
@@ -21,9 +21,11 @@ export default {
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
 		const type = this.getNodeParameter('space_file_type', index) as string;
-		const file_token = this.getNodeParameter('file_token', index) as string;
+		const file_token = this.getNodeParameter('file_token', index, undefined, {
+			extractValue: true,
+		}) as string;
 
-		const { data } = await RequestUtils.request.call(this, {
+		await RequestUtils.request.call(this, {
 			method: 'DELETE',
 			url: `/open-apis/drive/v1/files/${file_token}`,
 			qs: {
@@ -31,6 +33,9 @@ export default {
 			},
 		});
 
-		return data;
+		return {
+			deleted: true,
+			file_token,
+		};
 	},
 } as ResourceOperation;

@@ -228,6 +228,22 @@ export class Lark implements INodeType {
 					})),
 				};
 			},
+
+			async searchFiles(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
+				const fileType = this.getNodeParameter('space_file_type', undefined) as FileType;
+				if (!fileType) {
+					throw new NodeOperationError(this.getNode(), 'File type is required');
+				}
+
+				const files = await getFileList.call(this as unknown as IExecuteFunctions, fileType);
+				return {
+					results: files.map((file) => ({
+						name: file.name as string,
+						value: file.token as string,
+						url: file.url as string,
+					})),
+				};
+			},
 		},
 	};
 

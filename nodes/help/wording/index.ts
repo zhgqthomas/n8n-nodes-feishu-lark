@@ -82,6 +82,7 @@ export const WORDING = {
 	// Space
 	CreateFolder: 'Create Folder | 创建文件夹',
 	DeleteFileOrFolder: 'Delete File or Folder | 删除文件或文件夹',
+	GetFileList: 'Get File List | 获取文件列表',
 
 	// Spreadsheet
 	CreateSpreadsheet: 'Create | 创建电子表格',

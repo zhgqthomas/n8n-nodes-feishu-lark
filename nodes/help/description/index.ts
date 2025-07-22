@@ -1,11 +1,54 @@
-import { MessageType } from '../type/enums';
+import { FileType, MessageType } from '../type/enums';
 
 export const DESCRIPTIONS = {
+	ORDER_BY: {
+		displayName: 'Order By(排序方式)',
+		name: 'order_by',
+		type: 'options',
+		default: 'EditedTime',
+		options: [
+			{ name: 'Edited Time | 按编辑时间排序', value: 'EditedTime' },
+			{ name: 'Created Time | 按创建时间排序', value: 'CreatedTime' },
+		],
+	},
+
+	DIRECTION: {
+		displayName: 'Direction(排序方向)',
+		name: 'direction',
+		type: 'options',
+		default: 'DESC',
+		options: [
+			{ name: 'ASC | 升序', value: 'ASC' },
+			{ name: 'DESC | 降序', value: 'DESC' },
+		],
+	},
+
 	FILE_TOKEN: {
 		displayName: 'File Token(文件唯一标识)',
 		name: 'file_token',
-		type: 'string',
 		required: true,
+		type: 'resourceLocator',
+		default: { mode: 'id', value: '' },
+		modes: [
+			{
+				displayName: 'From List',
+				name: 'list',
+				type: 'list',
+				placeholder: 'Select File',
+				typeOptions: {
+					searchListMethod: 'searchFiles',
+					searchFilterRequired: false,
+					searchable: false,
+				},
+			},
+			{
+				displayName: 'ID',
+				name: 'id',
+				type: 'string',
+				placeholder: 'Enter File Token',
+				default: '',
+			},
+		],
 	},
 
 	SPACE_FILE_TYPE: {
@@ -16,38 +59,38 @@ export const DESCRIPTIONS = {
 		options: [
 			{
 				name: 'Bitable(多维表格)',
-				value: 'bitable',
+				value: FileType.Bitable,
 			},
 			{
 				name: 'Doc(文档)',
-				value: 'doc',
+				value: FileType.Doc,
 			},
 			{
 				name: 'Docx(新版文档类型)',
-				value: 'docx',
+				value: FileType.Docx,
 			},
 			{
 				name: 'Folder(文件夹)',
-				value: 'folder',
+				value: FileType.Folder,
 			},
 			{
 				name: 'Mindnote(思维笔记)',
-				value: 'mindnote',
+				value: FileType.Mindnote,
 			},
 			{
 				name: 'Shortcut(快捷方式)',
-				value: 'shortcut',
+				value: FileType.Shortcut,
 			},
 			{
 				name: 'Slides(幻灯片)',
-				value: 'slides',
+				value: FileType.Slides,
 			},
 			{
 				name: 'Spreadsheet(电子表格)',
-				value: 'sheet',
+				value: FileType.Sheet,
 			},
 		],
-		default: 'bitable',
+		default: FileType.Bitable,
 	},
 
 	NAME: {
@@ -84,7 +127,6 @@ export const DESCRIPTIONS = {
 		type: 'resourceLocator',
 		default: { mode: 'id', value: '' },
 		required: true,
-		description: 'Need to have the read permission of base role',
 		modes: [
 			{
 				displayName: 'From List',

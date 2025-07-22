@@ -106,9 +106,10 @@ export declare const enum OperationType {
 	DeleteDocumentBlock = 'deleteBlock',
 	ConvertDocumentBlock = 'convertBlock',
 
-	//
+	// Space
 	CreateFolder = 'createFolder',
 	DeleteFileOrFolder = 'deleteFileOrFolder',
+	GetFileList = 'getFileList',
 
 	// Spreadsheet
 	CreateSpreadsheet = 'create',
@@ -134,6 +135,7 @@ export declare const enum FileType {
 	Docx = 'docx',
 	Folder = 'folder',
 	Shortcut = 'shortcut',
+	Slides = 'slides',
 }
 
 export declare const enum Credentials {
