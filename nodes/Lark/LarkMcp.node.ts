@@ -51,64 +51,64 @@ export class LarkMcp implements INodeType {
 				noDataExpression: true,
 				options: [
 					{
-						name: 'Execute Tool',
+						name: 'Execute Tool | 执行工具',
 						value: 'executeTool',
 						description: 'Execute a specific tool',
 						action: 'Execute a tool',
 					},
+					// {
+					// 	name: 'Get Prompt',
+					// 	value: 'getPrompt',
+					// 	description: 'Get a specific prompt template',
+					// 	action: 'Get a prompt template',
+					// },
+					// {
+					// 	name: 'List Prompts',
+					// 	value: 'listPrompts',
+					// 	description: 'Get available prompts',
+					// 	action: 'List available prompts',
+					// },
+					// {
+					// 	name: 'List Resource Templates',
+					// 	value: 'listResourceTemplates',
+					// 	description: 'Get a list of available resource templates',
+					// 	action: 'List available resource templates',
+					// },
+					// {
+					// 	name: 'List Resources',
+					// 	value: 'listResources',
+					// 	description: 'Get a list of available resources',
+					// 	action: 'List available resources',
+					// },
 					{
-						name: 'Get Prompt',
-						value: 'getPrompt',
-						description: 'Get a specific prompt template',
-						action: 'Get a prompt template',
-					},
-					{
-						name: 'List Prompts',
-						value: 'listPrompts',
-						description: 'Get available prompts',
-						action: 'List available prompts',
-					},
-					{
-						name: 'List Resource Templates',
-						value: 'listResourceTemplates',
-						description: 'Get a list of available resource templates',
-						action: 'List available resource templates',
-					},
-					{
-						name: 'List Resources',
-						value: 'listResources',
-						description: 'Get a list of available resources',
-						action: 'List available resources',
-					},
-					{
-						name: 'List Tools',
+						name: 'List Tools | 获取工具列表',
 						value: 'listTools',
 						description: 'Get available tools',
 						action: 'List available tools',
 					},
-					{
-						name: 'Read Resource',
-						value: 'readResource',
-						description: 'Read a specific resource by URI',
-						action: 'Read a resource',
-					},
+					// {
+					// 	name: 'Read Resource',
+					// 	value: 'readResource',
+					// 	description: 'Read a specific resource by URI',
+					// 	action: 'Read a resource',
+					// },
 				],
 				default: 'listTools',
 				required: true,
 			},
-			{
-				displayName: 'Resource URI',
-				name: 'resourceUri',
-				type: 'string',
-				required: true,
-				displayOptions: {
-					show: {
-						operation: ['readResource'],
-					},
-				},
-				default: '',
-				description: 'URI of the resource to read',
-			},
+			// {
+			// 	displayName: 'Resource URI',
+			// 	name: 'resourceUri',
+			// 	type: 'string',
+			// 	required: true,
+			// 	displayOptions: {
+			// 		show: {
+			// 			operation: ['readResource'],
+			// 		},
+			// 	},
+			// 	default: '',
+			// 	description: 'URI of the resource to read',
+			// },
 			{
 				displayName: 'Tool Name',
 				name: 'toolName',
@@ -135,19 +135,19 @@ export class LarkMcp implements INodeType {
 				default: '{}',
 				description: 'Parameters to pass to the tool in JSON format',
 			},
-			{
-				displayName: 'Prompt Name',
-				name: 'promptName',
-				type: 'string',
-				required: true,
-				displayOptions: {
-					show: {
-						operation: ['getPrompt'],
-					},
-				},
-				default: '',
-				description: 'Name of the prompt template to get',
-			},
+			// {
+			// 	displayName: 'Prompt Name',
+			// 	name: 'promptName',
+			// 	type: 'string',
+			// 	required: true,
+			// 	displayOptions: {
+			// 		show: {
+			// 			operation: ['getPrompt'],
+			// 		},
+			// 	},
+			// 	default: '',
+			// 	description: 'Name of the prompt template to get',
+			// },
 		],
 	};
 
