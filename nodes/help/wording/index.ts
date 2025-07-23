@@ -84,6 +84,13 @@ export const WORDING = {
 	DeleteFileOrFolder: 'Delete File or Folder | 删除文件或文件夹',
 	GetFileList: 'Get File List | 获取文件列表',
 
+	// Contact
+	BatchGetUserInfo: 'Batch Get User Info | 批量获取用户信息',
+	Emails: 'Emails(用户邮箱列表)',
+	PhoneNumbers: 'Phone Numbers(用户手机号列表)',
+	GetUserInfo: 'Get User Info | 获取用户信息',
+	UserId: 'User ID(用户ID)',
+
 	// Spreadsheet
 	CreateSpreadsheet: 'Create | 创建电子表格',
 	UpdateSpreadsheet: 'Update | 更新电子表格',

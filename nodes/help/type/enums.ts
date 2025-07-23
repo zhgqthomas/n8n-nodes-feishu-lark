@@ -111,6 +111,10 @@ export declare const enum OperationType {
 	DeleteFileOrFolder = 'deleteFileOrFolder',
 	GetFileList = 'getFileList',
 
+	// Contact
+	BatchGetUserInfo = 'batchGetUserInfo',
+	GetUserInfo = 'getUserInfo',
+
 	// Spreadsheet
 	CreateSpreadsheet = 'create',
 	UpdateSpreadsheet = 'update',

@@ -1,6 +1,25 @@
 import { FileType, MessageType } from '../type/enums';
 
 export const DESCRIPTIONS = {
+	DEPARTMENT_ID_TYPE: {
+		displayName: 'Department ID Type(部门ID类型)',
+		name: 'department_id_type',
+		type: 'options',
+		options: [
+			{ name: 'Department ID', value: 'department_id' },
+			{ name: 'Open Department ID', value: 'open_department_id' },
+		],
+		default: 'open_department_id',
+	},
+
+	INCLUDE_RESIGNED: {
+		displayName: 'Include Resigned(是否包含离职员工)',
+		name: 'include_resigned',
+		type: 'boolean',
+		description: 'Whether the query results contain user information of resigned employees',
+		default: false,
+	},
+
 	ORDER_BY: {
 		displayName: 'Order By(排序方式)',
 		name: 'order_by',
