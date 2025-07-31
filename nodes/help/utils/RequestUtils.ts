@@ -27,8 +27,14 @@ class RequestUtils {
 
 		return RequestUtils.originRequest.call(this, options).catch((error) => {
 			if (error.context) {
-				// Get error data from server
-				const errorData = JSON.parse(Buffer.from(error.context.data).toString('utf-8'));
+				let errorData: any = {};
+				if (error.context.data.code) {
+					errorData = error.context.data;
+				} else {
+					// the context data is in array buffer format for download resource operation
+					errorData = JSON.parse(Buffer.from(error.context.data).toString('utf-8'));
+				}
+
 				const { code, msg } = errorData;
 
 				if (code === 99991663) {
