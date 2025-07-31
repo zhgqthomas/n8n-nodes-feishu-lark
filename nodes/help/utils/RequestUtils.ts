@@ -26,14 +26,18 @@ class RequestUtils {
 		if (options.json === undefined) options.json = true;
 
 		return RequestUtils.originRequest.call(this, options).catch((error) => {
-			if (error.context?.data?.code === 99991663) {
-				return RequestUtils.originRequest.call(this, options, true);
-			}
+			if (error.context) {
+				// Get error data from server
+				const errorData = JSON.parse(Buffer.from(error.context.data).toString('utf-8'));
+				const { code, msg } = errorData;
 
-			if (error.context?.data?.code !== 0) {
-				throw new Error(
-					`Request Lark API Error: ${error.context?.data.code}, ${error.context?.data.msg}`,
-				);
+				if (code === 99991663) {
+					return RequestUtils.originRequest.call(this, options, true);
+				}
+
+				if (code !== 0) {
+					throw new Error(`Request Lark API Error: ${code}, ${msg}`);
+				}
 			}
 
 			throw error;
