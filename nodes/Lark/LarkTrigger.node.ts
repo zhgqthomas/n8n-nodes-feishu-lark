@@ -28,7 +28,7 @@ export class LarkTrigger implements INodeType {
 		outputs: [NodeConnectionType.Main],
 		credentials: [
 			{
-				name: Credentials.Name,
+				name: Credentials.TenantToken,
 				required: true,
 			},
 		],
@@ -90,7 +90,7 @@ export class LarkTrigger implements INodeType {
 	};
 
 	async trigger(this: ITriggerFunctions): Promise<ITriggerResponse> {
-		const credentials = await this.getCredentials(Credentials.Name);
+		const credentials = await this.getCredentials(Credentials.TenantToken);
 
 		if (!(credentials.appid && credentials.appsecret)) {
 			throw new NodeOperationError(this.getNode(), 'Missing required Lark credentials');

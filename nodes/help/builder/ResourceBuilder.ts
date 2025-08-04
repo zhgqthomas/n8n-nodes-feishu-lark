@@ -1,6 +1,7 @@
 import { INodePropertyOptions } from 'n8n-workflow/dist/Interfaces';
 import { IResource, ResourceOperation } from '../type/IResource';
 import { INodeProperties } from 'n8n-workflow';
+import { Credentials } from '../type/enums';
 
 class ResourceBuilder {
 	resources: IResource[] = [];
@@ -21,7 +22,25 @@ class ResourceBuilder {
 
 	build(): INodeProperties[] {
 		// Build Operations
-		let list: INodeProperties[] = [];
+		const list: INodeProperties[] = [];
+
+		// This is a common property for all resources, so add it first
+		list.push({
+			displayName: 'Authentication',
+			name: 'authentication',
+			type: 'options',
+			default: `${Credentials.TenantToken}`,
+			options: [
+				{
+					name: 'Tenant Access Token',
+					value: Credentials.TenantToken,
+				},
+				{
+					name: 'User Access Token',
+					value: Credentials.UserToken,
+				},
+			],
+		});
 
 		list.push({
 			displayName: 'Resource',

@@ -6,11 +6,11 @@ import {
 	INodeProperties,
 	Icon,
 } from 'n8n-workflow';
-import { IHttpRequestOptions } from 'n8n-workflow/dist/Interfaces';
-import { Credentials } from '../nodes/help/type/enums';
+import { IAuthenticateGeneric } from 'n8n-workflow/dist/Interfaces';
+import { BaseUrl, Credentials } from '../nodes/help/type/enums';
 
-export class LarkTenantTokenApi implements ICredentialType {
-	name = Credentials.Name;
+export class LarkTokenApi implements ICredentialType {
+	name = Credentials.TenantToken;
 	displayName = 'Lark Tenant Token API';
 	icon: Icon = 'file:lark_icon.svg';
 	documentationUrl = 'https://open.feishu.cn/document/faq/trouble-shooting/how-to-obtain-app-id';
@@ -21,13 +21,13 @@ export class LarkTenantTokenApi implements ICredentialType {
 			type: 'options',
 			options: [
 				{
-					name: 'open.feishu.cn',
-					value: 'open.feishu.cn',
+					name: `${BaseUrl.China}`,
+					value: `${BaseUrl.China}`,
 					description: 'Feishu Open Platform base URL(China)',
 				},
 				{
-					name: 'open.larksuite.com',
-					value: 'open.larksuite.com',
+					name: `${BaseUrl.Global}`,
+					value: `${BaseUrl.Global}`,
 					description: 'Lark Open Platform base URL(Global)',
 				},
 			],
@@ -67,7 +67,7 @@ export class LarkTenantTokenApi implements ICredentialType {
 	async preAuthentication(this: IHttpRequestHelper, credentials: ICredentialDataDecryptedObject) {
 		const { code, msg, tenant_access_token } = (await this.helpers.httpRequest({
 			method: 'POST',
-			url: `https://${credentials.baseUrl}/open-apis/auth/v3/tenant_access_token/internal`,
+			url: `${credentials.baseUrl}/open-apis/auth/v3/tenant_access_token/internal`,
 			body: {
 				app_id: credentials.appid,
 				app_secret: credentials.appsecret,
@@ -81,23 +81,19 @@ export class LarkTenantTokenApi implements ICredentialType {
 		return { accessToken: tenant_access_token };
 	}
 
-	async authenticate(
-		credentials: ICredentialDataDecryptedObject,
-		requestOptions: IHttpRequestOptions,
-	): Promise<IHttpRequestOptions> {
-		requestOptions.baseURL = `https://${credentials.baseUrl}`;
-		requestOptions.headers = {
-			...(requestOptions.headers || {}),
-			Authorization: 'Bearer ' + credentials.accessToken,
-		};
-
-		return requestOptions;
-	}
+	authenticate: IAuthenticateGeneric = {
+		type: 'generic',
+		properties: {
+			headers: {
+				Authorization: '=Bearer {{$credentials?.accessToken}}',
+			},
+		},
+	};
 
 	// The block below tells how this credential can be tested
 	test: ICredentialTestRequest = {
 		request: {
-			baseURL: '=https://{{$credentials.baseUrl}}',
+			baseURL: '={{$credentials.baseUrl}}',
 			url: `/open-apis/auth/v3/tenant_access_token/internal`,
 			method: 'POST',
 			body: {

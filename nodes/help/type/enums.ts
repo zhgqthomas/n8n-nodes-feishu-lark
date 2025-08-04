@@ -143,7 +143,13 @@ export declare const enum FileType {
 }
 
 export declare const enum Credentials {
-	Name = 'larkCredentialsApi',
+	TenantToken = 'larkCredentialsApi',
+	UserToken = 'larkOAuth2Api',
 	Id = '33f755b6-3486-4507-9049-1407c6ddfc91',
 	Type = 'lark',
+}
+
+export declare const enum BaseUrl {
+	China = 'https://open.feishu.cn',
+	Global = 'https://open.larksuite.com',
 }

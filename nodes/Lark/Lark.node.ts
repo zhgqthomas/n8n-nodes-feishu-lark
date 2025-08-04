@@ -29,7 +29,7 @@ export class Lark implements INodeType {
 		displayName: 'Lark',
 		name: 'lark',
 		icon: 'file:lark_icon.svg',
-		group: ['output'],
+		group: ['input'],
 		version: [1],
 		defaultVersion: 1,
 		description: 'Consume Lark API',
@@ -42,8 +42,22 @@ export class Lark implements INodeType {
 		outputs: `={{(${configuredOutputs})($parameter)}}`,
 		credentials: [
 			{
-				name: Credentials.Name,
+				name: Credentials.TenantToken,
 				required: true,
+				displayOptions: {
+					show: {
+						authentication: [Credentials.TenantToken],
+					},
+				},
+			},
+			{
+				name: Credentials.UserToken,
+				required: true,
+				displayOptions: {
+					show: {
+						authentication: [Credentials.UserToken],
+					},
+				},
 			},
 		],
 		properties: resourceBuilder.build(),

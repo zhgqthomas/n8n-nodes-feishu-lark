@@ -39,7 +39,7 @@ export class LarkMcp implements INodeType {
 		usableAsTool: true,
 		credentials: [
 			{
-				name: Credentials.Name,
+				name: Credentials.TenantToken,
 				required: true,
 			},
 		],
@@ -153,7 +153,7 @@ export class LarkMcp implements INodeType {
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		// Explicit type assertion for credentials
-		const credentials = (await this.getCredentials(Credentials.Name)) as {
+		const credentials = (await this.getCredentials(Credentials.TenantToken)) as {
 			appid: string;
 			appsecret: string;
 			baseUrl: string;

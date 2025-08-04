@@ -7,26 +7,46 @@ class RequestUtils {
 		options: IHttpRequestOptions,
 		clearAccessToken = false,
 	) {
-		const credentials = await this.getCredentials(Credentials.Name);
+		const authenticationMethod = this.getNodeParameter(
+			'authentication',
+			0,
+			Credentials.TenantToken,
+		) as string;
 
-		return this.helpers.httpRequestWithAuthentication.call(this, Credentials.Name, options, {
-			credentialsDecrypted: {
-				id: Credentials.Id,
-				name: Credentials.Name,
-				type: Credentials.Type,
-				data: {
-					...credentials,
-					accessToken: clearAccessToken ? '' : credentials.accessToken,
+		const credentials = await this.getCredentials(authenticationMethod);
+		options.baseURL = credentials.baseUrl as string;
+
+		if (authenticationMethod === Credentials.TenantToken) {
+			// Replace the accessToken with an empty string if clearAccessToken is true, so the preAuthentication method can be triggered
+			// and a new access token can be fetched
+			const additionalCredentialOptions = {
+				credentialsDecrypted: {
+					id: Credentials.Id,
+					name: Credentials.TenantToken,
+					type: Credentials.Type,
+					data: {
+						...credentials,
+						accessToken: clearAccessToken ? '' : credentials.accessToken,
+					},
 				},
-			},
-		});
+			};
+
+			return this.helpers.httpRequestWithAuthentication.call(
+				this,
+				authenticationMethod,
+				options,
+				additionalCredentialOptions,
+			);
+		}
+
+		return this.helpers.httpRequestWithAuthentication.call(this, authenticationMethod, options);
 	}
 
 	static async request(this: IExecuteFunctions, options: IHttpRequestOptions) {
 		if (options.json === undefined) options.json = true;
 
 		return RequestUtils.originRequest.call(this, options).catch((error) => {
-			if (error.context) {
+			if (error.context && error.context.data) {
 				let errorData: any = {};
 				if (error.context.data.code) {
 					errorData = error.context.data;
