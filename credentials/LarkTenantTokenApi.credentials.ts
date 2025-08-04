@@ -9,9 +9,9 @@ import {
 import { IHttpRequestOptions } from 'n8n-workflow/dist/Interfaces';
 import { Credentials } from '../nodes/help/type/enums';
 
-export class LarkCredentialsApi implements ICredentialType {
+export class LarkTenantTokenApi implements ICredentialType {
 	name = Credentials.Name;
-	displayName = 'Lark API';
+	displayName = 'Lark Tenant Token API';
 	icon: Icon = 'file:lark_icon.svg';
 	documentationUrl = 'https://open.feishu.cn/document/faq/trouble-shooting/how-to-obtain-app-id';
 	properties: INodeProperties[] = [

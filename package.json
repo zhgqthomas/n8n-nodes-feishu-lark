@@ -41,7 +41,8 @@
 	"n8n": {
 		"n8nNodesApiVersion": 1,
 		"credentials": [
-			"dist/credentials/LarkCredentialsApi.credentials.js"
+			"dist/credentials/LarkTenantTokenApi.credentials.js",
+			"dist/credentials/LarkUserTokenApi.credentials.js"
 		],
 		"nodes": [
 			"dist/nodes/Lark/Lark.node.js",
