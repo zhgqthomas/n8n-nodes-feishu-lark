@@ -1,6 +1,71 @@
 import { FileType, MessageType } from '../type/enums';
 
 export const DESCRIPTIONS = {
+	ARRAY_JSON: {
+		displayName: 'Array JSON(数组 JSON)',
+		name: 'array_json',
+		type: 'json',
+		default: [],
+	},
+
+	OFFSET: {
+		displayName: 'Offset(偏移量)',
+		name: 'offset',
+		type: 'number',
+		default: 0,
+		typeOptions: {
+			minValue: 0,
+			numberPrecision: 0,
+		},
+	},
+
+	COUNT: {
+		displayName: 'Count(返回数量)',
+		name: 'count',
+		type: 'number',
+		default: 20,
+		typeOptions: {
+			minValue: 0,
+			maxValue: 50,
+			numberPrecision: 0,
+		},
+	},
+
+	SEARCH_KEY: {
+		displayName: 'Search Key(搜索关键字)',
+		name: 'search_key',
+		type: 'string',
+		default: '',
+		required: true,
+	},
+
+	SEARCH_FILE_TYPE: {
+		displayName: 'Search File Type(搜索文件类型)',
+		name: 'search_file_type',
+		type: 'multiOptions',
+		default: [],
+		options: [
+			{ name: 'Bitable(多维表格)', value: FileType.Bitable },
+			{ name: 'Doc(文档)', value: FileType.Doc },
+			{
+				name: 'File(文件)',
+				value: FileType.File,
+			},
+			{
+				name: 'Mindnote(思维笔记)',
+				value: FileType.Mindnote,
+			},
+			{
+				name: 'Slides(幻灯片)',
+				value: FileType.Slides,
+			},
+			{
+				name: 'Spreadsheet(电子表格)',
+				value: FileType.Sheet,
+			},
+		],
+	},
+
 	DEPARTMENT_ID_TYPE: {
 		displayName: 'Department ID Type(部门ID类型)',
 		name: 'department_id_type',
