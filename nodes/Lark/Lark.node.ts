@@ -66,10 +66,9 @@ export class Lark implements INodeType {
 	methods = {
 		listSearch: {
 			async searchBitables(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
-				const bitables = await getFileList.call(
-					this as unknown as IExecuteFunctions,
+				const bitables = await getFileList.call(this as unknown as IExecuteFunctions, [
 					FileType.Bitable,
-				);
+				]);
 				return {
 					results: bitables.map((bitable) => ({
 						name: bitable.name as string,
@@ -80,10 +79,9 @@ export class Lark implements INodeType {
 			},
 
 			async searchFolders(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
-				const folders = await getFileList.call(
-					this as unknown as IExecuteFunctions,
+				const folders = await getFileList.call(this as unknown as IExecuteFunctions, [
 					FileType.Folder,
-				);
+				]);
 				return {
 					results: folders.map((folder) => ({
 						name: folder.name as string,
@@ -211,13 +209,10 @@ export class Lark implements INodeType {
 			async searchDocuments(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
 				const allDocs: IDataObject[] = [];
 
-				const docList = await getFileList.call(this as unknown as IExecuteFunctions, FileType.Doc);
-				allDocs.push(...docList);
-
-				const docxList = await getFileList.call(
-					this as unknown as IExecuteFunctions,
+				const docxList = await getFileList.call(this as unknown as IExecuteFunctions, [
 					FileType.Docx,
-				);
+					FileType.Doc,
+				]);
 				allDocs.push(...docxList);
 
 				return {
@@ -230,10 +225,9 @@ export class Lark implements INodeType {
 			},
 
 			async searchSpreadsheets(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
-				const spreadsheets = await getFileList.call(
-					this as unknown as IExecuteFunctions,
+				const spreadsheets = await getFileList.call(this as unknown as IExecuteFunctions, [
 					FileType.Sheet,
-				);
+				]);
 				return {
 					results: spreadsheets.map((spreadsheet) => ({
 						name: spreadsheet.name as string,
@@ -244,7 +238,7 @@ export class Lark implements INodeType {
 			},
 
 			async searchFiles(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
-				const fileType = this.getNodeParameter('space_file_type', undefined) as FileType;
+				const fileType = this.getNodeParameter('space_file_type', undefined) as FileType[];
 				if (!fileType) {
 					throw new NodeOperationError(this.getNode(), 'File type is required');
 				}

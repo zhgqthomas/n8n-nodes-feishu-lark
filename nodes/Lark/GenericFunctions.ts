@@ -148,7 +148,7 @@ export async function larkApiRequestMessageResourceData(
 
 export async function getFileList(
 	this: IExecuteFunctions,
-	type: FileType,
+	type: FileType[],
 	order_by: string = 'EditedTime',
 	direction: string = 'DESC',
 	user_id_type: string = 'open_id',
@@ -183,7 +183,7 @@ export async function getFileList(
 		pageToken = nextPageToken || '';
 
 		for (const file of files) {
-			if (file.type === type) {
+			if (type.includes(file.type as FileType)) {
 				allFiles.push(file);
 			}
 

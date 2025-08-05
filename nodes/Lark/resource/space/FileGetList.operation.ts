@@ -27,7 +27,7 @@ export default {
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject[]> {
-		const type = this.getNodeParameter('space_file_type', index, FileType.Bitable) as FileType;
+		const type = this.getNodeParameter('space_file_type', index, undefined) as FileType[];
 		const options = this.getNodeParameter('options', index, {});
 		const order_by = (options.order_by as string) || 'EditedTime';
 		const direction = (options.direction as string) || 'DESC';

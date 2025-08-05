@@ -73,8 +73,8 @@ export const DESCRIPTIONS = {
 	SPACE_FILE_TYPE: {
 		displayName: 'File Type(文件类型)',
 		name: 'space_file_type',
-		type: 'options',
-		default: 'bitable',
+		type: 'multiOptions',
+		default: [],
 		required: true,
 		options: [
 			{
