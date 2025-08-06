@@ -6,55 +6,50 @@ import { OperationType } from '../../../help/type/enums';
 import { DESCRIPTIONS } from '../../../help/description';
 
 export default {
-	name: WORDING.SearchCalendar,
-	value: OperationType.SearchCalendar,
-	order: 194,
+	name: WORDING.GetCalendarList,
+	value: OperationType.GetCalendarList,
+	order: 196,
 	options: [
-		DESCRIPTIONS.SEARCH_KEY,
 		DESCRIPTIONS.WHETHER_PAGING,
 		{
 			...DESCRIPTIONS.PAGE_SIZE,
 			typeOptions: {
-				minValue: 1,
-				maxValue: 50,
-				numberPrecision: 0,
+				minValue: 50,
+				maxValue: 1000,
+                numberPrecision: 0,
 			},
 		},
 		DESCRIPTIONS.PAGE_TOKEN,
 		{
-			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/calendar-v4/calendar/search">${WORDING.OpenDocument}</a>`,
+			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/calendar-v4/calendar/get">${WORDING.OpenDocument}</a>`,
 			name: 'notice',
 			type: 'notice',
 			default: '',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
-		const searchKey = this.getNodeParameter('search_key', index) as string;
 		const whetherPaging = this.getNodeParameter('whether_paging', index, false) as boolean;
 		let pageToken = this.getNodeParameter('page_token', index, '') as string;
-		const pageSize = this.getNodeParameter('page_size', index, 50) as number;
+		const pageSize = this.getNodeParameter('page_size', index, 1000) as number;
 
 		const allCalendars: IDataObject[] = [];
 		let hasMore = false;
 		do {
 			const {
-				data: { page_token, items },
+				data: { has_more, page_token, calendar_list },
 			} = await RequestUtils.request.call(this, {
-				method: 'POST',
-				url: `/open-apis/calendar/v4/calendars/search`,
+				method: 'GET',
+				url: `/open-apis/calendar/v4/calendars`,
 				qs: {
 					page_token: pageToken,
 					page_size: pageSize,
 				},
-				body: {
-					query: searchKey,
-				},
 			});
 
-			hasMore = page_token ? true : false;
+			hasMore = has_more;
 			pageToken = page_token;
-			if (items) {
-				allCalendars.push(...items);
+			if (calendar_list) {
+				allCalendars.push(...calendar_list);
 			}
 		} while (!whetherPaging && hasMore);
 

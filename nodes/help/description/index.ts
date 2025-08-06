@@ -1,6 +1,152 @@
 import { FileType, MessageType } from '../type/enums';
 
 export const DESCRIPTIONS = {
+	SYNC_TOKEN: {
+		displayName: 'Sync Token(增量同步标记)',
+		name: 'sync_token',
+		type: 'string',
+		default: '',
+		description: 'Incremental synchronization mark, not filled in for the first request',
+	},
+
+	ANCHOR_TIME: {
+		displayName: 'Anchor Time(时间锚点)',
+		name: 'anchor_time',
+		type: 'string',
+		default: '',
+		description:
+			'Used to set a specific point in time for pulling events, thereby avoiding the need to pull all events',
+	},
+
+	MAX_ATTENDEE_NUM: {
+		displayName: 'Max Attendee Number(返回的最大参与人数量)',
+		name: 'max_attendee_num',
+		type: 'number',
+		typeOptions: {
+			minValue: 1,
+			maxValue: 100,
+			numberPrecision: 0,
+		},
+		default: 100,
+	},
+
+	NEED_ATTENDEE: {
+		displayName: 'Need Attendee(是否需要返回参与人信息)',
+		name: 'need_attendee',
+		type: 'boolean',
+		default: false,
+	},
+
+	NEED_MEETING_SETTINGS: {
+		displayName: 'Need Meeting Settings(是否需要返回飞书视频会议(VC)会前设置)',
+		name: 'need_meeting_settings',
+		type: 'boolean',
+		default: false,
+		description: 'Whether the meeting type (vc_type) of the event needs to be vc',
+	},
+
+	NEED_NOTIFICATION: {
+		displayName: 'Need Notification(是否发送通知)',
+		name: 'need_notification',
+		type: 'boolean',
+		default: true,
+		description: 'Whether to send Bot notifications to event participants when deleting a event',
+	},
+
+	CALENDAR_EVENT_ID: {
+		displayName: 'Calendar Event ID(日程 ID)',
+		name: 'calendar_event_id',
+		type: 'resourceLocator',
+		default: { mode: 'id', value: '' },
+		required: true,
+		modes: [
+			{
+				displayName: 'From List',
+				name: 'list',
+				type: 'list',
+				placeholder: 'Input event key word',
+				typeOptions: {
+					searchListMethod: 'searchCalendarEvents',
+					searchFilterRequired: true,
+					searchable: true,
+				},
+			},
+			{
+				displayName: 'ID',
+				name: 'id',
+				type: 'string',
+				placeholder: 'Enter ID',
+				default: '',
+			},
+		],
+	},
+
+	USER_ID: {
+		displayName: 'User ID(用户 ID)',
+		name: 'user_id',
+		type: 'string',
+		default: '',
+		required: true,
+	},
+
+	ONLY_BUSY: {
+		displayName: 'Only Busy(是否只查询忙碌日程信息)',
+		name: 'only_busy',
+		type: 'boolean',
+		default: true,
+	},
+
+	INCLUDE_EXTERNAL_CALENDAR: {
+		displayName: 'Include External Calendar(是否包含外部日历)',
+		name: 'include_external_calendar',
+		type: 'boolean',
+		default: true,
+	},
+
+	START_TIME: {
+		displayName: 'Start Time(开始时间)',
+		name: 'start_time',
+		type: 'dateTime',
+		default: '',
+		required: true,
+	},
+
+	END_TIME: {
+		displayName: 'End Time(结束时间)',
+		name: 'end_time',
+		type: 'dateTime',
+		default: '',
+		required: true,
+	},
+
+	CALENDAR_ID: {
+		displayName: 'Calendar ID(日历 ID)',
+		name: 'calendar_id',
+		required: true,
+		type: 'resourceLocator',
+		default: { mode: 'id', value: '' },
+		modes: [
+			{
+				displayName: 'From List',
+				name: 'list',
+				type: 'list',
+				placeholder: 'Select Calendar',
+				typeOptions: {
+					searchListMethod: 'searchCalendars',
+					searchFilterRequired: false,
+					searchable: false,
+				},
+			},
+			{
+				displayName: 'ID',
+				name: 'id',
+				type: 'string',
+				placeholder: 'Enter Calendar ID',
+				default: '',
+			},
+		],
+	},
+
 	ARRAY_JSON: {
 		displayName: 'Array JSON(数组 JSON)',
 		name: 'array_json',
@@ -604,7 +750,7 @@ export const DESCRIPTIONS = {
 		displayName: 'Member ID(自定义角色协作者 ID)',
 		name: 'member_id',
 		type: 'resourceLocator',
-		default: { mode: 'list', value: '' },
+		default: { mode: 'id', value: '' },
 		required: true,
 		description: 'Need to have the read permission of base role',
 		modes: [

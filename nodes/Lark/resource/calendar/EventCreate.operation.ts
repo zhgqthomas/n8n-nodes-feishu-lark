@@ -1,54 +1,44 @@
 import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import { ResourceOperation } from '../../../help/type/IResource';
-import NodeUtils from '../../../help/utils/NodeUtils';
 import RequestUtils from '../../../help/utils/RequestUtils';
+import { WORDING } from '../../../help/wording';
+import { OperationType } from '../../../help/type/enums';
+import { DESCRIPTIONS } from '../../../help/description';
 
 export default {
-	name: 'Create Calendar Event | 创建日程',
-	value: 'createEvent',
-	order: 90,
+	name: WORDING.CalendarEventCreate,
+	value: OperationType.CreateCalendarEvent,
+	order: 192,
 	options: [
+		DESCRIPTIONS.CALENDAR_ID,
+		DESCRIPTIONS.REQUEST_BODY,
 		{
-			displayName: 'Calendar ID(日历 ID)',
-			name: 'calendar_id',
-			type: 'string',
-			required: true,
+			displayName: WORDING.Options,
+			name: 'options',
+			type: 'collection',
+			placeholder: WORDING.AddField,
+			default: {},
+			options: [DESCRIPTIONS.USER_ID_TYPE, DESCRIPTIONS.REQUEST_ID],
+		},
+		{
+			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/create">${WORDING.OpenDocument}</a>`,
+			name: 'notice',
+			type: 'notice',
 			default: '',
-			description:
-				'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/create#pathParams',
-		},
-		{
-			displayName: 'User ID Type(用户 ID 类型)',
-			name: 'user_id_type',
-			type: 'options',
-			options: [
-				{ name: 'Open ID', value: 'open_id' },
-				{ name: 'Union ID', value: 'union_id' },
-				{ name: 'User ID', value: 'user_id' },
-			],
-			default: 'open_id',
-			description:
-				'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/create#pathParams',
-		},
-		{
-			displayName: 'Request Body(请求体)',
-			name: 'body',
-			type: 'json',
-			required: true,
-			default: '{}',
-			description:
-				'Https://open.feishu.cn/document/server-docs/calendar-v4/calendar-event/create#requestBody',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
-		const calendarId = this.getNodeParameter('calendar_id', index) as string;
-		const body = NodeUtils.getNodeJsonData(this, 'body', index) as IDataObject;
-		const idempotencyKey = this.getNodeParameter('idempotency_key', index, '') as string;
-		const userIdType = this.getNodeParameter('user_id_type', index, 'open_id') as string;
+		const calendarId = this.getNodeParameter('calendar_id', index, undefined, {
+			extractValue: true,
+		}) as string;
+		const body = this.getNodeParameter('body', index, undefined, {
+			ensureType: 'json',
+		}) as IDataObject;
+		const options = this.getNodeParameter('options', index, {}) as IDataObject;
+		const idempotencyKey = (options.request_id as string) || '';
+		const userIdType = (options.user_id_type as string) || 'open_id';
 
 		const {
-			code,
-			msg,
 			data: { event },
 		} = await RequestUtils.request.call(this, {
 			method: 'POST',
@@ -59,10 +49,6 @@ export default {
 			},
 			body,
 		});
-
-		if (code !== 0) {
-			throw new Error(`Error creating calendar event, code ${code}, message ${msg}`);
-		}
 
 		return event;
 	},

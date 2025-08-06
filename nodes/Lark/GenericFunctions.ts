@@ -2,6 +2,69 @@ import { BINARY_ENCODING, IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import RequestUtils from '../help/utils/RequestUtils';
 import { FileType } from '../help/type/enums';
 
+export async function larkApiRequestCalendarEventList(
+	this: IExecuteFunctions,
+	options: IDataObject,
+): Promise<IDataObject[]> {
+	const { calendarId, query, user_id_type } = options;
+
+	const allEvents: IDataObject[] = [];
+	let hasMore = false;
+	let pageToken = '';
+
+	do {
+		const {
+			data: { page_token, items },
+		} = await RequestUtils.request.call(this, {
+			method: 'POST',
+			url: `/open-apis/calendar/v4/calendars/${calendarId}/events/search`,
+			qs: {
+				user_id_type,
+				...(pageToken && { page_token: pageToken }),
+				page_size: 100,
+			},
+			body: {
+				query,
+			},
+		});
+
+		hasMore = page_token ? true : false;
+		pageToken = page_token;
+		if (items) {
+			allEvents.push(...items);
+		}
+	} while (hasMore);
+
+	return allEvents;
+}
+
+export async function larkApiRequestCalendarList(this: IExecuteFunctions): Promise<IDataObject[]> {
+	const allCalendars: IDataObject[] = [];
+	let hasMore = false;
+	let pageToken = '';
+
+	do {
+		const {
+			data: { has_more, page_token, calendar_list },
+		} = await RequestUtils.request.call(this, {
+			method: 'GET',
+			url: `/open-apis/calendar/v4/calendars`,
+			qs: {
+				...(pageToken && { page_token: pageToken }),
+				page_size: 1000,
+			},
+		});
+
+		hasMore = has_more;
+		pageToken = page_token;
+		if (calendar_list) {
+			allCalendars.push(...calendar_list);
+		}
+	} while (hasMore);
+
+	return allCalendars;
+}
+
 export async function larkApiRequestBaseRoleList(
 	this: IExecuteFunctions,
 	options: IDataObject,

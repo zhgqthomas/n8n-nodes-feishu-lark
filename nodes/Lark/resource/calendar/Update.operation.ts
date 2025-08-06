@@ -7,10 +7,11 @@ import { DESCRIPTIONS } from '../../../help/description';
 import { hexToRgbInt32 } from '../../../help/utils';
 
 export default {
-	name: WORDING.CreateCalendar,
-	value: OperationType.CreateCalendar,
-	order: 200,
+	name: WORDING.UpdateCalendar,
+	value: OperationType.UpdateCalendar,
+	order: 195,
 	options: [
+		DESCRIPTIONS.CALENDAR_ID,
 		DESCRIPTIONS.CALENDAR_TITLE,
 		DESCRIPTIONS.CALENDAR_DESCRIPTION,
 		DESCRIPTIONS.CALENDAR_PERMISSIONS,
@@ -23,13 +24,16 @@ export default {
 			options: [DESCRIPTIONS.CALENDAR_SUMMARY_ALIAS, DESCRIPTIONS.CALENDAR_COLOR],
 		},
 		{
-			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/calendar-v4/calendar/create">${WORDING.OpenDocument}</a>`,
+			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/calendar-v4/calendar/patch">${WORDING.OpenDocument}</a>`,
 			name: 'notice',
 			type: 'notice',
 			default: '',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
+		const calendarId = this.getNodeParameter('calendar_id', index, undefined, {
+			extractValue: true,
+		}) as string;
 		const summary = this.getNodeParameter('summary', index, '') as string;
 		const description = this.getNodeParameter('description', index, '') as string;
 		const permissions = this.getNodeParameter(
@@ -44,8 +48,8 @@ export default {
 		const {
 			data: { calendar },
 		} = await RequestUtils.request.call(this, {
-			method: 'POST',
-			url: '/open-apis/calendar/v4/calendars',
+			method: 'PATCH',
+			url: `/open-apis/calendar/v4/calendars/${calendarId}`,
 			body: {
 				...(summary && { summary }),
 				...(description && { description }),

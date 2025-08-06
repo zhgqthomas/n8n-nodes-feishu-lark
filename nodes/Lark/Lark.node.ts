@@ -16,6 +16,8 @@ import { Credentials, FileType, OutputType } from '../help/type/enums';
 import {
 	getFileList,
 	larkApiRequestBaseRoleList,
+	larkApiRequestCalendarEventList,
+	larkApiRequestCalendarList,
 	larkApiRequestTableFieldList,
 	larkApiRequestTableList,
 	larkApiRequestTableViewList,
@@ -249,6 +251,47 @@ export class Lark implements INodeType {
 						name: file.name as string,
 						value: file.token as string,
 						url: file.url as string,
+					})),
+				};
+			},
+
+			async searchCalendars(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
+				const calendars = await larkApiRequestCalendarList.call(
+					this as unknown as IExecuteFunctions,
+				);
+				return {
+					results: calendars.map((calendar) => ({
+						name: calendar.summary as string,
+						value: calendar.calendar_id as string,
+					})),
+				};
+			},
+
+			async searchCalendarEvents(
+				this: ILoadOptionsFunctions,
+				query?: string,
+			): Promise<INodeListSearchResult> {
+				if (!query) {
+					throw new NodeOperationError(this.getNode(), 'Query required for search');
+				}
+
+				const calendarId = this.getNodeParameter('calendar_id', undefined, {
+					extractValue: true,
+				}) as string;
+				const user_id_type = this.getNodeParameter('user_id_type', 'open_id') as string;
+				const events = await larkApiRequestCalendarEventList.call(
+					this as unknown as IExecuteFunctions,
+					{
+						calendarId,
+						query,
+						user_id_type,
+					},
+				);
+				return {
+					results: events.map((event) => ({
+						name: event.summary as string,
+						value: event.event_id as string,
+						url: event.app_link as string,
 					})),
 				};
 			},

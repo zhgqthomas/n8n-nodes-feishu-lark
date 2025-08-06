@@ -99,6 +99,18 @@ export const WORDING = {
 
 	// Calendar
 	CreateCalendar: 'Create Calendar | 创建共享日历',
+	DeleteCalendar: 'Delete Calendar | 删除共享日历',
+	GetPrimaryCalendarInfo: 'Get Primary Info | 获取主日历信息',
+	GetCalendarInfo: 'Get Info | 获取日历信息',
+	GetCalendarList: 'Get List | 获取日历列表',
+	UpdateCalendar: 'Update Calendar | 更新日历信息',
+	SearchCalendar: 'Search Calendar | 搜索日历',
+	CalendarAvailability: 'Availability | 获取日程忙闲信息',
+	CalendarEventCreate: 'Create Event | 创建日程',
+	CalendarEventDelete: 'Delete Event | 删除日程',
+	CalendarEventSearch: 'Search Event | 搜索日程',
+	CalendarEventGet: 'Get Event | 获取日程',
+	CalendarEventGetList: 'Get Event List | 获取日程列表',
 
 	// Common
 	Options: 'Options(选项)',
