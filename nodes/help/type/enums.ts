@@ -144,7 +144,7 @@ export declare const enum FileType {
 }
 
 export declare const enum Credentials {
-	TenantToken = 'larkCredentialsApi',
+	TenantToken = 'larkApi',
 	UserToken = 'larkOAuth2Api',
 	Id = '33f755b6-3486-4507-9049-1407c6ddfc91',
 	Type = 'lark',
