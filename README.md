@@ -6,6 +6,10 @@
 
 与原项目最大的差别是添加了 [LarkTigger](https://github.com/zhgqthomas/n8n-nodes-feishu-lark/blob/main/README.md#trigger-node-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E) 和 `LarkMCP` 节点 
 
+## 版本声明
+### 0.5.x
+新增设置 Lark User Token Credentials 选项，该版本会要求对已经设置过的 Credentials 做重新授权
+
 ## 安装教程
 
 参考：https://docs.n8n.io/integrations/community-nodes/installation/
