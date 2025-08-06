@@ -103,7 +103,7 @@ export class LarkTrigger implements INodeType {
 		const wsClient: WSClient = new WSClient({
 			appId,
 			appSecret,
-			domain: `https://${baseUrl}`, // Use the base URL from credentials
+			domain: `${baseUrl}`, // Use the base URL from credentials
 			logger: this.logger,
 			helpers: this.helpers,
 		});
