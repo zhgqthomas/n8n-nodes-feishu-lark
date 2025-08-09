@@ -278,6 +278,11 @@ export class Lark implements INodeType {
 				const calendarId = this.getNodeParameter('calendar_id', undefined, {
 					extractValue: true,
 				}) as string;
+
+				if (!calendarId) {
+					throw new NodeOperationError(this.getNode(), 'Calendar ID required for search');
+				}
+
 				const user_id_type = this.getNodeParameter('user_id_type', 'open_id') as string;
 				const events = await larkApiRequestCalendarEventList.call(
 					this as unknown as IExecuteFunctions,

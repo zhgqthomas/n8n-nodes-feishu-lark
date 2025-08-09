@@ -111,6 +111,7 @@ export const WORDING = {
 	CalendarEventSearch: 'Search Event | 搜索日程',
 	CalendarEventGet: 'Get Event | 获取日程',
 	CalendarEventGetList: 'Get Event List | 获取日程列表',
+	CalendarEventUpdate: 'Update Event | 更新日程',
 
 	// Common
 	Options: 'Options(选项)',

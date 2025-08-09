@@ -135,6 +135,7 @@ export declare const enum OperationType {
 	SearchCalendarEvent = 'searchEvents',
 	GetCalendarEvent = 'getEvent',
 	GetCalendarEventList = 'getEventList',
+	UpdateCalendarEvent = 'updateEvent',
 }
 
 export declare const enum OutputType {
