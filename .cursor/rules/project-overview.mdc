@@ -1,0 +1,32 @@
+---
+alwaysApply: true
+---
+
+# n8n Feishu/Lark Integration Project Structure
+
+This is an n8n community node package for Feishu/Lark integration with three main node types:
+
+## Project Structure
+- **Entry point**: [index.js](mdc:index.js) (empty, relies on package.json n8n config)
+- **Package config**: [package.json](mdc:package.json) defines nodes and credentials
+- **Main nodes**: 
+  - [Lark.node.ts](mdc:nodes/Lark/Lark.node.ts) - Main API operations node
+  - [LarkTrigger.node.ts](mdc:nodes/Lark/LarkTrigger.node.ts) - WebSocket event trigger
+  - [LarkMcp.node.ts](mdc:nodes/Lark/LarkMcp.node.ts) - MCP integration
+- **Credentials**:
+  - [LarkTokenApi.credentials.ts](mdc:credentials/LarkTokenApi.credentials.ts) - Tenant token auth
+  - [LarkOAuth2Api.credentials.ts](mdc:credentials/LarkOAuth2Api.credentials.ts) - OAuth2 user auth
+
+## Key Architecture Patterns
+- **Resource/Operation Pattern**: Resources (base, calendar, document, etc.) contain operations (create, update, delete, etc.)
+- **Resource Factory**: [ResourceFactory.ts](mdc:nodes/help/builder/ResourceFactory.ts) dynamically loads and builds resource definitions
+- **Request Utils**: [RequestUtils.ts](mdc:nodes/help/utils/RequestUtils.ts) handles authentication and API requests
+- **Type Safety**: [enums.ts](mdc:nodes/help/type/enums.ts) defines all types and constants
+
+## Development Guidelines
+- Build with `npm run build` (outputs to dist/)
+- Test with `npm run test` 
+- Use TypeScript strict mode
+- Follow n8n node development patterns
+- Each resource should have its own directory in `nodes/Lark/resource/`
+- Operations follow naming pattern: `{Action}.operation.ts`

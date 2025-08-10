@@ -1,0 +1,144 @@
+---
+globs: **/resource/**/*.ts
+---
+
+# Resource and Operation Development Guide
+
+## Resource Structure
+Each resource follows this pattern in `nodes/Lark/resource/`:
+```
+{ResourceName}/
+├── {ResourceName}.resource.ts     # Resource definition
+├── {Operation1}.operation.ts      # Individual operations
+├── {Operation2}.operation.ts
+└── ...
+```
+
+## Resource Definition Pattern
+```typescript
+// Example: Calendar.resource.ts
+import { ResourceOptions } from '../help/type/IResource';
+import { ResourceType } from '../help/type/enums';
+
+const resource: ResourceOptions = {
+  name: 'Calendar',
+  value: ResourceType.Calendar,
+  description: 'Calendar operations',
+  order: 100, // Higher order = appears first
+};
+
+export = resource;
+```
+
+## Operation Definition Pattern
+```typescript
+// Example: Create.operation.ts
+import { ResourceOperation } from '../../help/type/IResource';
+import { IExecuteFunctions, INodeExecutionData } from 'n8n-workflow';
+import RequestUtils from '../../help/utils/RequestUtils';
+
+const operation: ResourceOperation = {
+  name: 'Create',
+  value: 'create',
+  description: 'Create a new calendar',
+  order: 100,
+  
+  properties: [
+    {
+      displayName: 'Calendar Name',
+      name: 'summary',
+      type: 'string',
+      required: true,
+      default: '',
+    },
+    // ... more properties
+  ],
+  
+  async execute(this: IExecuteFunctions, index: number): Promise<INodeExecutionData[]> {
+    const summary = this.getNodeParameter('summary', index) as string;
+    
+    const response = await RequestUtils.request.call(this, {
+      method: 'POST',
+      url: '/open-apis/calendar/v4/calendars',
+      body: { summary },
+    });
+    
+    return this.helpers.returnJsonArray(response.data);
+  },
+};
+
+export = operation;
+```
+
+## Property Patterns
+
+### Basic Properties
+```typescript
+{
+  displayName: 'Field Label',
+  name: 'fieldName',
+  type: 'string', // 'number', 'boolean', 'options', 'multiOptions'
+  required: true,
+  default: '',
+  description: 'Field description',
+}
+```
+
+### Conditional Display
+```typescript
+{
+  displayName: 'Advanced Option',
+  name: 'advancedOption',
+  type: 'string',
+  displayOptions: {
+    show: {
+      operation: ['create', 'update'],
+      resourceType: ['calendar'],
+    },
+  },
+}
+```
+
+### Search Lists (Dynamic Options)
+```typescript
+{
+  displayName: 'Table',
+  name: 'table_id',
+  type: 'resourceLocator',
+  default: { mode: 'list', value: '' },
+  modes: [
+    {
+      displayName: 'From List',
+      name: 'list',
+      type: 'list',
+      typeOptions: {
+        searchListMethod: 'searchTables',
+        searchable: true,
+      },
+    },
+  ],
+}
+```
+
+## Naming Conventions
+- Resource files: `{ResourceName}.resource.ts`
+- Operation files: `{Action}.operation.ts` (PascalCase)
+- Values: use camelCase for operation values
+- API endpoints: follow Lark API documentation exactly
+
+## Order Guidelines
+- Higher order values appear first in UI
+- Resources: 100-900 range
+- Operations: 100-900 range within resource
+- Most common operations should have higher order
+
+## Testing Operations
+Use the test files in `test/` directory:
+- [buildResource.ts](mdc:test/buildResource.ts) - Test resource building
+- [moduleLoadTest.ts](mdc:test/moduleLoadTest.ts) - Test module loading
+
+Build and test with:
+```bash
+npm run build
+npm run test
+```

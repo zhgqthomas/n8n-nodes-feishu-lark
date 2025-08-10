@@ -1,0 +1,87 @@
+---
+description: "n8n node development patterns and best practices"
+---
+
+# n8n Node Development Patterns
+
+## Node Structure
+Every n8n node follows this pattern:
+```typescript
+export class NodeName implements INodeType {
+  description: INodeTypeDescription = {
+    displayName: 'Node Display Name',
+    name: 'nodeName',
+    icon: 'file:icon.svg',
+    group: ['input'], // or ['trigger']
+    version: [1],
+    credentials: [...],
+    properties: [...],
+  };
+
+  async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
+    // Implementation
+  }
+}
+```
+
+## Credential Patterns
+- Reference credentials by enum values from [enums.ts](mdc:nodes/help/type/enums.ts)
+- Use `displayOptions.show` to conditionally show credential fields
+- Implement `preAuthentication` for token refresh (see [LarkTokenApi.credentials.ts](mdc:credentials/LarkTokenApi.credentials.ts))
+
+## Resource/Operation System
+This project uses a dynamic resource/operation system:
+- Resources are defined in `nodes/Lark/resource/*.resource.ts`
+- Operations are in `nodes/Lark/resource/{resource}/*.operation.ts`
+- [ResourceFactory.ts](mdc:nodes/help/builder/ResourceFactory.ts) automatically discovers and loads them
+
+## Parameter Handling
+```typescript
+// Get parameters with proper typing
+const resource = this.getNodeParameter('resource', 0) as string;
+const operation = this.getNodeParameter('operation', 0) as string;
+const itemIndex = 0; // for multi-item processing
+
+// Extract values from search results
+const token = this.getNodeParameter('app_token', undefined, {
+  extractValue: true,
+}) as string;
+```
+
+## Error Handling
+```typescript
+try {
+  const responseData = await callFunc.call(this, itemIndex);
+  // Process success
+} catch (error) {
+  if (this.continueOnFail()) {
+    // Handle graceful failure
+    const executionErrorData = this.helpers.constructExecutionMetaData(
+      this.helpers.returnJsonArray({ error: error.message }),
+      { itemData: { item: itemIndex } },
+    );
+    returnData[0].push(...executionErrorData);
+  } else {
+    throw new NodeOperationError(this.getNode(), error, { itemIndex });
+  }
+}
+```
+
+## List Search Methods
+Implement `listSearch` methods for dynamic dropdowns:
+```typescript
+methods = {
+  listSearch: {
+    async searchTables(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
+      const results = await apiCall();
+      return {
+        results: results.map(item => ({
+          name: item.name,
+          value: item.id,
+          url: item.url, // optional
+        })),
+      };
+    },
+  },
+};
+```

@@ -1,0 +1,42 @@
+---
+globs: *.ts,*.tsx
+---
+
+# TypeScript and Node.js Standards
+
+## Code Style
+- Always use semicolons
+- Use single quotes for strings unless interpolation is needed
+- Use tabs for indentation (as per existing codebase)
+- Prefer `const` over `let` when possible
+- Use explicit return types for public methods
+
+## Type Safety
+- Import types from [enums.ts](mdc:nodes/help/type/enums.ts) for consistency
+- Use n8n workflow types: `IExecuteFunctions`, `INodeExecutionData`, `INodeTypeDescription`
+- Define proper interfaces for API responses
+- Use strict null checks
+
+## Error Handling
+- Use `NodeOperationError` for user-facing errors
+- Implement proper try-catch blocks in async operations
+- Log errors with context using `this.logger.error()`
+- Handle API rate limits and retry logic
+
+## Imports Organization
+```typescript
+// 1. n8n imports first
+import { IExecuteFunctions, INodeType } from 'n8n-workflow';
+
+// 2. Local utilities and helpers
+import RequestUtils from '../help/utils/RequestUtils';
+import { Credentials, ResourceType } from '../help/type/enums';
+
+// 3. Resource-specific imports
+import { ResourceOperation } from './types';
+```
+
+## Async/Await Patterns
+- Always use async/await over Promises
+- Handle errors properly with try-catch
+- Use Promise.all() for parallel operations when safe

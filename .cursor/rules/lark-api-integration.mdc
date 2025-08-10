@@ -1,0 +1,104 @@
+---
+description: 'Lark/Feishu API integration patterns and conventions'
+---
+
+# Lark/Feishu API Integration Guide
+
+## Authentication
+
+Two authentication methods are supported:
+
+- **Tenant Token**: App-level access using [LarkTokenApi.credentials.ts](mdc:credentials/LarkTokenApi.credentials.ts)
+- **OAuth2**: User-level access using [LarkOAuth2Api.credentials.ts](mdc:credentials/LarkOAuth2Api.credentials.ts)
+
+## API Request Patterns
+
+Always use [RequestUtils.ts](mdc:nodes/help/utils/RequestUtils.ts) for API calls:
+
+```typescript
+import RequestUtils from '../help/utils/RequestUtils';
+
+const response = await RequestUtils.request.call(this, {
+	method: 'GET',
+	url: '/open-apis/resource/endpoint',
+	qs: { param: 'value' },
+	body: requestBody,
+});
+```
+
+## Base URLs
+
+- China: `https://open.feishu.cn`
+- Global: `https://open.larksuite.com`
+
+Configured in credentials and automatically used by RequestUtils.
+
+## Common API Patterns
+
+### Pagination
+
+```typescript
+let hasMore = true;
+let pageToken = '';
+const allItems: IDataObject[] = [];
+
+do {
+	const {
+		data: { has_more, page_token, items },
+	} = await RequestUtils.request.call(this, {
+		method: 'GET',
+		url: '/open-apis/endpoint',
+		qs: {
+			page_size: 100,
+			...(pageToken && { page_token: pageToken }),
+		},
+	});
+
+	hasMore = has_more;
+	pageToken = page_token;
+	if (items) allItems.push(...items);
+} while (hasMore);
+```
+
+### File Operations
+
+```typescript
+// File upload with form-data
+const formData = new FormData();
+formData.append('file', buffer, filename);
+
+// Binary download
+const data = await RequestUtils.request.call(this, {
+	method: 'GET',
+	url: '/open-apis/endpoint',
+	encoding: 'arraybuffer',
+	json: false,
+});
+```
+
+## Resource Types
+
+Defined in [enums.ts](mdc:nodes/help/type/enums.ts):
+
+- `Base` - Multi-dimensional tables (Bitable)
+- `Calendar` - Calendar and events
+- `Document` - Documents and blocks
+- `Message` - Messaging operations
+- `Spreadsheet` - Spreadsheet operations
+- `Space` - Cloud storage
+- `Contacts` - User information
+- `Task` - Task management
+- `Wiki` - Wiki spaces
+
+## Error Handling
+
+Lark API returns structured errors:
+
+```json
+{
+	"code": 99991663, // Token expired
+	"msg": "error message"
+}
+```
+
+RequestUtils automatically handles token refresh for code `99991663`.
