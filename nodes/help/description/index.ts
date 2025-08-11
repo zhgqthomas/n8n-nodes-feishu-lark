@@ -5,6 +5,7 @@ export const DESCRIPTIONS = {
 		displayName: 'Sync Token(增量同步标记)',
 		name: 'sync_token',
 		type: 'string',
+		typeOptions: { password: true },
 		default: '',
 		description: 'Incremental synchronization mark, not filled in for the first request',
 	},
@@ -1149,5 +1150,72 @@ export const DESCRIPTIONS = {
 		type: 'boolean',
 		default: true,
 		description: 'Whether to ignore consistency checks',
+	},
+
+	CALENDAR_EVENT_ATTENDEES: {
+		displayName: 'Attendees(参与人列表)',
+		name: 'attendees',
+		type: 'json',
+		default: '[]',
+		required: true,
+		description: 'List of attendees to add to the event',
+	},
+
+	INSTANCE_START_TIME_ADMIN: {
+		displayName: 'Instance Start Time Admin(重复日程实例时间戳)',
+		name: 'instance_start_time_admin',
+		type: 'string',
+		default: '',
+		description: 'This parameter is only used to modify a event instance in a repeating event. This field does not need to be filled in for non-repeating events.',
+	},
+
+	IS_ENABLE_ADMIN: {
+		displayName: 'Enable Admin(启用会议室管理员身份)',
+		name: 'is_enable_admin',
+		type: 'boolean',
+		default: false,
+		description: 'Whether to enable the meeting room administrator status (you need to set a member as the meeting room administrator in the management background first)',
+	},
+
+	ADD_OPERATOR_TO_ATTENDEE: {
+		displayName: 'Add Operator to Attendee(添加操作人为参与人)',
+		name: 'add_operator_to_attendee',
+		type: 'boolean',
+		default: false,
+		description: 'Whether to add the meeting room contact (operate_id) to the schedule invitees',
+	},
+
+	CALENDAR_EVENT_ATTENDEE_IDS: {
+		displayName: 'Attendee IDs(需删除的参与人 ID 列表)',
+		name: 'attendee_ids',
+		type: 'json',
+		default: '[]',
+		required: true,
+		description: 'List of attendee IDs to delete',
+	},
+
+	CALENDAR_EVENT_DELETE_IDS: {
+		displayName: 'Delete IDs(参与人类型对应的 ID 列表)',
+		name: 'delete_ids',
+		type: 'json',
+		default: '[]',
+		description: 'The ID corresponding to the invitee type, which is a supplementary field to the attendee_ids field',
+	},
+
+	NEED_RESOURCE_CUSTOMIZATION: {
+		displayName: 'Need Resource Customization(是否需要会议室表单信息)',
+		name: 'need_resource_customization',
+		type: 'boolean',
+		default: false,
+		description: 'Whether meeting room form information is required',
+	},
+
+	MEETING_CHAT_ID: {
+		displayName: 'Meeting Chat ID(会议群 ID)',
+		name: 'meeting_chat_id',
+		type: 'string',
+		required: true,
+		default: '',
+		description: 'The group ID is returned when the group is created',
 	},
 };

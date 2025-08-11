@@ -112,6 +112,11 @@ export const WORDING = {
 	CalendarEventGet: 'Get Event | 获取日程',
 	CalendarEventGetList: 'Get Event List | 获取日程列表',
 	CalendarEventUpdate: 'Update Event | 更新日程',
+	CalendarEventAttendeeCreate: 'Create Event Attendee | 添加日程参与人',
+	CalendarEventAttendeeDelete: 'Delete Event Attendee | 删除日程参与人',
+	CalendarEventAttendeeGetList: 'Get Event Attendee List | 获取日程参与人列表',
+	CalendarMeetingChatCreate: 'Create Meeting Chat | 创建会议群',
+	CalendarMeetingChatUnbind: 'Unbind Meeting Chat | 解绑会议群',
 
 	// Common
 	Options: 'Options(选项)',

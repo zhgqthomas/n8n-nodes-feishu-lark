@@ -136,6 +136,11 @@ export declare const enum OperationType {
 	GetCalendarEvent = 'getEvent',
 	GetCalendarEventList = 'getEventList',
 	UpdateCalendarEvent = 'updateEvent',
+	CreateCalendarEventAttendee = 'createEventAttendee',
+	DeleteCalendarEventAttendee = 'deleteEventAttendee',
+	GetCalendarEventAttendeeList = 'getEventAttendeeList',
+	CreateCalendarMeetingChat = 'createMeetingChat',
+	UnbindCalendarMeetingChat = 'unbindMeetingChat',
 }
 
 export declare const enum OutputType {
