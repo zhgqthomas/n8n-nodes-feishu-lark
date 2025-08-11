@@ -123,9 +123,9 @@ export class LarkTrigger implements INodeType {
 
 					donePromise = this.helpers.createDeferredPromise<IRun>();
 					this.emit([this.helpers.returnJsonArray(data)], undefined, donePromise);
-					if (donePromise) {
-						await donePromise.promise;
-					}
+					// if (donePromise) {
+					// 	await donePromise.promise;
+					// }
 
 					this.logger.info(`Handled event: ${event}`);
 				};
