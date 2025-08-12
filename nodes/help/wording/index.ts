@@ -65,6 +65,9 @@ export const WORDING = {
 	UploadFile: 'Upload File | 上传文件',
 	DownloadFile: 'Download File | 下载文件',
 
+	UpdateCardMessage: 'Update Card Message | 更新卡片消息',
+
+
 	// Document
 	CreateDocument: 'Create | 创建文档',
 	GetDocumentInfo: 'Get Info | 获取文档信息',

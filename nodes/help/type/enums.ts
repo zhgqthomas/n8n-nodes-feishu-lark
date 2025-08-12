@@ -92,6 +92,8 @@ export declare const enum OperationType {
 	UploadFile = 'uploadFile',
 	DownloadFile = 'downloadFile',
 
+	UpdateCardMessage = 'updateCardMessage',
+
 	// Document
 	CreateDocument = 'create',
 	GetDocumentInfo = 'get',
