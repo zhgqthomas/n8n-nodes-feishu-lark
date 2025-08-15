@@ -125,4 +125,15 @@ export const WORDING = {
 	Options: 'Options(选项)',
 	AddField: 'Add Field | 添加字段',
 	OpenDocument: 'Open official document | 浏览官方文档',
+
+
+	// Card
+	CardAddElement: "Add Element | 卡片新增组件",
+	CardUpdateElement: "Update Element | 卡片更新组件",
+	CardUpdateElementValue: "Update Element Value | 卡片更新组件属性",
+	CardDeleteElement: "Delete Element | 卡片删除组件",
+
+	// Custom
+	CustomApiRequest: 'Custom Api Request | 自定义 API 请求',
+
 };
