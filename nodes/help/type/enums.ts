@@ -25,6 +25,9 @@ export declare const enum ResourceType {
 	Space = 'space',
 	Task = 'task',
 	Wiki = 'wiki_spaces',
+	Card = 'card',
+	Custom = 'custom',
+
 }
 
 export declare const enum OperationType {
@@ -143,6 +146,16 @@ export declare const enum OperationType {
 	GetCalendarEventAttendeeList = 'getEventAttendeeList',
 	CreateCalendarMeetingChat = 'createMeetingChat',
 	UnbindCalendarMeetingChat = 'unbindMeetingChat',
+
+	// Card
+	CardAddElement = 'CardAddElement',
+	CardUpdateElement = 'CardUpdateElement',
+	CardUpdateElementValue = 'CardUpdateElementValue',
+	CardDeleteElement = 'CardDeleteElement',
+
+	// Custom
+	CustomApiRequest = 'CustomApiRequest'
+
 }
 
 export declare const enum OutputType {

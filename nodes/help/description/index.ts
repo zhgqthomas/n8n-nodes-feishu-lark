@@ -1218,4 +1218,146 @@ export const DESCRIPTIONS = {
 		default: '',
 		description: 'The group ID is returned when the group is created',
 	},
+
+
+	CARD_ID: {
+		displayName: 'Card ID(卡片 ID)',
+		name: 'card_id',
+		type: 'string',
+		default: '',
+		description: '要新增组件的卡片实体 ID。通过创建卡片实体获取',
+	},
+
+	CARD_INSERT_TYPE: {
+		displayName: 'Card Insert Type',
+		name: 'type',
+		type: 'string',
+		default: '',
+		description: '添加组件的方式。',
+	},
+
+	CARD_SEQUENCE: {
+		displayName: 'Card Sequence(卡片更新的时序)',
+		name: 'sequence',
+		type: 'number',
+		default: 0,
+		description: '操作卡片的序号。用于保证多次更新的时序性。',
+	},
+
+	CARD_ELEMENTS: {
+		displayName: 'Card Elements(卡片组件列表)',
+		name: 'elements',
+		type: 'json',
+		default: '',
+		description: '添加的组件列表。',
+	},
+
+	CARD_ELEMENT: {
+		displayName: 'Card Elements(卡片组件)',
+		name: 'element',
+		type: 'json',
+		default: '',
+		description: '卡片组件',
+	},
+
+	CARD_ELEMENT_ID: {
+		displayName: 'Card Element ID(卡片组件 ID)',
+		name: 'element_id',
+		type: 'string',
+		default: '',
+		description: '要更新的组件的 ID。对应 JSON 代码中的 element_id 属性，由开发者自定义。',
+	},
+
+	CARD_TARGET_ELEMENT_ID: {
+		displayName: 'Card Target Element ID(卡片目标组件 ID)',
+		name: 'target_element_id',
+		type: 'string',
+		default: '',
+		description: '要更新的组件的 ID。对应 JSON 代码中的 element_id 属性，由开发者自定义。',
+	},
+
+	CUSTOM_PATH: {
+		displayName: 'Http Path(自定义路径)',
+		name: 'path',
+		type: 'string',
+		default: '',
+		description: '自定义请求路径 例: /open-apis/im/v1/messages',
+	},
+
+	CUSTOM_METHOD: {
+		displayName: 'Http Method(自定义方法)',
+		name: 'method',
+		default: 'GET',
+		required: true,
+		type: 'options',
+		options: [
+			{ name: 'GET', value: 'GET' },
+			{ name: 'POST', value: 'POST' },
+			{ name: 'PUT', value: 'PUT' },
+			{ name: 'DELETE', value: 'DELETE' },
+			{ name: 'PATCH', value: 'PATCH' },
+			{ name: 'OPTIONS', value: 'OPTIONS' },
+			{ name: 'HEAD', value: 'HEAD' },
+			{ name: 'TRACE', value: 'TRACE' },
+			{ name: 'CONNECT', value: 'CONNECT' },
+			{ name: 'COPY', value: 'COPY' },
+			{ name: 'LOCK', value: 'LOCK' },
+			{ name: 'MKCOL', value: 'MKCOL' },
+			{ name: 'MOVE', value: 'MOVE' },
+			{ name: 'PROPFIND', value: 'PROPFIND' },
+			{ name: 'PROPPATCH', value: 'PROPPATCH' },
+			{ name: 'SEARCH', value: 'SEARCH' },
+			{ name: 'UNLOCK', value: 'UNLOCK' },
+			{ name: 'VIEW', value: 'VIEW' },
+			{ name: 'REPORT', value: 'REPORT' },
+			{ name: 'MKACTIVITY', value: 'MKACTIVITY' },
+			{ name: 'CHECKOUT', value: 'CHECKOUT' },
+			{ name: 'CHECKIN', value: 'CHECKIN' },
+			{ name: 'MERGE', value: 'MERGE' },
+			{ name: 'MSEARCH', value: 'MSEARCH' },
+			{ name: 'NOTIFY', value: 'NOTIFY' },
+			{ name: 'SUBSCRIBE', value: 'SUBSCRIBE' },
+			{ name: 'UNSUBSCRIBE', value: 'UNSUBSCRIBE' },
+			{ name: 'COPY', value: 'COPY' },
+			{ name: 'LOCK', value: 'LOCK' },
+			{ name: 'MKCOL', value: 'MKCOL' },
+			{ name: 'MOVE', value: 'MOVE' },
+			{ name: 'PROPFIND', value: 'PROPFIND' },
+			{ name: 'PROPPATCH', value: 'PROPPATCH' },
+			{ name: 'SEARCH', value: 'SEARCH' },
+			{ name: 'UNLOCK', value: 'UNLOCK' },
+			{ name: 'VIEW', value: 'VIEW' },
+			{ name: 'REPORT', value: 'REPORT' },
+			{ name: 'MKACTIVITY', value: 'MKACTIVITY' },
+			{ name: 'CHECKOUT', value: 'CHECKOUT' },
+			{ name: 'CHECKIN', value: 'CHECKIN' },
+			{ name: 'MERGE', value: 'MERGE' },
+			{ name: 'MSEARCH', value: 'MSEARCH' },
+			{ name: 'NOTIFY', value: 'NOTIFY' },
+			{ name: 'SUBSCRIBE', value: 'SUBSCRIBE' },
+			{ name: 'UNSUBSCRIBE', value: 'UNSUBSCRIBE' },
+
+
+		],
+		description: '自定义请求方法',
+	},
+
+	CUSTOM_BODY: {
+		displayName: 'Http Body(自定义请求体)',
+		name: 'body',
+		type: 'json',
+		default: '{}',
+		description: '自定义请求体',
+	},
+
+
+
+	CUSTOM_QUERY: {
+		displayName: 'Http Query(自定义查询参数)',
+		name: 'query',
+		type: 'json',
+		default: '{}',
+		description: '自定义查询参数',
+	},
+
 };
