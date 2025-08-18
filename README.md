@@ -1,3 +1,6 @@
+本项目是基于 [n8n-nodes-feishu-lark](https://github.com/zhgqthomas/n8n-nodes-feishu-lark) 进行开发自用。
+
+
 [English](https://github.com/zhgqthomas/n8n-nodes-feishu-lark/blob/main/README-EN.md)
 
 # n8n-nodes-feishu-lark
