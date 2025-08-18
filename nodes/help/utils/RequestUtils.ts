@@ -45,29 +45,38 @@ class RequestUtils {
 	static async request(this: IExecuteFunctions, options: IHttpRequestOptions) {
 		if (options.json === undefined) options.json = true;
 
-		return RequestUtils.originRequest.call(this, options).catch((error) => {
-			if (error.context && error.context.data) {
-				let errorData: any = {};
-				if (error.context.data.code) {
-					errorData = error.context.data;
-				} else {
-					// the context data is in array buffer format for download resource operation
-					errorData = JSON.parse(Buffer.from(error.context.data).toString('utf-8'));
+		return RequestUtils.originRequest
+			.call(this, options)
+			.then((res) => {
+				if (res.code !== 0) {
+					throw new Error(`Request Lark API Error: ${res.code}, ${res.msg}`);
 				}
 
-				const { code, msg } = errorData;
+				return res;
+			})
+			.catch((error) => {
+				if (error.context && error.context.data) {
+					let errorData: any = {};
+					if (error.context.data.code) {
+						errorData = error.context.data;
+					} else {
+						// the context data is in array buffer format for download resource operation
+						errorData = JSON.parse(Buffer.from(error.context.data).toString('utf-8'));
+					}
 
-				if (code === 99991663) {
-					return RequestUtils.originRequest.call(this, options, true);
+					const { code, msg } = errorData;
+
+					if (code === 99991663) {
+						return RequestUtils.originRequest.call(this, options, true);
+					}
+
+					if (code !== 0) {
+						throw new Error(`Request Lark API Error: ${code}, ${msg}`);
+					}
 				}
 
-				if (code !== 0) {
-					throw new Error(`Request Lark API Error: ${code}, ${msg}`);
-				}
-			}
-
-			throw error;
-		});
+				throw error;
+			});
 	}
 }
 

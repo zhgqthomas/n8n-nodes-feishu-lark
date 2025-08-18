@@ -64,9 +64,9 @@ export const WORDING = {
 	DownloadImage: 'Download Image | 下载图片',
 	UploadFile: 'Upload File | 上传文件',
 	DownloadFile: 'Download File | 下载文件',
-
-	UpdateCardMessage: 'Update Card Message | 更新卡片消息',
-
+	SendMessageCard: 'Send Card Message | 发送卡片消息',
+	UpdateMessageCard: 'Update Card Message | 更新卡片消息',
+	DeleteMessageCard: 'Delete Card Message | 删除卡片消息',
 
 	// Document
 	CreateDocument: 'Create | 创建文档',

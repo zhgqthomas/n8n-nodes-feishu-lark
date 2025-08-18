@@ -1,6 +1,14 @@
 import { FileType, MessageType } from '../type/enums';
 
 export const DESCRIPTIONS = {
+	CHAT_ID: {
+		displayName: 'Chat ID(聊天 ID)',
+		name: 'chat_id',
+		type: 'string',
+		required: true,
+		default: '',
+	},
+
 	SYNC_TOKEN: {
 		displayName: 'Sync Token(增量同步标记)',
 		name: 'sync_token',
@@ -642,7 +650,7 @@ export const DESCRIPTIONS = {
 		displayName: 'Message Content(消息内容)',
 		name: 'content',
 		type: 'json',
-		default: '{}',
+		default: '',
 		required: true,
 	},
 
@@ -1166,7 +1174,8 @@ export const DESCRIPTIONS = {
 		name: 'instance_start_time_admin',
 		type: 'string',
 		default: '',
-		description: 'This parameter is only used to modify a event instance in a repeating event. This field does not need to be filled in for non-repeating events.',
+		description:
+			'This parameter is only used to modify a event instance in a repeating event. This field does not need to be filled in for non-repeating events.',
 	},
 
 	IS_ENABLE_ADMIN: {
@@ -1174,7 +1183,8 @@ export const DESCRIPTIONS = {
 		name: 'is_enable_admin',
 		type: 'boolean',
 		default: false,
-		description: 'Whether to enable the meeting room administrator status (you need to set a member as the meeting room administrator in the management background first)',
+		description:
+			'Whether to enable the meeting room administrator status (you need to set a member as the meeting room administrator in the management background first)',
 	},
 
 	ADD_OPERATOR_TO_ATTENDEE: {
@@ -1199,7 +1209,8 @@ export const DESCRIPTIONS = {
 		name: 'delete_ids',
 		type: 'json',
 		default: '[]',
-		description: 'The ID corresponding to the invitee type, which is a supplementary field to the attendee_ids field',
+		description:
+			'The ID corresponding to the invitee type, which is a supplementary field to the attendee_ids field',
 	},
 
 	NEED_RESOURCE_CUSTOMIZATION: {
