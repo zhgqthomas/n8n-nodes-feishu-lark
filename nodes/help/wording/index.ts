@@ -67,6 +67,7 @@ export const WORDING = {
 	SendMessageCard: 'Send Card Message | 发送卡片消息',
 	UpdateMessageCard: 'Update Card Message | 更新卡片消息',
 	DeleteMessageCard: 'Delete Card Message | 删除卡片消息',
+	SendAndWaitMessage: 'Send and Wait for Response',
 
 	// Document
 	CreateDocument: 'Create | 创建文档',

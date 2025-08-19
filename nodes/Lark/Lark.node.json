@@ -1,11 +1,12 @@
 {
-	"node": "n8n-nodes-lark-feishu.lark",
+	"node": "n8n-nodes-feishu-lark.lark",
 	"nodeVersion": "1.0",
 	"codexVersion": "1.0",
 	"categories": ["Communication", "HITL"],
 	"subcategories": {
 		"HITL": ["Human in the Loop"]
 	},
+	"alias": ["human", "form", "wait", "hitl", "approval"],
 	"resources": {
 		"credentialDocumentation": [
 			{

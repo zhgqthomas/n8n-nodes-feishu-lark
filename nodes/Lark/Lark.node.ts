@@ -21,6 +21,7 @@ import {
 	larkApiRequestTableFieldList,
 	larkApiRequestTableList,
 	larkApiRequestTableViewList,
+	sendAndWaitWebhook,
 } from './GenericFunctions';
 import RequestUtils from '../help/utils/RequestUtils';
 
@@ -60,6 +61,26 @@ export class Lark implements INodeType {
 						authentication: [Credentials.UserToken],
 					},
 				},
+			},
+		],
+		webhooks: [
+			{
+				name: 'default',
+				httpMethod: 'GET',
+				responseMode: 'onReceived',
+				responseData: '',
+				path: '={{ $nodeId }}',
+				restartWebhook: true,
+				isFullPath: true,
+			},
+			{
+				name: 'default',
+				httpMethod: 'POST',
+				responseMode: 'onReceived',
+				responseData: '',
+				path: '={{ $nodeId }}',
+				restartWebhook: true,
+				isFullPath: true,
 			},
 		],
 		properties: resourceBuilder.build(),
@@ -302,6 +323,8 @@ export class Lark implements INodeType {
 			},
 		},
 	};
+
+	webhook = sendAndWaitWebhook;
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		const items = this.getInputData();

@@ -1075,7 +1075,7 @@ export const DESCRIPTIONS = {
 	},
 
 	REQUEST_ID: {
-		displayName: 'Request ID(请求 ID)',
+		displayName: 'Request ID',
 		name: 'request_id',
 		type: 'string',
 		default: '',
