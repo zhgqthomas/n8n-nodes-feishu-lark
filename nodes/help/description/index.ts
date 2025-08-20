@@ -1071,7 +1071,7 @@ export const DESCRIPTIONS = {
 		name: 'body',
 		type: 'json',
 		required: true,
-		default: '{}',
+		default: '',
 	},
 
 	REQUEST_ID: {
