@@ -500,6 +500,15 @@ const approvalOptionsValues = [
 	},
 ].filter((p) => Object.keys(p).length) as INodeProperties[];
 
+const messageIdSaveKey = {
+	displayName: 'Message ID Save Key',
+	name: 'messageIdSaveKey',
+	type: 'string',
+	default: '',
+	description:
+		'The key for saving the message ID to the custom execution data. <a target="_blank" href="https://docs.n8n.io/workflows/executions/custom-executions-data/">Open Doc</a>.',
+} as INodeProperties;
+
 export const sendAndWaitProperties: INodeProperties[] = [
 	{
 		displayName: 'Subject',
@@ -575,7 +584,7 @@ export const sendAndWaitProperties: INodeProperties[] = [
 		type: 'collection',
 		placeholder: 'Add option',
 		default: {},
-		options: [limitWaitTimeOption, DESCRIPTIONS.REQUEST_ID as INodeProperties],
+		options: [messageIdSaveKey, limitWaitTimeOption, DESCRIPTIONS.REQUEST_ID as INodeProperties],
 		displayOptions: {
 			show: {
 				responseType: ['approval'],
@@ -626,6 +635,7 @@ export const sendAndWaitProperties: INodeProperties[] = [
 				type: 'string',
 				default: '',
 			},
+			messageIdSaveKey,
 			limitWaitTimeOption,
 			DESCRIPTIONS.REQUEST_ID as INodeProperties,
 		],

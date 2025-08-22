@@ -37,9 +37,12 @@ export default {
 			extractValue: true,
 		}) as string;
 		const options = this.getNodeParameter('options', index, {}) as IDataObject;
-		const uuid = options.request_id as string | undefined;
+		const uuid = (options.request_id as string) || undefined;
+		const messageIdSaveKey = (options.messageIdSaveKey as string) || undefined;
 
-		await RequestUtils.request.call(this, {
+		const {
+			data: { message_id },
+		} = await RequestUtils.request.call(this, {
 			method: 'POST',
 			url: `/open-apis/im/v1/messages`,
 			qs: {
@@ -52,6 +55,10 @@ export default {
 				...(uuid && { uuid }),
 			},
 		});
+
+		if (messageIdSaveKey) {
+			this.getWorkflowDataProxy(0).$execution.customData.set(messageIdSaveKey, message_id);
+		}
 
 		const waitTill = configureWaitTillDate(this);
 		await this.putExecutionToWait(waitTill);
