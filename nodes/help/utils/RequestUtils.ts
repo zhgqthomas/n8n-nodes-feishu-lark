@@ -1,4 +1,4 @@
-import { IExecuteFunctions, IHttpRequestOptions } from 'n8n-workflow';
+import { IExecuteFunctions, IHttpRequestOptions, JsonObject, NodeApiError } from 'n8n-workflow';
 import { Credentials } from '../type/enums';
 
 class RequestUtils {
@@ -64,14 +64,21 @@ class RequestUtils {
 						errorData = JSON.parse(Buffer.from(error.context.data).toString('utf-8'));
 					}
 
-					const { code, msg } = errorData;
+					const {
+						code,
+						msg,
+						error: { troubleshooter },
+					} = errorData;
 
 					if (code === 99991663) {
 						return RequestUtils.originRequest.call(this, options, true);
 					}
 
 					if (code !== 0) {
-						throw new Error(`Request Lark API Error: ${code}, ${msg}`);
+						throw new NodeApiError(this.getNode(), error as JsonObject, {
+							message: `Request Lark API Error: ${code}, ${msg}`,
+							description: troubleshooter || '',
+						});
 					}
 				}
 
