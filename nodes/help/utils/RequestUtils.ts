@@ -1,4 +1,4 @@
-import { IExecuteFunctions, IHttpRequestOptions, JsonObject, NodeApiError } from 'n8n-workflow';
+import { IExecuteFunctions, IHttpRequestOptions } from 'n8n-workflow';
 import { Credentials } from '../type/enums';
 
 class RequestUtils {
@@ -71,10 +71,7 @@ class RequestUtils {
 					}
 
 					if (code !== 0) {
-						throw new NodeApiError(this.getNode(), error as JsonObject, {
-							message: `Request Lark API Error: ${code}`,
-							description: msg,
-						});
+						throw new Error(`Request Lark API Error: ${code}, ${msg}`);
 					}
 				}
 

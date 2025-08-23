@@ -90,14 +90,6 @@ export const DESCRIPTIONS = {
 		],
 	},
 
-	USER_ID: {
-		displayName: 'User ID(用户 ID)',
-		name: 'user_id',
-		type: 'string',
-		default: '',
-		required: true,
-	},
-
 	ONLY_BUSY: {
 		displayName: 'Only Busy(是否只查询忙碌日程信息)',
 		name: 'only_busy',

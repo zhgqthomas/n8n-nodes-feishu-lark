@@ -1,5 +1,6 @@
 /* eslint-disable n8n-nodes-base/node-param-type-options-password-missing */
 import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
+import { DateTime } from 'luxon';
 import { ResourceOperation } from '../../../help/type/IResource';
 import RequestUtils from '../../../help/utils/RequestUtils';
 import { WORDING } from '../../../help/wording';
@@ -78,8 +79,8 @@ export default {
 					...(anchorTime && { anchor_time: anchorTime }),
 					...(pageToken && { page_token: pageToken }),
 					...(syncToken && { sync_token: syncToken }),
-					...(startTime && { start_time: new Date(startTime).toISOString() }),
-					...(endTime && { end_time: new Date(endTime).toISOString() }),
+					...(startTime && { start_time: DateTime.fromISO(startTime).toUnixInteger() }),
+					...(endTime && { end_time: DateTime.fromISO(endTime).toUnixInteger() }),
 				},
 			});
 

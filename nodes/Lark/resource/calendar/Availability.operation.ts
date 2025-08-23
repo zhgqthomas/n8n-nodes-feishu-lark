@@ -1,4 +1,5 @@
 import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
+import { DateTime } from 'luxon';
 import { ResourceOperation } from '../../../help/type/IResource';
 import RequestUtils from '../../../help/utils/RequestUtils';
 import { WORDING } from '../../../help/wording';
@@ -11,7 +12,11 @@ export default {
 	order: 193,
 	options: [
 		DESCRIPTIONS.USER_ID_TYPE,
-		DESCRIPTIONS.USER_ID,
+		{
+			...DESCRIPTIONS.MEMBER_ID,
+			displayName: 'User ID(用户 ID)',
+			name: 'user_id',
+		},
 		DESCRIPTIONS.START_TIME,
 		DESCRIPTIONS.END_TIME,
 		{
@@ -31,7 +36,9 @@ export default {
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
 		const userIdType = this.getNodeParameter('user_id_type', index, 'open_id') as string;
-		const userId = this.getNodeParameter('user_id', index) as string;
+		const userId = this.getNodeParameter('user_id', index, undefined, {
+			extractValue: true,
+		}) as string;
 		const startTime = this.getNodeParameter('start_time', index, '') as string;
 		const endTime = this.getNodeParameter('end_time', index, '') as string;
 		const options = this.getNodeParameter('options', index, {}) as IDataObject;
@@ -46,8 +53,8 @@ export default {
 			},
 			body: {
 				user_id: userId,
-				time_min: new Date(startTime).toISOString(),
-				time_max: new Date(endTime).toISOString(),
+				time_min: DateTime.fromISO(startTime).toISO(),
+				time_max: DateTime.fromISO(endTime).toISO(),
 				include_external_calendar: includeExternalCalendar,
 				only_busy: onlyBusy,
 			},
