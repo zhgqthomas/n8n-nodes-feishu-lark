@@ -64,11 +64,7 @@ class RequestUtils {
 						errorData = JSON.parse(Buffer.from(error.context.data).toString('utf-8'));
 					}
 
-					const {
-						code,
-						msg,
-						error: { troubleshooter },
-					} = errorData;
+					const { code, msg, error: larkError } = errorData;
 
 					if (code === 99991663) {
 						return RequestUtils.originRequest.call(this, options, true);
@@ -77,7 +73,7 @@ class RequestUtils {
 					if (code !== 0) {
 						throw new NodeApiError(this.getNode(), error as JsonObject, {
 							message: `Request Lark API Error: ${code}, ${msg}`,
-							description: troubleshooter || '',
+							description: larkError?.troubleshooter || '',
 						});
 					}
 				}

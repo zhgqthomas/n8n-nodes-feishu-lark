@@ -6,31 +6,28 @@ import { OperationType } from '../../../help/type/enums';
 import { DESCRIPTIONS } from '../../../help/description';
 
 export default {
-	name: WORDING.DeleteDimension,
-	value: OperationType.DeleteDimension,
-	order: 167,
+	name: WORDING.CreateDimension,
+	value: OperationType.CreateDimension,
+	order: 161,
 	options: [
 		DESCRIPTIONS.SPREADSHEET_ID,
 		DESCRIPTIONS.SHEET_ID,
 		DESCRIPTIONS.MAJOR_DIMENSION,
 		{
-			...DESCRIPTIONS.START_INDEX,
+			displayName: 'Length(长度)',
+			name: 'length',
+			type: 'number',
+			required: true,
+			description: 'The number of rows or columns to be added. The value range is (0,5000].',
 			default: 1,
 			typeOptions: {
 				minValue: 1,
+				maxValue: 5000,
 				numberPrecision: 0,
 			},
 		},
 		{
-			...DESCRIPTIONS.END_INDEX,
-			default: 1,
-			typeOptions: {
-				minValue: 1,
-				numberPrecision: 0,
-			},
-		},
-		{
-			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/sheets-v3/sheet-rowcol/-delete-rows-or-columns">${WORDING.OpenDocument}</a>`,
+			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/sheets-v3/sheet-rowcol/add-rows-or-columns">${WORDING.OpenDocument}</a>`,
 			name: 'notice',
 			type: 'notice',
 			default: '',
@@ -43,21 +40,19 @@ export default {
 		const sheetId = this.getNodeParameter('sheet_id', index, undefined, {
 			extractValue: true,
 		}) as string;
-		const majorDimension = this.getNodeParameter('majorDimension', index) as string;
-		const startIndex = this.getNodeParameter('startIndex', index) as number;
-		const endIndex = this.getNodeParameter('endIndex', index) as number;
+		const majorDimension = this.getNodeParameter('majorDimension', index, 'ROWS') as string;
+		const length = this.getNodeParameter('length', index, 1) as number;
 
 		const body: IDataObject = {
 			dimension: {
 				sheetId,
 				majorDimension,
-				startIndex,
-				endIndex,
+				length,
 			},
 		};
 
 		const { data } = await RequestUtils.request.call(this, {
-			method: 'DELETE',
+			method: 'POST',
 			url: `/open-apis/sheets/v2/spreadsheets/${spreadsheet_id}/dimension_range`,
 			body,
 		});

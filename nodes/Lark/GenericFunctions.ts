@@ -28,6 +28,20 @@ import { ACTION_RECORDED_PAGE } from '../help/templates';
 
 const INPUT_FIELD_IDENTIFIER = 'field-0';
 
+export async function larkApiRequestSheetList(
+	this: IExecuteFunctions,
+	spreadsheetId: string,
+): Promise<IDataObject[]> {
+	const {
+		data: { sheets },
+	} = await RequestUtils.request.call(this, {
+		method: 'GET',
+		url: `/open-apis/sheets/v3/spreadsheets/${spreadsheetId}/sheets/query`,
+	});
+
+	return sheets;
+}
+
 export async function larkApiRequestCalendarEventList(
 	this: IExecuteFunctions,
 	options: IDataObject,

@@ -1,70 +1,49 @@
 import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
+import { WORDING } from '../../../help/wording';
+import { OperationType } from '../../../help/type/enums';
+import { DESCRIPTIONS } from '../../../help/description';
 
 export default {
-	name: '移动行列',
-	value: 'moveDimension',
-	order: 90,
+	name: WORDING.MoveDimension,
+	value: OperationType.MoveDimension,
+	order: 168,
 	options: [
+		DESCRIPTIONS.SPREADSHEET_ID,
+		DESCRIPTIONS.SHEET_ID,
+		DESCRIPTIONS.MAJOR_DIMENSION,
+		DESCRIPTIONS.START_INDEX,
+		DESCRIPTIONS.END_INDEX,
 		{
-			displayName: '电子表格 Token',
-			name: 'spreadsheet_toke',
-			type: 'string',
-			required: true,
-			default: '',
-			description: '电子表格的 token。',
-		},
-		{
-			displayName: '工作表 ID',
-			name: 'sheet_id',
-			type: 'string',
-			required: true,
-			default: '',
-			description: '工作表的 ID。',
-		},
-		{
-			displayName: '移动的维度',
-			name: 'major_dimension',
-			type: 'options',
-			options: [
-				{ name: '行', value: 'ROWS' },
-				{ name: '列', value: 'COLUMNS' },
-			],
-			required: true,
-			default: 'ROWS',
-			description: '移动的维度。',
-		},
-		{
-			displayName: '起始位置',
-			name: 'start_index',
-			type: 'number',
-			default: 0,
-			description: '要移动的行或列的起始位置。从 0 开始计数。',
-		},
-		{
-			displayName: '结束位置',
-			name: 'end_index',
-			type: 'number',
-			default: 0,
-			description: '要移动的行或列结束的位置。从 0 开始计数。',
-		},
-		{
-			displayName: '目标位置',
+			displayName: 'Destination Index(目标位置)',
 			name: 'destination_index',
 			type: 'number',
-			default: null,
-			required: true,
-			description: '移动的目标位置行或者列。',
+			default: 0,
+			typeOptions: {
+				minValue: 0,
+				numberPrecision: 0,
+			},
+			description: 'The target position of the row or column to be moved',
+		},
+		{
+			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/sheets-v3/sheet-rowcol/move_dimension">${WORDING.OpenDocument}</a>`,
+			name: 'notice',
+			type: 'notice',
+			default: '',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
-		const spreadsheet_token = this.getNodeParameter('spreadsheet_toke', index) as string;
-		const sheet_id = this.getNodeParameter('sheet_id', index) as string;
-		const major_dimension = this.getNodeParameter('major_dimension', index) as string;
-		const start_index = this.getNodeParameter('start_index', index) as number;
-		const end_index = this.getNodeParameter('end_index', index) as number;
-		const destination_index = this.getNodeParameter('destination_index', index) as number;
+		const spreadsheet_id = this.getNodeParameter('spreadsheet_id', index, undefined, {
+			extractValue: true,
+		}) as string;
+		const sheetId = this.getNodeParameter('sheet_id', index, undefined, {
+			extractValue: true,
+		}) as string;
+		const major_dimension = this.getNodeParameter('majorDimension', index, 'ROWS') as string;
+		const start_index = this.getNodeParameter('startIndex', index, 0) as number;
+		const end_index = this.getNodeParameter('end_index', index, 0) as number;
+		const destination_index = this.getNodeParameter('destination_index', index, 0) as number;
 
 		const body: IDataObject = {
 			source: {
@@ -75,10 +54,14 @@ export default {
 			destination_index,
 		};
 
-		return RequestUtils.request.call(this, {
+		await RequestUtils.request.call(this, {
 			method: 'POST',
-			url: `/open-apis/sheets/v3/spreadsheets/${spreadsheet_token}/sheets/${sheet_id}/move_dimension`,
+			url: `/open-apis/sheets/v3/spreadsheets/${spreadsheet_id}/sheets/${sheetId}/move_dimension`,
 			body,
 		});
+
+		return {
+			success: true,
+		};
 	},
 } as ResourceOperation;

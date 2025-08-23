@@ -1,21 +1,20 @@
 import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
-import { WORDING } from '../../../help/wording';
 import { OperationType } from '../../../help/type/enums';
+import { WORDING } from '../../../help/wording';
 import { DESCRIPTIONS } from '../../../help/description';
 
 export default {
-	name: WORDING.ValuesWrite,
-	value: OperationType.ValuesWrite,
-	order: 126,
+	name: WORDING.SplitCells,
+	value: OperationType.SplitCells,
+	order: 145,
 	options: [
 		DESCRIPTIONS.SPREADSHEET_ID,
 		DESCRIPTIONS.SHEET_ID,
 		DESCRIPTIONS.CELL_RANGE,
-		DESCRIPTIONS.ARRAY_VALUES,
 		{
-			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/write-data-to-a-single-range">${WORDING.OpenDocument}</a>`,
+			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/split-cells">${WORDING.OpenDocument}</a>`,
 			name: 'notice',
 			type: 'notice',
 			default: '',
@@ -25,27 +24,25 @@ export default {
 		const spreadsheet_id = this.getNodeParameter('spreadsheet_id', index, undefined, {
 			extractValue: true,
 		}) as string;
-		const sheet_id = this.getNodeParameter('sheet_id', index, undefined, {
+		const sheetId = this.getNodeParameter('sheet_id', index, undefined, {
 			extractValue: true,
 		}) as string;
-		const cell_range = this.getNodeParameter('range', index, '') as string;
-		const values = this.getNodeParameter('array_values', index, undefined, {
-			ensureType: 'json',
-		});
+		const cellRange = this.getNodeParameter('range', index, '') as string;
 
 		const body: IDataObject = {
-			valueRange: {
-				range: `${sheet_id}${cell_range}`,
-				values,
-			},
+			range: `${sheetId}${cellRange}`,
 		};
 
 		const { data } = await RequestUtils.request.call(this, {
-			method: 'PUT',
-			url: `/open-apis/sheets/v2/spreadsheets/${spreadsheet_id}/values`,
+			method: 'POST',
+			url: `/open-apis/sheets/v2/spreadsheets/${spreadsheet_id}/unmerge_cells`,
 			body,
 		});
 
-		return data;
+		return {
+			split: true,
+			sheet_id: sheetId,
+			...data,
+		};
 	},
 } as ResourceOperation;

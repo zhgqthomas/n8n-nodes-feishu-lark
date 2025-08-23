@@ -1,79 +1,79 @@
 import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
+import { WORDING } from '../../../help/wording';
+import { OperationType } from '../../../help/type/enums';
+import { DESCRIPTIONS } from '../../../help/description';
 
 export default {
-	name: '读取单个范围',
-	value: 'readValues',
-	order: 70,
+	name: WORDING.ValuesRead,
+	value: OperationType.ValuesRead,
+	order: 127,
 	options: [
+		DESCRIPTIONS.SPREADSHEET_ID,
+		DESCRIPTIONS.SHEET_ID,
+		DESCRIPTIONS.CELL_RANGE,
 		{
-			displayName: '电子表格 Token',
-			name: 'spreadsheetToke',
-			type: 'string',
-			required: true,
-			default: '',
-			description: '电子表格的 token。',
-		},
-		{
-			displayName: '范围',
-			name: 'range',
-			type: 'string',
-			required: true,
-			default: '',
-			description: '查询范围。格式为 &lt;sheetId&gt;!&lt;开始位置&gt;:&lt;结束位置&gt;。',
-		},
-		{
-			displayName: '值渲染选项',
-			name: 'valueRenderOption',
-			type: 'options',
+			displayName: WORDING.Options,
+			name: 'options',
+			type: 'collection',
+			placeholder: WORDING.AddField,
+			default: {},
 			options: [
-				{ name: 'ToString', value: 'ToString' },
-				{ name: 'Formula', value: 'Formula' },
-				{ name: 'FormattedValue', value: 'FormattedValue' },
-				{ name: 'UnformattedValue', value: 'UnformattedValue' },
+				{
+					displayName: 'Value Render Option(值渲染选项)',
+					name: 'valueRenderOption',
+					type: 'options',
+					options: [
+						{ name: 'To String(返回纯文本值)', value: 'ToString' },
+						{ name: 'Formula(返回公式)', value: 'Formula' },
+						{ name: 'FormattedValue(计算并格式化单元格)', value: 'FormattedValue' },
+						{ name: 'UnformattedValue(计算但不对单元格进行格式化)', value: 'UnformattedValue' },
+					],
+					default: 'ToString',
+				},
+				{
+					displayName: 'Date Time Render Option(日期时间渲染选项)',
+					name: 'dateTimeRenderOption',
+					type: 'options',
+					options: [{ name: 'FormattedString', value: 'FormattedString' }],
+					default: 'FormattedString',
+					description: 'Specifies the format of cell data that is of date, time, or date-time type',
+				},
+				DESCRIPTIONS.USER_ID_TYPE,
 			],
-			default: 'ToString',
-			description: '指定单元格数据的格式。',
 		},
 		{
-			displayName: '日期时间渲染选项',
-			name: 'dateTimeRenderOption',
-			type: 'options',
-			options: [{ name: 'FormattedString', value: 'FormattedString' }],
-			default: 'FormattedString',
-			description: '指定数据类型为日期、时间、或时间日期的单元格数据的格式。',
-		},
-		{
-			displayName: '用户 ID 类型',
-			name: 'userIdType',
-			type: 'options',
-			options: [
-				{ name: 'Open_id', value: 'open_id' },
-				{ name: 'Union_id', value: 'union_id' },
-			],
-			default: 'open_id',
-			description: '当单元格中包含@用户等涉及用户信息的元素时，该参数可指定返回的用户 ID 类型。',
+			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/reading-a-single-range">${WORDING.OpenDocument}</a>`,
+			name: 'notice',
+			type: 'notice',
+			default: '',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
-		const spreadsheetToken = this.getNodeParameter('spreadsheetToke', index) as string;
-		const range = this.getNodeParameter('range', index) as string;
-		const valueRenderOption = this.getNodeParameter('valueRenderOption', index, '') as string;
-		const dateTimeRenderOption = this.getNodeParameter('dateTimeRenderOption', index, '') as string;
-		const userIdType = this.getNodeParameter('userIdType', index, 'lark_id') as string;
+		const spreadsheet_id = this.getNodeParameter('spreadsheet_id', index, undefined, {
+			extractValue: true,
+		}) as string;
+		const sheet_id = this.getNodeParameter('sheet_id', index, undefined, {
+			extractValue: true,
+		}) as string;
+		const cell_range = this.getNodeParameter('range', index, '') as string;
 
-		const qs: IDataObject = {};
-		if (valueRenderOption) qs.valueRenderOption = valueRenderOption;
-		if (dateTimeRenderOption) qs.dateTimeRenderOption = dateTimeRenderOption;
-		if (userIdType) qs.user_id_type = userIdType;
+		const options = this.getNodeParameter('options', index) as IDataObject;
+		const valueRenderOption = (options.valueRenderOption as string) || '';
+		const dateTimeRenderOption = (options.dateTimeRenderOption as string) || '';
+		const userIdType = (options.userIdType as string) || '';
 
-		const response = await RequestUtils.request.call(this, {
+		const { data } = await RequestUtils.request.call(this, {
 			method: 'GET',
-			url: `/open-apis/sheets/v2/spreadsheets/${spreadsheetToken}/values/${range}`,
-			qs,
+			url: `/open-apis/sheets/v2/spreadsheets/${spreadsheet_id}/values/${sheet_id}${cell_range}`,
+			qs: {
+				...(valueRenderOption && { valueRenderOption }),
+				...(dateTimeRenderOption && { dateTimeRenderOption }),
+				...(userIdType && { user_id_type: userIdType }),
+			},
 		});
 
-		return response;
+		return data;
 	},
 } as ResourceOperation;

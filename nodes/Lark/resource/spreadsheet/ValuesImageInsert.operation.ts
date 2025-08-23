@@ -6,16 +6,30 @@ import { OperationType } from '../../../help/type/enums';
 import { DESCRIPTIONS } from '../../../help/description';
 
 export default {
-	name: WORDING.ValuesWrite,
-	value: OperationType.ValuesWrite,
-	order: 126,
+	name: WORDING.ValuesImageInsert,
+	value: OperationType.ValuesImageInsert,
+	order: 128,
 	options: [
 		DESCRIPTIONS.SPREADSHEET_ID,
 		DESCRIPTIONS.SHEET_ID,
 		DESCRIPTIONS.CELL_RANGE,
-		DESCRIPTIONS.ARRAY_VALUES,
 		{
-			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/write-data-to-a-single-range">${WORDING.OpenDocument}</a>`,
+			displayName: 'Image Name(图片名称)',
+			name: 'name',
+			type: 'string',
+			required: true,
+			default: '',
+		},
+		{
+			displayName: 'Image Binary Field(图片二进制字段)',
+			name: 'image_binary_field',
+			type: 'string',
+			required: true,
+			default: '',
+			description: 'The binary field of the image to be written',
+		},
+		{
+			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/write-images">${WORDING.OpenDocument}</a>`,
 			name: 'notice',
 			type: 'notice',
 			default: '',
@@ -29,20 +43,20 @@ export default {
 			extractValue: true,
 		}) as string;
 		const cell_range = this.getNodeParameter('range', index, '') as string;
-		const values = this.getNodeParameter('array_values', index, undefined, {
-			ensureType: 'json',
-		});
+		const image_binary_field = this.getNodeParameter('image_binary_field', index) as string;
+		const name = this.getNodeParameter('name', index) as string;
+
+		const binary_data = await this.helpers.getBinaryDataBuffer(index, image_binary_field);
 
 		const body: IDataObject = {
-			valueRange: {
-				range: `${sheet_id}${cell_range}`,
-				values,
-			},
+			range: `${sheet_id}${cell_range}`,
+			image: Array.from(binary_data),
+			name,
 		};
 
 		const { data } = await RequestUtils.request.call(this, {
-			method: 'PUT',
-			url: `/open-apis/sheets/v2/spreadsheets/${spreadsheet_id}/values`,
+			method: 'POST',
+			url: `/open-apis/sheets/v2/spreadsheets/${spreadsheet_id}/values_image`,
 			body,
 		});
 

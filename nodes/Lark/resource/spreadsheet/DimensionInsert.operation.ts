@@ -1,76 +1,69 @@
 import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
+import { WORDING } from '../../../help/wording';
+import { OperationType } from '../../../help/type/enums';
+import { DESCRIPTIONS } from '../../../help/description';
 
 export default {
-	name: '插入行列',
-	value: 'insertDimension',
-	order: 90,
+	name: WORDING.InsertDimension,
+	value: OperationType.InsertDimension,
+	order: 170,
 	options: [
+		DESCRIPTIONS.SPREADSHEET_ID,
+		DESCRIPTIONS.SHEET_ID,
+		DESCRIPTIONS.MAJOR_DIMENSION,
+		DESCRIPTIONS.START_INDEX,
+		DESCRIPTIONS.END_INDEX,
 		{
-			displayName: '电子表格 Token',
-			name: 'spreadsheetToke',
-			type: 'string',
-			required: true,
-			default: '',
-			description: '电子表格的 token。',
-		},
-		{
-			displayName: '工作表 ID',
-			name: 'sheetId',
-			type: 'string',
-			required: true,
-			default: '',
-			description: '电子表格工作表的 ID。',
-		},
-		{
-			displayName: '更新的维度',
-			name: 'majorDimension',
-			type: 'options',
+			displayName: WORDING.Options,
+			name: 'options',
+			type: 'collection',
+			placeholder: WORDING.AddField,
+			default: {},
 			options: [
-				{ name: '行', value: 'ROWS' },
-				{ name: '列', value: 'COLUMNS' },
+				{
+					displayName: 'Inherit Style(继承样式)',
+					name: 'inheritStyle',
+					type: 'options',
+					options: [
+						{
+							name: 'BEFORE',
+							value: 'BEFORE',
+							description: 'Inherit the style of the starting position cell',
+						},
+						{
+							name: 'AFTER',
+							value: 'AFTER',
+							description: 'Inherit the style of the ending position cell Style',
+						},
+					],
+					default: 'BEFORE',
+					description:
+						'Whether the inserted blank row or column inherit the cell style in the table',
+				},
 			],
-			required: true,
-			default: 'ROWS',
-			description: '要更新的维度。',
 		},
 		{
-			displayName: '起始位置',
-			name: 'startIndex',
-			type: 'number',
-			required: true,
-			default: 0,
-			description: '插入的行或列的起始位置。从 0 开始计数。',
-		},
-		{
-			displayName: '结束位置',
-			name: 'endIndex',
-			type: 'number',
-			required: true,
-			default: 1,
-			description: '插入的行或列结束的位置。从 0 开始计数。',
-		},
-		{
-			displayName: '继承样式',
-			name: 'inheritStyle',
-			type: 'options',
-			options: [
-				{ name: '不继承', value: '' },
-				{ name: '继承起始位置的样式', value: 'BEFORE' },
-				{ name: '继承结束位置的样式', value: 'AFTER' },
-			],
+			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/sheets-v3/sheet-rowcol/insert-rows-or-columns">${WORDING.OpenDocument}</a>`,
+			name: 'notice',
+			type: 'notice',
 			default: '',
-			description: '插入的空白行或列是否继承表中的单元格样式。',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
-		const spreadsheetToken = this.getNodeParameter('spreadsheetToke', index) as string;
-		const sheetId = this.getNodeParameter('sheetId', index) as string;
-		const majorDimension = this.getNodeParameter('majorDimension', index) as string;
-		const startIndex = this.getNodeParameter('startIndex', index) as number;
-		const endIndex = this.getNodeParameter('endIndex', index) as number;
-		const inheritStyle = this.getNodeParameter('inheritStyle', index) as string;
+		const spreadsheet_id = this.getNodeParameter('spreadsheet_id', index, undefined, {
+			extractValue: true,
+		}) as string;
+		const sheetId = this.getNodeParameter('sheet_id', index, undefined, {
+			extractValue: true,
+		}) as string;
+		const majorDimension = this.getNodeParameter('majorDimension', index, 'ROWS') as string;
+		const startIndex = this.getNodeParameter('startIndex', index, 0) as number;
+		const endIndex = this.getNodeParameter('endIndex', index, 1) as number;
+
+		const options = this.getNodeParameter('options', index, {});
+		const inheritStyle = (options.inheritStyle as string) || '';
 
 		const body: IDataObject = {
 			dimension: {
@@ -79,16 +72,17 @@ export default {
 				startIndex,
 				endIndex,
 			},
+			...(inheritStyle && { inheritStyle }),
 		};
 
-		if (inheritStyle) {
-			body.inheritStyle = inheritStyle;
-		}
-
-		return RequestUtils.request.call(this, {
+		await RequestUtils.request.call(this, {
 			method: 'POST',
-			url: `/open-apis/sheets/v2/spreadsheets/${spreadsheetToken}/insert_dimension_range`,
+			url: `/open-apis/sheets/v2/spreadsheets/${spreadsheet_id}/insert_dimension_range`,
 			body,
 		});
+
+		return {
+			success: true,
+		};
 	},
 } as ResourceOperation;

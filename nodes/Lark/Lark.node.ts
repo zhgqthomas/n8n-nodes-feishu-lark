@@ -18,6 +18,7 @@ import {
 	larkApiRequestBaseRoleList,
 	larkApiRequestCalendarEventList,
 	larkApiRequestCalendarList,
+	larkApiRequestSheetList,
 	larkApiRequestTableFieldList,
 	larkApiRequestTableList,
 	larkApiRequestTableViewList,
@@ -318,6 +319,27 @@ export class Lark implements INodeType {
 						name: event.summary as string,
 						value: event.event_id as string,
 						url: event.app_link as string,
+					})),
+				};
+			},
+
+			async searchSheets(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
+				const spreadsheetId = this.getNodeParameter('spreadsheet_id', undefined, {
+					extractValue: true,
+				}) as string;
+
+				if (!spreadsheetId) {
+					throw new NodeOperationError(this.getNode(), 'Spreadsheet ID required for search');
+				}
+
+				const sheets = await larkApiRequestSheetList.call(
+					this as unknown as IExecuteFunctions,
+					spreadsheetId,
+				);
+				return {
+					results: sheets.map((sheet) => ({
+						name: sheet.title as string,
+						value: sheet.sheet_id as string,
 					})),
 				};
 			},

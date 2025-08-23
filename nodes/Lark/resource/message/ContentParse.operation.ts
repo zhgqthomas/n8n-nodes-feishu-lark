@@ -53,7 +53,7 @@ interface IMessageContent {
 export default {
 	name: WORDING.ParseMessageContent,
 	value: OperationType.ParseMessageContent,
-	order: 201,
+	order: 100,
 	options: [DESCRIPTIONS.RECEIVE_MESSAGE_TYPES, DESCRIPTIONS.DOWNLOAD_RESOURCE],
 
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {

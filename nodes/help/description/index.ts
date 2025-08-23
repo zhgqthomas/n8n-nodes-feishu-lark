@@ -1,6 +1,128 @@
 import { FileType, MessageType } from '../type/enums';
 
 export const DESCRIPTIONS = {
+	ARRAY_VALUES: {
+		displayName: 'Values(数据)',
+		name: 'array_values',
+		type: 'json',
+		required: true,
+		default: '[]',
+	},
+
+	MATCH_CASE: {
+		displayName: 'Match Case(忽略大小写)',
+		name: 'matchCase',
+		type: 'boolean',
+		default: false,
+	},
+
+	MATCH_ENTIRE_CELL: {
+		displayName: 'Match Entire Cell(完全匹配整个单元格)',
+		name: 'matchEntireCell',
+		type: 'boolean',
+		default: false,
+	},
+
+	SEARCH_BY_REGEX: {
+		displayName: 'Search By Regex(使用正则表达式查找)',
+		name: 'searchByRegex',
+		type: 'boolean',
+		default: false,
+	},
+
+	INCLUDE_FORMULAS: {
+		displayName: 'Include Formulas(仅搜索单元格公式)',
+		name: 'includeFormulas',
+		type: 'boolean',
+		default: false,
+	},
+
+	CELL_RANGE: {
+		displayName: 'Cell Range(单元格范围)',
+		name: 'range',
+		type: 'string',
+		default: '',
+		placeholder: '!A1:B2',
+		hint: 'https://open.feishu.cn/document/server-docs/docs/sheets-v3/overview#9049d332',
+		description:
+			'The range of cells to merge, in the format of &lt;start position&gt;:&lt;end position&gt;. Example: !A1:B2.',
+	},
+
+	START_INDEX: {
+		displayName: 'Start Index(起始位置)',
+		name: 'startIndex',
+		type: 'number',
+		required: true,
+		default: 0,
+		typeOptions: {
+			minValue: 0,
+			numberPrecision: 0,
+		},
+	},
+
+	END_INDEX: {
+		displayName: 'End Index(结束位置)',
+		name: 'endIndex',
+		type: 'number',
+		required: true,
+		default: 1,
+		typeOptions: {
+			minValue: 0,
+			numberPrecision: 0,
+		},
+	},
+
+	MAJOR_DIMENSION: {
+		displayName: 'Dimension to Be Added(更新的维度)',
+		name: 'majorDimension',
+		type: 'options',
+		options: [
+			{ name: 'ROWS', value: 'ROWS' },
+			{ name: 'COLUMNS', value: 'COLUMNS' },
+		],
+		required: true,
+		default: 'ROWS',
+	},
+
+	SHEET_INDEX: {
+		displayName: 'Sheet Index(工作表索引)',
+		name: 'sheet_index',
+		type: 'number',
+		default: 0,
+		typeOptions: {
+			minValue: 0,
+			numberPrecision: 0,
+		},
+	},
+
+	SHEET_ID: {
+		displayName: 'Sheet ID(工作表 ID)',
+		name: 'sheet_id',
+		type: 'resourceLocator',
+		default: { mode: 'id', value: '' },
+		required: true,
+		modes: [
+			{
+				displayName: 'From List',
+				name: 'list',
+				type: 'list',
+				placeholder: 'Select Sheet',
+				typeOptions: {
+					searchListMethod: 'searchSheets',
+					searchFilterRequired: false,
+					searchable: false,
+				},
+			},
+			{
+				displayName: 'ID',
+				name: 'id',
+				type: 'string',
+				placeholder: 'Enter Sheet ID',
+				default: '',
+			},
+		],
+	},
+
 	CHAT_ID: {
 		displayName: 'Chat ID(聊天 ID)',
 		name: 'chat_id',

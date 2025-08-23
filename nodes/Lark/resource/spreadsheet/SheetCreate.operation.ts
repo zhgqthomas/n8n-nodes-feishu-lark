@@ -6,15 +6,12 @@ import { OperationType } from '../../../help/type/enums';
 import { DESCRIPTIONS } from '../../../help/description';
 
 export default {
-	name: WORDING.CopySheet,
-	value: OperationType.CopySheet,
-	order: 186,
-	options: [DESCRIPTIONS.SPREADSHEET_ID, DESCRIPTIONS.SHEET_ID, DESCRIPTIONS.TITLE],
+	name: WORDING.CreateSheet,
+	value: OperationType.CreateSheet,
+	order: 187,
+	options: [DESCRIPTIONS.SPREADSHEET_ID, DESCRIPTIONS.TITLE],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
 		const spreadsheetId = this.getNodeParameter('spreadsheet_id', index, undefined, {
-			extractValue: true,
-		}) as string;
-		const sheetId = this.getNodeParameter('sheet_id', index, undefined, {
 			extractValue: true,
 		}) as string;
 		const title = this.getNodeParameter('title', index) as IDataObject;
@@ -22,11 +19,8 @@ export default {
 		const body: IDataObject = {
 			requests: [
 				{
-					copySheet: {
-						source: {
-							sheetId,
-						},
-						destination: {
+					addSheet: {
+						properties: {
 							title,
 						},
 					},
@@ -43,7 +37,7 @@ export default {
 		});
 
 		const {
-			copySheet: { properties },
+			addSheet: { properties },
 		} = replies[0];
 
 		return properties;

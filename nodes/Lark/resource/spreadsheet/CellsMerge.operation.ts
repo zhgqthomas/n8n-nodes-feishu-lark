@@ -1,57 +1,62 @@
 import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
+import { OperationType } from '../../../help/type/enums';
+import { WORDING } from '../../../help/wording';
+import { DESCRIPTIONS } from '../../../help/description';
 
 export default {
-	name: '合并单元格',
-	value: 'mergeCells',
-	order: 80,
+	name: WORDING.MergeCells,
+	value: OperationType.MergeCells,
+	order: 146,
 	options: [
+		DESCRIPTIONS.SPREADSHEET_ID,
+		DESCRIPTIONS.SHEET_ID,
+		DESCRIPTIONS.CELL_RANGE,
 		{
-			displayName: '电子表格 Token',
-			name: 'spreadsheetToke',
-			type: 'string',
-			required: true,
-			default: '',
-			description: '电子表格的 token。',
-		},
-		{
-			displayName: '单元格范围',
-			name: 'range',
-			type: 'string',
-			required: true,
-			default: '',
-			description:
-				'要合并的单元格的范围，格式为 &lt;sheetId&gt;!&lt;开始位置&gt;:&lt;结束位置&gt;。',
-		},
-		{
-			displayName: '合并类型',
+			displayName: 'Merge Type(合并类型)',
 			name: 'mergeType',
 			type: 'options',
 			options: [
-				{ name: '合并所有单元格', value: 'MERGE_ALL' },
-				{ name: '按行合并', value: 'MERGE_ROWS' },
-				{ name: '按列合并', value: 'MERGE_COLUMNS' },
+				{ name: 'Merge All Cells', value: 'MERGE_ALL' },
+				{ name: 'Merge by Row', value: 'MERGE_ROWS' },
+				{ name: 'Merge by Column', value: 'MERGE_COLUMNS' },
 			],
 			required: true,
 			default: 'MERGE_ALL',
-			description: '指定合并单元格的方式。',
+		},
+		{
+			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/merge-cells">${WORDING.OpenDocument}</a>`,
+			name: 'notice',
+			type: 'notice',
+			default: '',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
-		const spreadsheetToken = this.getNodeParameter('spreadsheetToke', index) as string;
-		const range = this.getNodeParameter('range', index) as string;
+		const spreadsheet_id = this.getNodeParameter('spreadsheet_id', index, undefined, {
+			extractValue: true,
+		}) as string;
+		const sheetId = this.getNodeParameter('sheet_id', index, undefined, {
+			extractValue: true,
+		}) as string;
+		const cellRange = this.getNodeParameter('range', index, '') as string;
 		const mergeType = this.getNodeParameter('mergeType', index) as string;
 
 		const body: IDataObject = {
-			range,
+			range: `${sheetId}${cellRange}`,
 			mergeType,
 		};
 
-		return RequestUtils.request.call(this, {
+		const { data } = await RequestUtils.request.call(this, {
 			method: 'POST',
-			url: `/open-apis/sheets/v2/spreadsheets/${spreadsheetToken}/merge_cells`,
+			url: `/open-apis/sheets/v2/spreadsheets/${spreadsheet_id}/merge_cells`,
 			body,
 		});
+
+		return {
+			merged: true,
+			sheet_id: sheetId,
+			...data,
+		};
 	},
 } as ResourceOperation;

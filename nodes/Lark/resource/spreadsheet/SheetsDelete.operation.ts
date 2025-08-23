@@ -1,31 +1,22 @@
 import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
+import { OperationType } from '../../../help/type/enums';
+import { WORDING } from '../../../help/wording';
+import { DESCRIPTIONS } from '../../../help/description';
 
 export default {
-	name: '删除工作表',
-	value: 'deleteSheets',
-	order: 95,
-	options: [
-		{
-			displayName: '电子表格 Token',
-			name: 'spreadsheetToke',
-			type: 'string',
-			required: true,
-			default: '',
-			description: '电子表格的 token。',
-		},
-		{
-			displayName: '工作表的 ID',
-			name: 'sheetId',
-			type: 'string',
-			required: true,
-			default: '',
-		},
-	],
+	name: WORDING.DeleteSheet,
+	value: OperationType.DeleteSheet,
+	order: 185,
+	options: [DESCRIPTIONS.SPREADSHEET_ID, DESCRIPTIONS.SHEET_ID],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
-		const spreadsheetToken = this.getNodeParameter('spreadsheetToke', index) as string;
-		const sheetId = this.getNodeParameter('sheetId', index) as IDataObject;
+		const spreadsheetId = this.getNodeParameter('spreadsheet_id', index, undefined, {
+			extractValue: true,
+		}) as string;
+		const sheetId = this.getNodeParameter('sheet_id', index, undefined, {
+			extractValue: true,
+		}) as string;
 
 		const body: IDataObject = {
 			requests: [
@@ -37,10 +28,16 @@ export default {
 			],
 		};
 
-		return RequestUtils.request.call(this, {
+		const {
+			data: { replies },
+		} = await RequestUtils.request.call(this, {
 			method: 'POST',
-			url: `/open-apis/sheets/v2/spreadsheets/${spreadsheetToken}/sheets_batch_update`,
+			url: `/open-apis/sheets/v2/spreadsheets/${spreadsheetId}/sheets_batch_update`,
 			body,
 		});
+
+		const { deleteSheet } = replies[0];
+
+		return deleteSheet;
 	},
 } as ResourceOperation;

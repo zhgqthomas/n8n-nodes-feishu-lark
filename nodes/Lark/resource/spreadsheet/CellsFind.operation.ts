@@ -1,81 +1,58 @@
 import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
+import { WORDING } from '../../../help/wording';
+import { OperationType } from '../../../help/type/enums';
+import { DESCRIPTIONS } from '../../../help/description';
 
 export default {
-	name: '查找单元格',
-	value: 'findCells',
-	order: 80,
+	name: WORDING.FindCells,
+	value: OperationType.FindCells,
+	order: 144,
 	options: [
+		DESCRIPTIONS.SPREADSHEET_ID,
+		DESCRIPTIONS.SHEET_ID,
+		DESCRIPTIONS.CELL_RANGE,
+		DESCRIPTIONS.SEARCH_KEY,
 		{
-			displayName: '电子表格 Token',
-			name: 'spreadsheetToke',
-			type: 'string',
-			required: true,
+			displayName: WORDING.Options,
+			name: 'options',
+			type: 'collection',
+			placeholder: WORDING.AddField,
+			default: {},
+			options: [
+				DESCRIPTIONS.MATCH_CASE,
+				DESCRIPTIONS.MATCH_ENTIRE_CELL,
+				DESCRIPTIONS.SEARCH_BY_REGEX,
+				DESCRIPTIONS.INCLUDE_FORMULAS,
+			],
+		},
+		{
+			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/find">${WORDING.OpenDocument}</a>`,
+			name: 'notice',
+			type: 'notice',
 			default: '',
-			description: '电子表格的 token。',
-		},
-		{
-			displayName: '工作表 ID',
-			name: 'sheetId',
-			type: 'string',
-			required: true,
-			default: '',
-		},
-		{
-			displayName: '查找范围',
-			name: 'range',
-			type: 'string',
-			required: true,
-			default: '',
-			description: '查找范围，格式为 &lt;sheetId&gt;!&lt;开始位置&gt;:&lt;结束位置&gt;。',
-		},
-		{
-			displayName: '查找字符串',
-			name: 'find',
-			type: 'string',
-			required: true,
-			default: '',
-			description: '查找的字符串。',
-		},
-		{
-			displayName: '是否忽略查找字符串的大小写',
-			name: 'matchCase',
-			type: 'boolean',
-			default: false,
-		},
-		{
-			displayName: '字符串是否需要完全匹配整个单元格',
-			name: 'matchEntireCell',
-			type: 'boolean',
-			default: false,
-		},
-		{
-			displayName: '是否使用正则表达式查找',
-			name: 'searchByRegex',
-			type: 'boolean',
-			default: false,
-		},
-		{
-			displayName: '是否仅搜索单元格公式',
-			name: 'includeFormulas',
-			type: 'boolean',
-			default: false,
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
-		const spreadsheetToken = this.getNodeParameter('spreadsheetToke', index) as string;
-		const sheetId = this.getNodeParameter('sheetId', index) as string;
-		const range = this.getNodeParameter('range', index) as string;
-		const find = this.getNodeParameter('find', index) as string;
-		const matchCase = this.getNodeParameter('matchCase', index) as boolean;
-		const matchEntireCell = this.getNodeParameter('matchEntireCell', index) as boolean;
-		const searchByRegex = this.getNodeParameter('searchByRegex', index) as boolean;
-		const includeFormulas = this.getNodeParameter('includeFormulas', index) as boolean;
+		const spreadsheet_id = this.getNodeParameter('spreadsheet_id', index, undefined, {
+			extractValue: true,
+		}) as string;
+		const sheet_id = this.getNodeParameter('sheet_id', index, undefined, {
+			extractValue: true,
+		}) as string;
+		const cell_range = this.getNodeParameter('range', index, '') as string;
+		const find = this.getNodeParameter('search_key', index) as string;
+
+		const options = this.getNodeParameter('options', index) as IDataObject;
+		const matchCase = (options.matchCase as boolean) || false;
+		const matchEntireCell = (options.matchEntireCell as boolean) || false;
+		const searchByRegex = (options.searchByRegex as boolean) || false;
+		const includeFormulas = (options.includeFormulas as boolean) || false;
 
 		const body: IDataObject = {
 			find_condition: {
-				range,
+				range: `${sheet_id}${cell_range}`,
 				match_case: matchCase,
 				match_entire_cell: matchEntireCell,
 				search_by_regex: searchByRegex,
@@ -84,10 +61,12 @@ export default {
 			find,
 		};
 
-		return RequestUtils.request.call(this, {
+		const { data } = await RequestUtils.request.call(this, {
 			method: 'POST',
-			url: `/open-apis/sheets/v3/spreadsheets/${spreadsheetToken}/sheets/${sheetId}/find`,
+			url: `/open-apis/sheets/v3/spreadsheets/${spreadsheet_id}/sheets/${sheet_id}/find`,
 			body,
 		});
+
+		return data;
 	},
 } as ResourceOperation;

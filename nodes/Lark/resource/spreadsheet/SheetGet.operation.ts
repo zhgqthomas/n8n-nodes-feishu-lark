@@ -6,10 +6,19 @@ import { OperationType } from '../../../help/type/enums';
 import { DESCRIPTIONS } from '../../../help/description';
 
 export default {
-	name: WORDING.CopySheet,
-	value: OperationType.CopySheet,
-	order: 186,
-	options: [DESCRIPTIONS.SPREADSHEET_ID, DESCRIPTIONS.SHEET_ID, DESCRIPTIONS.TITLE],
+	name: WORDING.GetSheetInfo,
+	value: OperationType.GetSheetInfo,
+	order: 182,
+	options: [
+		DESCRIPTIONS.SPREADSHEET_ID,
+		DESCRIPTIONS.SHEET_ID,
+		{
+			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/sheets-v3/spreadsheet-sheet/get">${WORDING.OpenDocument}</a>`,
+			name: 'notice',
+			type: 'notice',
+			default: '',
+		},
+	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
 		const spreadsheetId = this.getNodeParameter('spreadsheet_id', index, undefined, {
 			extractValue: true,
@@ -17,35 +26,14 @@ export default {
 		const sheetId = this.getNodeParameter('sheet_id', index, undefined, {
 			extractValue: true,
 		}) as string;
-		const title = this.getNodeParameter('title', index) as IDataObject;
-
-		const body: IDataObject = {
-			requests: [
-				{
-					copySheet: {
-						source: {
-							sheetId,
-						},
-						destination: {
-							title,
-						},
-					},
-				},
-			],
-		};
 
 		const {
-			data: { replies },
+			data: { sheet },
 		} = await RequestUtils.request.call(this, {
-			method: 'POST',
-			url: `/open-apis/sheets/v2/spreadsheets/${spreadsheetId}/sheets_batch_update`,
-			body,
+			method: 'GET',
+			url: `/open-apis/sheets/v3/spreadsheets/${spreadsheetId}/sheets/${sheetId}`,
 		});
 
-		const {
-			copySheet: { properties },
-		} = replies[0];
-
-		return properties;
+		return sheet;
 	},
 } as ResourceOperation;
