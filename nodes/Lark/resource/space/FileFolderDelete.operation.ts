@@ -10,7 +10,12 @@ export default {
 	value: OperationType.DeleteFileOrFolder,
 	order: 198,
 	options: [
-		DESCRIPTIONS.SPACE_FILE_TYPE,
+		{
+			...DESCRIPTIONS.SPACE_FILE_TYPE,
+			type: 'options',
+			default: '',
+			required: true,
+		},
 		DESCRIPTIONS.FILE_TOKEN,
 		{
 			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/drive-v1/file/delete">${WORDING.OpenDocument}</a>`,
