@@ -1,0 +1,61 @@
+name: Bug Report
+description: Create a bug report to help us improve
+labels: [
+  "bug"
+]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        To ensure we can address your report efficiently, please fill out all sections in English or Chinese and provide as much detail as possible.
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: A clear and concise description of what the bug is
+      placeholder: Tell us what you see!
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: To Reproduce
+      description: Steps to reproduce the behavior
+      placeholder: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: A clear and concise description of what you expected to happen
+    validations:
+      required: true
+  - type: textarea
+    id: debug-info
+    attributes:
+      label: Debug Info
+      description: This can be found under Help > About n8n > Copy debug information
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: '## Environment'
+  - type: input
+    id: n8n-version
+    attributes:
+      label: n8n Version
+      placeholder: ex. 1.25.0
+    validations:
+      required: true
+  - type: input
+    id: n8n-nodes-feishu-lark-version
+    attributes:
+      label: n8n-nodes-feishu-lark Version
+      placeholder: ex. 0.7.0
+    validations:
+      required: true
