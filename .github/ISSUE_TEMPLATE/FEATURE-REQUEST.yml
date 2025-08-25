@@ -1,0 +1,23 @@
+name: "💡 Feature Request"
+description: Create a new ticket for a new feature request
+title: "💡 [REQUEST] - <title>"
+labels: [
+  "new feature"
+]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: "Summary"
+      description: Provide a brief explanation of the feature
+      placeholder: Describe in a few lines your feature request
+    validations:
+      required: true
+  - type: input
+    id: feishu-lark-doc-url
+    attributes:
+      label: Feishu/Lark Doc URL
+      placeholder: ex. https://open.feishu.cn/document/server-docs/api-call-guide/calling-process/overview
+    validations:
+      required: true
+      
