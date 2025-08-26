@@ -29,4 +29,3 @@ export const hexToRgbInt32 = (hex: string): number => {
 	// Convert to int32: (r << 16) | (g << 8) | b
 	return (r << 16) | (g << 8) | b;
 };
-
