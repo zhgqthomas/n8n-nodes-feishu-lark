@@ -14,7 +14,7 @@ import { configureWaitTillDate, createSendAndWaitMessageBody } from '../../Gener
 export default {
 	name: WORDING.SendAndWaitMessage,
 	value: SEND_AND_WAIT_OPERATION,
-	action: 'Send message and wait for response',
+	action: 'Send message and wait',
 	order: 100,
 	options: [
 		{
@@ -57,7 +57,7 @@ export default {
 		});
 
 		if (messageIdSaveKey) {
-			this.getWorkflowDataProxy(0).$execution.customData.set(messageIdSaveKey, message_id);
+			this.getWorkflowStaticData('global')[`${messageIdSaveKey}`] = message_id;
 		}
 
 		const waitTill = configureWaitTillDate(this);

@@ -506,7 +506,7 @@ const messageIdSaveKey = {
 	type: 'string',
 	default: '',
 	description:
-		'The key for saving the message ID to the custom execution data. <a target="_blank" href="https://docs.n8n.io/workflows/executions/custom-executions-data/">Open Doc</a>.',
+		'The key for saving the message ID to the custom execution data. <a target="_blank" href="https://docs.n8n.io/code/cookbook/builtin/get-workflow-static-data/">Open Doc</a>.',
 } as INodeProperties;
 
 export const sendAndWaitProperties: INodeProperties[] = [
