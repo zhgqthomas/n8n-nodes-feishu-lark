@@ -1,5 +1,5 @@
 import WebSocket from 'ws';
-import { Domain } from './enum';
+import { Domain } from '../enum';
 
 interface IClientConfig {
 	appId: string;

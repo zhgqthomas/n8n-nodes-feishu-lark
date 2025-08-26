@@ -69,6 +69,7 @@
 	"dependencies": {
 		"@langchain/core": "0.3.43",
 		"@modelcontextprotocol/sdk": "^1.15.1",
+		"crypto": "^1.0.1",
 		"form-data": "^4.0.4",
 		"isbot": "^5.1.30",
 		"luxon": "^3.7.1",

@@ -4,11 +4,13 @@ import { internalCache } from './cache';
 import { Cache } from '../interfaces';
 import { IHandles } from './events-template';
 import RequestHandle from './request-handle';
-
-const CAppTicketHandle = 'app_ticket';
-const CAppTicket = Symbol('app-ticket');
+import { ANY_EVENT, CAppTicket, CAppTicketHandle, CEventType } from '../consts';
 
 export class EventDispatcher {
+	verificationToken: string = '';
+
+	encryptKey: string = '';
+
 	requestHandle?: RequestHandle;
 
 	handles: Map<string, Function> = new Map();
@@ -19,12 +21,22 @@ export class EventDispatcher {
 
 	isAnyEvent: boolean;
 
-	constructor(params: { logger: Logger; isAnyEvent: boolean }) {
-		this.logger = params.logger;
+	constructor(params: {
+		logger: Logger;
+		isAnyEvent: boolean;
+		verificationToken?: string;
+		encryptKey?: string;
+	}) {
+		const { encryptKey, verificationToken, logger } = params;
+		this.logger = logger;
 		this.isAnyEvent = params.isAnyEvent;
+		this.encryptKey = encryptKey || '';
+		this.verificationToken = verificationToken || '';
 
 		this.requestHandle = new RequestHandle({
 			logger: this.logger,
+			encryptKey,
+			verificationToken,
 		});
 
 		this.cache = internalCache;
@@ -36,7 +48,7 @@ export class EventDispatcher {
 
 	private registerAppTicketHandle() {
 		this.register({
-			app_ticket: async (data: any) => {
+			app_ticket: async (data) => {
 				const { app_ticket, app_id } = data;
 
 				if (app_ticket) {
@@ -54,7 +66,7 @@ export class EventDispatcher {
 	register<T = {}>(handles: IHandles & T) {
 		Object.keys(handles).forEach((key) => {
 			if (this.handles.has(key) && key !== CAppTicketHandle) {
-				this.logger.error(`this ${key} handle is registered`);
+				this.logger.debug(`this ${key} handle is registered`);
 			}
 
 			const handle = handles[key as keyof IHandles];
@@ -69,17 +81,24 @@ export class EventDispatcher {
 		return this;
 	}
 
-	async invoke(data: any) {
+	async invoke(data: any, params?: { needCheck?: boolean }) {
+		const needCheck = params?.needCheck === false ? false : true;
+
+		if (needCheck && !this.requestHandle?.checkIsEventValidated(data)) {
+			this.logger.warn('event verification failed');
+			return undefined;
+		}
+
 		const targetData = this.requestHandle?.parse(data);
 		this.logger.debug(`Event data: ${JSON.stringify(targetData)}`);
 
 		if (this.isAnyEvent) {
-			const ret = await this.handles.get('any_event')!(targetData);
-			this.logger.debug(`execute any_event handle`);
+			const ret = await this.handles.get(ANY_EVENT)!(targetData);
+			this.logger.info(`execute any_event handle`);
 			return ret;
 		}
 
-		const type = targetData['event_type'];
+		const type = targetData[CEventType];
 		if (this.handles.has(type)) {
 			const ret = await this.handles.get(type)!(targetData);
 			this.logger.debug(`execute ${type} handle`);
@@ -88,6 +107,6 @@ export class EventDispatcher {
 
 		this.logger.warn(`no ${type} handle`);
 
-		return `no ${type} event handle`;
+		return undefined;
 	}
 }

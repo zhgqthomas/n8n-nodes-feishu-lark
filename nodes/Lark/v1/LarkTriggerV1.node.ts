@@ -30,7 +30,7 @@ const descriptionV1: INodeTypeDescription = {
 	properties: [
 		{
 			displayName:
-				'Due to Lark API limitations, you can use just one Lark trigger for each lark bot at a time',
+				'Due to Feishu/Lark API limitations, you can use just one Lark trigger for each lark bot at a time',
 			name: 'LarkTriggerNotice',
 			type: 'notice',
 			default: '',

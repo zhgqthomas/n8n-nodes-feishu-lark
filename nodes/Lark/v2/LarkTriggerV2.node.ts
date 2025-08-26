@@ -12,6 +12,7 @@ import {
 import { larkTrigger, larkWebhook } from '../TriggerFunctions';
 import { Credentials } from '../../help/type/enums';
 import { triggerEventProperty } from '../../help/utils/properties';
+import { WORDING } from '../../help/wording';
 
 const descriptionV2: INodeTypeDescription = {
 	displayName: 'Lark Trigger',
@@ -43,7 +44,7 @@ const descriptionV2: INodeTypeDescription = {
 	properties: [
 		{
 			displayName:
-				'Due to Lark API limitations, you can use just one Lark trigger for each lark bot at a time',
+				'Due to Feishu/Lark API limitations, you can use just one Lark trigger for each lark bot at a time',
 			name: 'LarkTriggerNotice',
 			type: 'notice',
 			default: '',
@@ -66,12 +67,46 @@ const descriptionV2: INodeTypeDescription = {
 			],
 			hint: 'Websocket only works for Feishu China.',
 		},
+		{
+			displayName: 'Encrypt Key',
+			name: 'encryptKey',
+			type: 'string',
+			required: true,
+			description:
+				'Used to encrypt the transmission. <a target="_blank" href="https://open.feishu.cn/document/event-subscription-guide/event-subscriptions/event-subscription-configure-/choose-a-subscription-mode/send-notifications-to-developers-server#e0dff53d">Check Doc</a>',
+			typeOptions: {
+				password: true,
+			},
+			default: '',
+			displayOptions: {
+				show: {
+					triggerType: ['webhook'],
+				},
+			},
+		},
+		{
+			displayName: 'Verification Token',
+			name: 'verificationToken',
+			type: 'string',
+			required: true,
+			description:
+				'Used for the application verification identifier. <a target="_blank" href="https://open.feishu.cn/document/event-subscription-guide/event-subscriptions/event-subscription-configure-/choose-a-subscription-mode/send-notifications-to-developers-server#c589dfb1">Check Doc</a>',
+			typeOptions: {
+				password: true,
+			},
+			default: '',
+			displayOptions: {
+				show: {
+					triggerType: ['webhook'],
+				},
+			},
+		},
 		triggerEventProperty,
 		{
-			displayName: 'Options',
+			displayName: WORDING.Options,
 			name: 'options',
 			type: 'collection',
-			placeholder: 'Add Field',
+			placeholder: WORDING.AddField,
 			default: {},
 			options: [
 				{
@@ -88,6 +123,12 @@ const descriptionV2: INodeTypeDescription = {
 					triggerType: ['webhook'],
 				},
 			},
+		},
+		{
+			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/event-subscription-guide/overview">${WORDING.OpenDocument}</a>`,
+			name: 'notice',
+			type: 'notice',
+			default: '',
 		},
 	],
 };
@@ -117,23 +158,17 @@ export class LarkTriggerV2 implements INodeType {
 	};
 
 	async webhook(this: IWebhookFunctions): Promise<IWebhookResponseData> {
-		console.log('webhook called');
 		const triggerType = this.getNodeParameter('triggerType', 0);
 		if (triggerType === 'webhook') {
 			return await larkWebhook(this);
 		}
 
 		return {
-			workflowData: [[]],
+			noWebhookResponse: true,
 		};
 	}
 
 	async trigger(this: ITriggerFunctions): Promise<ITriggerResponse | undefined> {
-		console.log('trigger called');
-		const triggerType = this.getNodeParameter('triggerType', 0);
-		if (triggerType === 'webhook') {
-			return undefined;
-		}
 		return await larkTrigger(this);
 	}
 }

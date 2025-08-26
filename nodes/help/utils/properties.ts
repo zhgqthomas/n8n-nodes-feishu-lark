@@ -1,6 +1,7 @@
 import { INodeProperties, updateDisplayOptions } from 'n8n-workflow';
 import { DESCRIPTIONS } from '../description';
 import { TriggerEventType } from '../type/enums';
+import { ANY_EVENT } from '../../lark-sdk/consts';
 
 const placeholder: string = `
 <!-- Your custom HTML here --->
@@ -661,7 +662,7 @@ export const triggerEventProperty = {
 		},
 		{
 			name: 'Any Event(所有事件)',
-			value: 'any_event',
+			value: ANY_EVENT,
 			description: 'Triggers on any event',
 		},
 		{

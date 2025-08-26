@@ -1,12 +1,12 @@
 import { Logger, RequestHelperFunctions } from 'n8n-workflow';
 
 import WebSocket from 'ws';
-import { EventDispatcher } from './dispatcher';
-import * as protoBuf from './proto-buf';
+import { EventDispatcher } from '../handler/event-handler';
+import * as protoBuf from '../proto-buf';
 import { WSConfig } from './ws-config';
-import { DataCache } from './data-cache';
-import { Domain, ErrorCode, FrameType, HeaderKey, HttpStatusCode, MessageType } from './enum';
-import { pbbp2 } from './proto-buf/pbbp2';
+import { DataCache } from '../data-cache';
+import { Domain, ErrorCode, FrameType, HeaderKey, HttpStatusCode, MessageType } from '../enum';
+import { pbbp2 } from '../proto-buf/pbbp2';
 
 interface IConstructorParams {
 	appId: string;
