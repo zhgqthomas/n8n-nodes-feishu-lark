@@ -12,7 +12,7 @@ import {
 import ResourceFactory from '../help/builder/ResourceFactory';
 
 import { configuredOutputs } from '../help/utils';
-import { Credentials, FileType, OutputType } from '../help/type/enums';
+import { Credentials, FileType, OperationType, OutputType } from '../help/type/enums';
 import {
 	getFileList,
 	larkApiRequestBaseRoleList,
@@ -52,6 +52,9 @@ export class Lark implements INodeType {
 					show: {
 						authentication: [Credentials.TenantToken],
 					},
+					hide: {
+						operation: [OperationType.ParseWebhookMessage],
+					},
 				},
 			},
 			{
@@ -60,6 +63,9 @@ export class Lark implements INodeType {
 				displayOptions: {
 					show: {
 						authentication: [Credentials.UserToken],
+					},
+					hide: {
+						operation: [OperationType.ParseWebhookMessage],
 					},
 				},
 			},
