@@ -101,7 +101,7 @@ export class EventDispatcher {
 		const type = targetData[CEventType];
 		if (this.handles.has(type)) {
 			const ret = await this.handles.get(type)!(targetData);
-			this.logger.debug(`execute ${type} handle`);
+			this.logger.info(`execute ${type} handle`);
 			return ret;
 		}
 
