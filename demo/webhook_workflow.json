@@ -1,0 +1,92 @@
+{
+  "name": "Feishu",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -64,
+        80
+      ],
+      "id": "4929f81e-1a5c-4533-84f1-f02a1e96f026",
+      "name": "Webhook",
+      "webhookId": "2da646c1-d8e9-468f-b375-b228d722b7cd"
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "parseWebhook",
+        "events": [
+          "any_event"
+        ]
+      },
+      "type": "CUSTOM.lark",
+      "typeVersion": 1,
+      "position": [
+        160,
+        80
+      ],
+      "id": "28976466-b18e-4ef2-b0ba-c92402ae94df",
+      "name": "ParseWebhook message",
+      "webhookId": "c045d050-4c20-43d5-8dc7-15fd864f8c2d"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"challenge\": \"{{ $json.data?.challenge || '' }}\"\n}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        384,
+        80
+      ],
+      "id": "ca6e1924-b8c8-4a09-9e98-0a0805ff98ac",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "ParseWebhook message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ParseWebhook message": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "5f8a064e-5ec1-407d-8304-6ffb0bbad962",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "cd33199f1ea679b98a49e92a844e3ecb4db1a824d407b005aed643fd03119c5f"
+  },
+  "id": "EGXTEKJJFnkAUQx6",
+  "tags": []
+}

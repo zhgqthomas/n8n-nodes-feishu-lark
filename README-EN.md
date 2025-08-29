@@ -1,200 +1,104 @@
-[中文](https://github.com/zhgqthomas/n8n-nodes-feishu-lark/blob/main/README-ZH.md)
+[中文](https://github.com/zhgqthomas/n8n-nodes-feishu-lark/blob/main/README.md)
 
 # n8n-nodes-feishu-lark
 
-This project is based on [n8n-nodes-feishu-lite](https://github.com/other-blowsnow/n8n-nodes-feishu-lite). Appreciate the original author's open-source contribution. Building upon the original functionality, I have added more practical node types and enhanced features.
+This project is a secondary development based on [n8n-nodes-feishu-lite](https://github.com/other-blowsnow/n8n-nodes-feishu-lite). We thank the original author for their open-source contribution. Building on the original functionality, we have added `LarkTrigger` and `LarkMCP` nodes along with some operational optimizations.
 
-## Installation
+# Usage Tutorial
 
-Reference: https://docs.n8n.io/integrations/community-nodes/installation/
+## Credentials
 
-Node name: `n8n-nodes-feishu-lark`
+When calling Feishu Open Platform OpenAPI, you may need to use `tenant_access_token` or `user_access_token`.
 
-## Node Types
+`tenant_access_token` represents using the application's identity to operate OpenAPI. The scope of data resources that the API can operate is limited to the resource scope that the application's identity can operate.
 
-This project provides the following three types of nodes:
+`user_access_token` represents using the application user's identity to operate OpenAPI. The scope of data resources that the API can operate is limited to the resource scope that the user's identity can operate.
 
-### 1. Lark Node
+### Tenant Token Configuration
 
-Main Lark API operation node that supports various Lark OpenAPI function calls.
+In the Add new credential options, select `Lark Tenant Token API`, and fill in the `App ID` and `App Secret` from the Feishu application backend into the corresponding input boxes in the image.
+![](./images/lark_tenant_token_credential.png)
 
-### 2. Lark Trigger Node
+> For how to obtain `App ID` and `App Secret`, please refer to Feishu's [official documentation](https://open.feishu.cn/document/server-docs/api-call-guide/terminology).
 
-Lark event trigger node that receives Lark event pushes through long connection.
+### User Token Configuration
 
-### 3. Lark MCP Node
+In the Add new credential options, select `Lark OAuth2 API`, and fill in the `App ID` and `App Secret` from the Feishu application backend into the corresponding `Client ID` and `Client Secret` input boxes in the image.
+![](./images/lark_oauth2_credential.png)
 
-Lark integration node that supports Model Context Protocol (MCP).
+The `OAuth Redirect URL` in the above image needs to be configured in the Feishu application backend. The specific path is to open the application details page, select `Security Settings`, and you can see the place to set the `Redirect URL`.
+![](./images/lark_redirect_url_setting.png)
 
-## Trigger Node Usage Guide
+OAuth2.0 authentication requires setting the corresponding Scope permissions. You need to enable the corresponding permissions in the `Permission Management` option in the Feishu application backend, and then input the permission names in a specific format into the `Scope` input box of `Lark OAuth2 API`.
 
-### Features
+For example, if you need to authorize offline data access and create multi-dimensional table permissions, you first need to go to `Permission Management` in the application backend, click `Enable Permissions`, and select offline data access and create multi-dimensional table in the popup options to enable the corresponding permissions. Then input the Scope names `base:app:create,offline_access` into the Scope input box in `Lark OAuth2 API`. After clicking save, the Feishu authentication page will pop up.
+![](./images/lark_oauth2_scope.png)
 
-- **Long Connection**: Uses WebSocket long connection technology, no need for public IP and domain to establish connection
-- **Real-time Event Push**: Supports real-time reception of various Lark event pushes
-- **Zero Configuration**: No complex network configuration needed, ready to use out of the box
+> It is recommended to enable `offline_access` permission so that n8n can automatically update expired access tokens through refresh tokens.
 
-### Basic Usage
+## Triggers
 
-1. **Add Trigger Node**: Add "Lark Trigger" node to your workflow
-2. **Configure Credentials**: Select configured Lark API credentials
-3. **Select Event Type**: Choose the event types you want to monitor
-4. **Start Workflow**: Save and start the workflow, the node will automatically establish long connection
+Through event subscription, n8n applications can respond promptly to change events in Feishu. When events occur, the open platform will send event messages according to the configured subscription method.
 
-### Supported Event Types
+### Websocket
 
-- **Message Events**: New messages, message emoji reactions, etc.
-- **Bitable Events**: Field changes, record changes, etc.
-- **Card Interactive Events**: Card callback interactions, etc.
-- **Any Events**: Support monitoring all event types
+**Websocket is the recommended way to receive events in Feishu, but it currently only applies to the Chinese version of Feishu. The international version of Lark can only choose the Webhook method to receive events.**
 
-## Implemented Lark OpenAPI Functions
+By searching for and clicking Lark on a blank n8n canvas, the Trigger option will automatically appear. This Trigger uses the Websocket connection method.
+![](./images/lark_trigger_canvas.png)
 
-### Wiki Related
+`Lark Trigger` uses `tenant_access_token` to receive event pushes sent by Feishu, so you must configure the `Lark Tenant Token API` Credential in advance.
+![](./images/lark_trigger.png)
 
-- Get wiki space list
-- Get wiki space info
-- Update wiki space settings
-- Delete wiki space member
-- Get wiki space member list
-- Add wiki space member
-- Update wiki space node title
-- Move wiki space node
-- Get wiki space node info
-- Get wiki space sub-node list
-- Create wiki space node
-- Create wiki space node copy
+`Any Event` can accept all events from Feishu without having to select a specific event individually. However, you still need to add the corresponding events in the `Events & Callbacks` option in the Feishu backend before the application can normally receive the corresponding event notifications.
 
-### Contact Related
+![](./images/lark_add_event.png)
 
-- Get user info
-- Get user ID by phone number or email
+> For the configuration method of Websocket connection in the Feishu backend, please refer to Feishu's [official documentation](https://open.feishu.cn/document/server-docs/event-subscription-guide/event-subscription-configure-/request-url-configuration-case).
 
-### Task Related
+### Webhook
 
-- Update task
-- Get task details
-- Delete task
-- Create task
-- Remove task member
-- Add task member
+The Webhook method of receiving Feishu events is implemented using the `parse webhook` operation combined with n8n's official `Webhook` and `Respond to Webhook`.
 
-### Spreadsheet Related
+![](./images/lark_webhook_flow.png)
 
-- Modify spreadsheet properties
-- Get spreadsheet info
-- Create spreadsheet
-- Get worksheet
-- Delete worksheet
-- Copy worksheet
-- Add worksheet
-- Query worksheet
-- Update rows and columns
-- Move rows and columns
-- Insert rows and columns
-- Delete rows and columns
-- Add rows and columns
-- Split cells
-- Set cell style
-- Replace cells
-- Merge cells
-- Find cells
-- Write data
-- Read single range
-- Insert data
-- Write image
-- Auto write data
-- Append data
+The source code provides a Webhook Workflow [demonstration file](https://github.com/zhgqthomas/n8n-nodes-feishu-lark/blob/main/demo/webhook_workflow.json) that can be directly imported into n8n for use.
 
-### Drive Related
+> For the configuration method of Webhook connection in the Feishu backend, please refer to Feishu's [official documentation](https://open.feishu.cn/document/event-subscription-guide/event-subscriptions/event-subscription-configure-/choose-a-subscription-mode/send-notifications-to-developers-server).
 
-- Upload material
-- Upload material via URL
+## Custom Operations
 
-### Message Related
+### Parse Message
 
-- Send message
-- Reply message
-- Recall message
-- Forward message
-- Edit message
-- Batch send messages
-- Batch recall messages
+Parse the data structure of Feishu's event callbacks and perform branch processing according to different event types.
+![](./images/lark_parse_content.png)
 
-### Document Related
+> Check Feishu's [official documentation](https://open.feishu.cn/document/server-docs/im-v1/message-content-description/message_content) to understand different message content types.
 
-- Get document plain text content
-- Get document basic info
-- Get all document blocks
-- Create document
-- Update block content
-- Delete block
-- Create block
-- Create nested block
+### Send and Wait
 
-### Calendar Related
+By selecting the `Send and Wait` operation, the application will send a message to Feishu and pause the workflow execution until someone confirms the operation or provides more information.
 
-- Search calendar
-- Query calendar info
-- Query primary calendar info
-- Delete shared calendar
-- Create shared calendar
-- Update event
-- Search events
-- Get event list
-- Get event
-- Delete event
-- Create event
-- Get event attendee list
-- Delete event attendee
-- Add event attendee
-- Unbind meeting group
-- Create meeting group
+![](./images/lark_send_and_wait.png)
 
-### Bitable Related
+> This Operation can be used to implement Human in the loop strategy mechanisms.
 
-- Parse bitable URL
-- Update bitable metadata
-- Get bitable metadata
-- Create bitable
-- Copy bitable
-- Update table
-- List tables
-- Delete table
-- Add table
-- Update view
-- List views
-- Get view
-- Delete view
-- Add view
-- Update record
-- Query records
-- Query record by ID
-- Delete record
-- Batch update records
-- Batch delete records
-- Batch add records
-- Add record
-- Add field
-- Save field
-- List fields
-- Delete field
-- Batch save fields
+## MCP Node Related Features
 
-### Authorization Related
+Currently still in the development stage, and related features will be continuously improved.
 
-- Get current app access token
+Please first refer to the usage introduction of the open-source project [n8n-nodes-mcp](https://github.com/nerding-io/n8n-nodes-mcp/blob/main/README.md). More detailed usage instructions will be provided later.
 
 ## License
 
 MIT License
 
-## Contributing
-
-Welcome to submit Issues and Pull Requests to help improve this project.
-
 ## Links
 
 - [Project Homepage](https://github.com/zhgqthomas/n8n-nodes-lark-feishu)
-- [Lark Open Platform Documentation](https://open.feishu.cn/document/)
+- [Feishu Open Platform Documentation](https://open.feishu.cn/document/)
 - [n8n Community Nodes Documentation](https://docs.n8n.io/integrations/community-nodes/)
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=zhgqthomas/n8n-nodes-feishu-lark&type=Date)](https://www.star-history.com/#zhgqthomas/n8n-nodes-feishu-lark&Date)

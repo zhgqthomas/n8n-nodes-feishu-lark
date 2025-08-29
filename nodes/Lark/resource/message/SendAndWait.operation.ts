@@ -15,7 +15,7 @@ export default {
 	name: WORDING.SendAndWaitMessage,
 	value: SEND_AND_WAIT_OPERATION,
 	action: 'Send message and wait',
-	order: 100,
+	order: 1,
 	options: [
 		{
 			displayName: `Only work with <a target="_blank" href="https://open.feishu.cn/document/server-docs/authentication-management/access-token/tenant_access_token_internal">Tenant Token.</a>`,
