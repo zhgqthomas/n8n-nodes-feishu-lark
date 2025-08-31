@@ -13,7 +13,7 @@ import {
 	tryToParseJsonToFormFields,
 	WAIT_INDEFINITELY,
 } from 'n8n-workflow';
-import { isbot } from 'isbot';
+import isbot from 'isbot';
 import sanitize from 'sanitize-html';
 import { DateTime } from 'luxon';
 import RequestUtils from '../help/utils/RequestUtils';
