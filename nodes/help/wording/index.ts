@@ -144,6 +144,10 @@ export const WORDING = {
 	CalendarMeetingChatCreate: 'Create Meeting Chat | 创建会议群',
 	CalendarMeetingChatUnbind: 'Unbind Meeting Chat | 解绑会议群',
 
+	// MCP
+	GetToolList: 'List Tools | 获取工具列表',
+	ExecuteTool: 'Execute Tool | 执行工具',
+
 	// Common
 	Options: 'Options(选项)',
 	AddField: 'Add Field | 添加字段',

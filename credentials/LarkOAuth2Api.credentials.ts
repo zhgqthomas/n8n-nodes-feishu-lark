@@ -35,7 +35,7 @@ export class LarkOAuth2Api implements ICredentialType {
 			required: true,
 		},
 		{
-			displayName: `Up to 50 scope permissions can be requested from the user at once.Please always include offline_access.<a target="_blank" href="https://open.feishu.cn/document/authentication-management/access-token/obtain-oauth-code?#bc6d1214">More Details</a>`,
+			displayName: `Up to 50 scope permissions can be requested from the user at once. Recommend to include offline_access.<a target="_blank" href="https://open.feishu.cn/document/authentication-management/access-token/obtain-oauth-code?#bc6d1214">More Details</a>`,
 			name: 'suggestion',
 			type: 'notice',
 			default: '',
@@ -44,9 +44,69 @@ export class LarkOAuth2Api implements ICredentialType {
 			displayName: 'Scope',
 			name: 'authScope',
 			type: 'string',
-			hint: 'Format: offline_access,contact:contact,bitable:app',
+			hint: 'Format: offline_access,contact:contact,bitable:app. <a target="_blank" href="https://open.feishu.cn/document/authentication-management/access-token/obtain-oauth-code#bc6d1214">More Details</a>',
 			default: 'offline_access',
 			required: true,
+		},
+		{
+			displayName: 'Preset Tool Sets',
+			name: 'presetToolSets',
+			type: 'multiOptions',
+			options: [
+				{
+					name: 'Default',
+					value: 'preset.default',
+				},
+				{
+					name: 'Light',
+					value: 'preset.light',
+				},
+				{
+					name: 'IM',
+					value: 'preset.im.default',
+				},
+				{
+					name: 'Base Default',
+					value: 'preset.base.default',
+				},
+				{
+					name: 'Base Batch',
+					value: 'preset.base.batch',
+				},
+				{
+					name: 'Doc',
+					value: 'preset.doc.default',
+				},
+				{
+					name: 'Task',
+					value: 'preset.task.default',
+				},
+				{
+					name: 'Calendar',
+					value: 'preset.calendar.default',
+				},
+				{
+					name: 'Custom',
+					value: 'custom',
+				},
+			],
+			description:
+				'<a target="_blank" href="https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/mcp_integration/advanced-configuration#7f0f2ab1">More Details about Preset Tool Sets</a>',
+			default: [],
+		},
+		{
+			displayName: 'Custom Tools',
+			name: 'customTools',
+			type: 'string',
+			default: '',
+			description:
+				'<a target="_blank" href="https://github.com/larksuite/lark-openapi-mcp/blob/main/docs/reference/tool-presets/tools-en.md">View All Tools</a>',
+			hint: 'Format: acs.v1.device.list,cardkit.v1.cardElement.delete',
+			displayOptions: {
+				show: {
+					presetToolSets: ['custom'],
+				},
+			},
 		},
 		{
 			displayName: 'Authorization URL',

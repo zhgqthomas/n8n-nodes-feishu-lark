@@ -25,6 +25,7 @@ export declare const enum ResourceType {
 	Space = 'space',
 	Task = 'task',
 	Wiki = 'wiki_spaces',
+	Mcp = 'mcp',
 }
 
 export declare const enum OperationType {
@@ -166,6 +167,10 @@ export declare const enum OperationType {
 	GetCalendarEventAttendeeList = 'getEventAttendeeList',
 	CreateCalendarMeetingChat = 'createMeetingChat',
 	UnbindCalendarMeetingChat = 'unbindMeetingChat',
+
+	// MCP
+	ListTools = 'listTools',
+	ExecuteTool = 'executeTool',
 }
 
 export declare const enum OutputType {
