@@ -1343,4 +1343,51 @@ export const DESCRIPTIONS = {
 		default: '',
 		description: 'The group ID is returned when the group is created',
 	},
+
+	CUSTOM_PATH: {
+		displayName: 'Http Path(自定义路径)',
+		name: 'path',
+		type: 'string',
+		default: '',
+		description: '自定义请求路径 例: /open-apis/im/v1/messages',
+	},
+
+	CUSTOM_METHOD: {
+		displayName: 'Http Method(自定义方法)',
+		name: 'method',
+		default: 'GET',
+		required: true,
+		type: 'options',
+		options: [
+			{ name: 'DELETE', value: 'DELETE' },
+			{ name: 'GET', value: 'GET' },
+			{ name: 'HEAD', value: 'HEAD' },
+			{ name: 'PATCH', value: 'PATCH' },
+			{ name: 'POST', value: 'POST' },
+			{ name: 'PUT', value: 'PUT' },
+			{ name: 'OPTIONS', value: 'OPTIONS' },
+		],
+		description: '自定义请求方法',
+	},
+
+	CUSTOM_BODY: {
+		displayName: 'Http Body(自定义请求体)',
+		name: 'body',
+		type: 'json',
+		default: '{}',
+		description: '自定义请求体',
+	},
+
+
+
+	CUSTOM_QUERY: {
+		displayName: 'Http Query(自定义查询参数)',
+		name: 'query',
+		type: 'json',
+		default: '{}',
+		description: '自定义查询参数',
+	},
+
+
+
 };

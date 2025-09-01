@@ -166,6 +166,10 @@ export declare const enum OperationType {
 	GetCalendarEventAttendeeList = 'getEventAttendeeList',
 	CreateCalendarMeetingChat = 'createMeetingChat',
 	UnbindCalendarMeetingChat = 'unbindMeetingChat',
+
+	// Custom
+	CustomApiRequest = 'CustomApiRequest'
+
 }
 
 export declare const enum OutputType {

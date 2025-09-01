@@ -148,4 +148,9 @@ export const WORDING = {
 	Options: 'Options(选项)',
 	AddField: 'Add Field | 添加字段',
 	OpenDocument: 'Open official document | 浏览官方文档',
+
+
+	// Custom
+	CustomApiRequest: 'Custom Api Request | 自定义 API 请求',
+
 };
