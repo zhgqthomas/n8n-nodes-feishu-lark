@@ -103,10 +103,19 @@ export class LarkTokenApi implements ICredentialType {
 		},
 		rules: [
 			{
-				type: 'responseCode',
+				type: 'responseSuccessBody',
 				properties: {
-					value: 200,
-					message: 'Authentication successful',
+					message: 'Invalid param',
+					key: 'code',
+					value: 10003,
+				},
+			},
+			{
+				type: 'responseSuccessBody',
+				properties: {
+					message: 'App secret invalid',
+					key: 'code',
+					value: 10014,
 				},
 			},
 		],
