@@ -20,8 +20,6 @@ export async function createStdioClientTransport(
 			customTools: string;
 		};
 
-	console.log(credentials);
-
 	// Build command arguments
 	const args = [
 		'-y',
