@@ -18,7 +18,10 @@ export default {
 			name: 'name',
 			type: 'string',
 			required: true,
+			hint: 'This parameter must include a suffix, such as test.png',
 			default: '',
+			description:
+				'Supported suffixes are: "PNG", "JPEG", "JPG", "GIF", "BMP", "JFIF", "EXIF", "TIFF", "BPG", "HEIC". Case insensitive.',
 		},
 		{
 			displayName: 'Image Binary Field(图片二进制字段)',
