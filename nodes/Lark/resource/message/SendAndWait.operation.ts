@@ -9,7 +9,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 import { WORDING } from '../../../help/wording';
 import { DESCRIPTIONS } from '../../../help/description';
 import { sendAndWaitProperties } from '../../../help/utils/properties';
-import { configureWaitTillDate, createSendAndWaitMessageBody } from '../../GenericFunctions';
+import { configureWaitTillDate, createSendAndWaitMessageBody } from '../../../help/utils/webhook';
 
 export default {
 	name: WORDING.SendAndWaitMessage,

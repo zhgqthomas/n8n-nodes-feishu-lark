@@ -11,7 +11,7 @@ import {
 } from 'n8n-workflow';
 import ResourceFactory from '../help/builder/ResourceFactory';
 
-import { configuredOutputs } from '../help/utils';
+import { configuredOutputs } from '../help/utils/parameters';
 import { Credentials, FileType, OperationType, OutputType } from '../help/type/enums';
 import {
 	getFileList,
@@ -22,9 +22,9 @@ import {
 	larkApiRequestTableFieldList,
 	larkApiRequestTableList,
 	larkApiRequestTableViewList,
-	sendAndWaitWebhook,
 } from './GenericFunctions';
 import RequestUtils from '../help/utils/RequestUtils';
+import { sendAndWaitWebhook } from '../help/utils/webhook';
 
 const resourceBuilder = ResourceFactory.build(__dirname);
 

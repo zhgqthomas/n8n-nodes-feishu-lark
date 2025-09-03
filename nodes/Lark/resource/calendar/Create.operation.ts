@@ -4,7 +4,7 @@ import RequestUtils from '../../../help/utils/RequestUtils';
 import { WORDING } from '../../../help/wording';
 import { OperationType } from '../../../help/type/enums';
 import { DESCRIPTIONS } from '../../../help/description';
-import { hexToRgbInt32 } from '../../../help/utils';
+import { hexToRgbInt32 } from '../../../help/utils/parameters';
 
 export default {
 	name: WORDING.CreateCalendar,
