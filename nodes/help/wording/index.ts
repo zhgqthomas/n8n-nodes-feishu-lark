@@ -69,6 +69,7 @@ export const WORDING = {
 	DeleteMessageCard: 'Delete Card Message | 删除卡片消息',
 	SendAndWaitMessage: 'Send and Wait',
 	ParseWebhookMessage: 'Parse Webhook Message',
+	SendStreamMessage: 'Send Stream Message | 发送流式消息',
 
 	// Document
 	CreateDocument: 'Create | 创建文档',

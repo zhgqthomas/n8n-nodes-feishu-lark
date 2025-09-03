@@ -8,17 +8,14 @@ import {
 	IExecuteFunctions,
 	INodeExecutionData,
 	IWebhookFunctions,
-	IWebhookResponseData,
 	jsonParse,
 	MultiPartFormData,
 	NodeOperationError,
-	SEND_AND_WAIT_OPERATION,
 	tryToParseJsonToFormFields,
 	WAIT_INDEFINITELY,
 } from 'n8n-workflow';
 import sanitize from 'sanitize-html';
 import { ACTION_RECORDED_PAGE } from '../templates';
-import { OperationType } from '../type/enums';
 
 const INPUT_FIELD_IDENTIFIER = 'field-0';
 

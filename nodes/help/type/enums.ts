@@ -96,6 +96,7 @@ export declare const enum OperationType {
 	UpdateMessageCard = 'updateMessageCard',
 	DeleteMessageCard = 'deleteMessageCard',
 	ParseWebhookMessage = 'parseWebhook',
+	SendStreamMessage = 'stream',
 
 	// Document
 	CreateDocument = 'create',
@@ -201,4 +202,9 @@ export declare const enum Credentials {
 export declare const enum BaseUrl {
 	China = 'https://open.feishu.cn',
 	Global = 'https://open.larksuite.com',
+}
+
+export declare const enum ConnectionType {
+	ChatInput = 'chat_input',
+	StreamOutput = 'stream_output',
 }

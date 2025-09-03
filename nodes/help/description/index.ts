@@ -1,6 +1,18 @@
 import { FileType, MessageType } from '../type/enums';
 
 export const DESCRIPTIONS = {
+	JSON_OUTPUT: {
+		displayName: 'JSON',
+		name: 'jsonOutput',
+		type: 'json',
+		typeOptions: {
+			rows: 5,
+		},
+		default: '{\n  "my_field_1": "value",\n  "my_field_2": 1\n}\n',
+		validateType: 'object',
+		ignoreValidationDuringExecution: true,
+	},
+
 	ARRAY_VALUES: {
 		displayName: 'Values(数据)',
 		name: 'array_values',
