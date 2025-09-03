@@ -5,8 +5,7 @@ import {
 	NodeOperationError,
 } from 'n8n-workflow';
 import { ResourceOperation } from '../../../help/type/IResource';
-import { MessageType, OperationType, OutputType, TriggerEventType } from '../../../help/type/enums';
-import { larkApiRequestMessageResourceData } from '../../GenericFunctions';
+import { OperationType, OutputType, TriggerEventType } from '../../../help/type/enums';
 import { WORDING } from '../../../help/wording';
 import { DESCRIPTIONS } from '../../../help/description';
 
@@ -54,7 +53,7 @@ export default {
 	name: WORDING.ParseMessageContent,
 	value: OperationType.ParseMessageContent,
 	order: 100,
-	options: [DESCRIPTIONS.RECEIVE_MESSAGE_TYPES, DESCRIPTIONS.DOWNLOAD_RESOURCE],
+	options: [DESCRIPTIONS.RECEIVE_MESSAGE_TYPES],
 
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
 		const inputData = this.getInputData() as INodeExecutionData[];
@@ -74,44 +73,12 @@ export default {
 		}
 
 		const messageTypes = this.getNodeParameter('messageTypes', index, []) as string[];
-		const downloadResource = this.getNodeParameter('downloadResource', index, false) as boolean;
 		const returnData: INodeExecutionData[][] = Array.from(
 			{ length: messageTypes.length },
 			() => [],
 		);
 		const { message } = item;
 		message.content = JSON.parse((message.content as string) || '{}');
-		if (downloadResource) {
-			switch (message.message_type) {
-				case MessageType.Image:
-					// Handle image content parsing
-					const imageContent = message.content as IDataObject;
-					const imageData = await larkApiRequestMessageResourceData.call(this, {
-						type: 'image',
-						messageId: message.message_id,
-						key: imageContent.image_key as string,
-					});
-					message.content = { ...imageContent, data: imageData };
-					break;
-				case MessageType.File:
-				case MessageType.Audio:
-				case MessageType.Video:
-					// Handle file content parsing
-					const fileContent = message.content as IDataObject;
-					const fileData = await larkApiRequestMessageResourceData.call(this, {
-						type: 'file',
-						messageId: message.message_id,
-						key: fileContent.file_key as string,
-					});
-					message.content = { ...fileContent, data: fileData };
-					break;
-				case MessageType.RichText:
-					// Handle rich text content parsing
-					message.content = await handleRichTextContent.call(this, message);
-					break;
-				default:
-			}
-		}
 		const outputIndex = messageTypes.indexOf(message.message_type);
 		if (outputIndex === -1) {
 			this.logger.debug('Message type not selected for parsing', {
@@ -135,51 +102,3 @@ export default {
 		};
 	},
 } as ResourceOperation;
-
-async function handleRichTextContent(
-	this: IExecuteFunctions,
-	message: IDataObject,
-): Promise<IDataObject> {
-	const richTextContent = message.content as IDataObject;
-	if (Array.isArray(richTextContent.content)) {
-		const processedContent = await Promise.all(
-			richTextContent.content
-				.filter((line: any[]) => line.length > 0)
-				.map(async (line: any[]) => {
-					return await Promise.all(
-						line.map(async (element: IDataObject) => {
-							const { tag } = element;
-
-							if (tag !== 'img' && tag !== 'media') {
-								return element; // Skip non-resource elements
-							}
-
-							let type = '';
-							let key = '';
-							if (tag === 'img') {
-								type = 'image';
-								key = element.image_key as string;
-							} else if (tag === 'media') {
-								type = 'file';
-								key = element.file_key as string;
-							}
-
-							const data = await larkApiRequestMessageResourceData.call(this, {
-								type,
-								messageId: message.message_id as string,
-								key,
-							});
-
-							return {
-								...element,
-								data,
-							};
-						}),
-					);
-				}),
-		);
-		return { ...richTextContent, content: processedContent };
-	}
-
-	return richTextContent;
-}

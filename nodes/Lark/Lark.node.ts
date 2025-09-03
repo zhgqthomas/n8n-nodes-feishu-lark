@@ -53,7 +53,7 @@ export class Lark implements INodeType {
 						authentication: [Credentials.TenantToken],
 					},
 					hide: {
-						operation: [OperationType.ParseWebhookMessage],
+						operation: [OperationType.ParseWebhookMessage, OperationType.ParseMessageContent],
 					},
 				},
 			},
@@ -65,7 +65,7 @@ export class Lark implements INodeType {
 						authentication: [Credentials.UserToken],
 					},
 					hide: {
-						operation: [OperationType.ParseWebhookMessage],
+						operation: [OperationType.ParseWebhookMessage, OperationType.ParseMessageContent],
 					},
 				},
 			},
