@@ -48,6 +48,10 @@ class RequestUtils {
 		return RequestUtils.originRequest
 			.call(this, options)
 			.then((res) => {
+				if (res instanceof Buffer || res instanceof ArrayBuffer || res instanceof Uint8Array) {
+					return res;
+				}
+
 				if (res.code !== 0) {
 					throw new Error(`Request Lark API Error: ${res.code}, ${res.msg}`);
 				}
