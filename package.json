@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-feishu-lark",
-	"version": "0.9.2",
+	"version": "0.9.3",
 	"description": "n8n custom nodes for n8n to interact with Feishu/Lark, including Lark Bot, Lark MCP, and Lark Trigger.",
 	"keywords": [
 		"n8n-community-node-package",
