@@ -248,6 +248,8 @@ export default {
 			) as ChatMessageText;
 
 		if (output) {
+			// Delay 500ms before updating the final the message
+			await new Promise((resolve) => setTimeout(resolve, 500));
 			await updateStreamingMessage(this, larkMessageId, output.text);
 
 			return {
