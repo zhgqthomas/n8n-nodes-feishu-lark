@@ -1,4 +1,4 @@
-import isbot from 'isbot';
+import { isbot } from 'isbot';
 import { DateTime } from 'luxon';
 import {
 	ApplicationError,
