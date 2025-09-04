@@ -52,10 +52,9 @@
 	},
 	"devDependencies": {
 		"@types/jest": "^29.5.14",
-		"@types/luxon": "^3.4.2",
+		"@types/luxon": "^3.7.1",
 		"@types/node": "^22.15.21",
-		"@types/sanitize-html": "^2.11.0",
-		"@types/uuid": "^10.0.0",
+		"@types/sanitize-html": "^2.16.0",
 		"@types/ws": "^8.18.1",
 		"@typescript-eslint/parser": "~8.35.1",
 		"eslint": "^8.57.1",
@@ -68,17 +67,17 @@
 		"typescript": "^5.8.3"
 	},
 	"dependencies": {
+		"@langchain/core": "0.3.43",
+		"@modelcontextprotocol/sdk": "^1.15.1",
 		"crypto": "^1.0.1",
-		"protobufjs": "^7.5.3",
-		"ws": "^8.18.3",
-		"@langchain/core": "^0.3.73",
-		"luxon": "^3.7.1",
-		"@modelcontextprotocol/sdk": "^1.17.5",
-		"zod": "3.25.67",
-		"zod-to-json-schema": "^3.24.6",
 		"form-data": "^4.0.4",
 		"isbot": "^5.1.30",
+		"luxon": "^3.7.1",
+		"protobufjs": "^7.5.3",
 		"sanitize-html": "^2.17.0",
+		"ws": "^8.18.3",
+		"zod": "^3.24.1",
+		"zod-to-json-schema": "^3.24.6",
 		"uuid": "^11.1.0"
 	},
 	"overrides": {
