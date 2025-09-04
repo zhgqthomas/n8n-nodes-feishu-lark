@@ -23,6 +23,13 @@ export default {
 	value: OperationType.SendStreamMessage,
 	order: 100,
 	options: [
+		{
+			displayName:
+				'Tip: Get a feel with the quick <a href="https://github.com/zhgqthomas/n8n-nodes-feishu-lark/blob/main/README.md#send-streaming-message" target="_blank">tutorial</a> or see an <a href="https://github.com/zhgqthomas/n8n-nodes-feishu-lark/blob/main/demo/send_streaming_message.json" target="_blank">example</a> of how this node works',
+			name: 'streamMessageStarterCallout',
+			type: 'callout',
+			default: '',
+		},
 		DESCRIPTIONS.RECEIVE_ID_TYPE,
 		{
 			...DESCRIPTIONS.MEMBER_ID,
@@ -37,11 +44,7 @@ export default {
 			hint: 'Webhook node need to use POST method to receive the message',
 			default: '',
 		},
-		{
-			...DESCRIPTIONS.JSON_OUTPUT,
-			displayName: 'Input JSON',
-			required: true,
-		},
+		DESCRIPTIONS.REQUEST_BODY,
 		{
 			displayName: WORDING.Options,
 			name: 'options',
@@ -89,8 +92,12 @@ export default {
 		const receive_id = this.getNodeParameter('receive_id', index, undefined, {
 			extractValue: true,
 		}) as string;
+		const webhookUrl = this.getNodeParameter('webhook_url', index) as string;
+		const requestBody = this.getNodeParameter('body', index) as IDataObject;
+
 		const options = this.getNodeParameter('options', index) as IDataObject;
 		const initialMessage = (options.initial_message as string) || 'Thinking...';
+		const bearer_token = (options.bearer_token as string) || '';
 
 		const { data } = await RequestUtils.request.call(this, {
 			method: 'POST',
@@ -112,10 +119,7 @@ export default {
 		const receivedMessage: ChatMessageText | null = null;
 		const streamingManager = new StreamingMessageManager();
 		const messages: ChatMessage[] = [];
-		const webhookUrl = this.getNodeParameter('webhook_url', index) as string;
-		const jsonOutput = this.getNodeParameter('jsonOutput', index) as string;
 
-		const bearer_token = (options.bearer_token as string) || '';
 		const headers: IDataObject = {};
 		if (bearer_token) {
 			headers['Authorization'] = `Bearer ${bearer_token}`;
@@ -150,7 +154,7 @@ export default {
 					Accept: 'text/plain',
 					...headers,
 				},
-				body: JSON.stringify(parseJsonParameter(jsonOutput, this.getNode(), index)),
+				body: JSON.stringify(parseJsonParameter(requestBody, this.getNode(), index)),
 			});
 
 			if (!response.ok) {
