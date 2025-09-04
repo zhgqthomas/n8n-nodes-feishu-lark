@@ -83,11 +83,19 @@ Webhook 接收飞书的事件方式是使用 `parse webhook` operation 然后搭
 
 > 可以通过该 Operation 来实现 Human in the loop 的策略机制。
 
-## MCP Node 相关功能
+### Send Streaming Message
 
-当前依旧处于开发阶段，会持续不断完善相关功能。
+n8n 在 1.3.0 版本当中，[为 `Webhook node` 和 `AI Agent node` 添加了 Streaming 的能力](https://docs.n8n.io/release-notes/#n8n11030)。`Send Streaming Message` node 通过调用 Webhook node 将 AI Agent 的 output 以 Streaming 的形式，推送给飞书机器人。效果如下所示。
 
-请先参考开源项目[n8n-nodes-mcp](https://github.com/nerding-io/n8n-nodes-mcp/blob/main/README.md)的使用介绍，后续会出更详细的使用说明。
+> [Demo json 文件](https://github.com/zhgqthomas/n8n-nodes-feishu-lark/blob/main/demo/send_streaming_message.json)
+
+### MCP node
+
+`listTool` 和 `executeTool` 两个 Operation，会调用飞书官方的 lark-openapi-mcp 开源库，实现 AI Agent 通过 MCP 协议调用飞书 OpenAPI。并且为 MCP Operation 添加了特有的 Crediential 以实现 MCP 可以使用 user token 进行飞书 API 的调用。[Demo json 文件](https://github.com/zhgqthomas/n8n-nodes-feishu-lark/blob/main/demo/lark_mcp.json)
+
+![](./images/lark_mcp_nodes.png)
+
+> 关于 lark-openapi-mcp 更多的介绍，请查看[飞书官方文档](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/mcp_integration/mcp_introduction)
 
 ## 许可证
 

@@ -1,0 +1,300 @@
+{
+  "name": "Lark Streaming",
+  "nodes": [
+    {
+      "parameters": {
+        "events": [
+          "any_event"
+        ]
+      },
+      "type": "CUSTOM.larkTrigger",
+      "typeVersion": 1,
+      "position": [
+        -736,
+        -208
+      ],
+      "id": "3e8e8cbe-4118-4111-9619-9a9201050191",
+      "name": "Lark Trigger",
+      "credentials": {
+        "larkApi": {
+          "id": "iHvvoDNgqldHGSnM",
+          "name": "Lark MCP Tenant Token"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.chatInput || $json.userMessage }}",
+        "options": {
+          "systemMessage": "=You are a helpful assitant!",
+          "maxIterations": 10,
+          "returnIntermediateSteps": false,
+          "enableStreaming": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -288,
+        128
+      ],
+      "id": "4ec50b98-2cb3-4244-a504-4354c243d424",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -192,
+        336
+      ],
+      "id": "752f4133-6e6d-4362-9239-0d23cba2cf66",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatDeepSeek",
+      "typeVersion": 1,
+      "position": [
+        -400,
+        336
+      ],
+      "id": "50d6b22f-f6b4-4fe6-b16d-cf03e7d33aac",
+      "name": "DeepSeek Chat Model",
+      "credentials": {
+        "deepSeekApi": {
+          "id": "P8xdi38qShkTJmRs",
+          "name": "DeepSeek account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b7ad1c7d-c211-4490-a371-11ea4a8df622",
+              "name": "sessionId",
+              "value": "={{ $json.body.sessionId }}",
+              "type": "string"
+            },
+            {
+              "id": "5be8dad3-3ef6-495b-a4e9-1d134b34f918",
+              "name": "chatInput",
+              "value": "={{ $json.body.chatInput }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -512,
+        128
+      ],
+      "id": "02f68d01-f28a-4f40-b868-9c620a25eea5",
+      "name": "Define user input"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "764a2b06-7474-42f9-810f-5bc6ba5de625",
+        "authentication": "headerAuth",
+        "responseMode": "streaming",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -736,
+        128
+      ],
+      "id": "3090a420-ad28-4031-98c3-d872d367cc1a",
+      "name": "Webhook",
+      "webhookId": "764a2b06-7474-42f9-810f-5bc6ba5de625",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "MAfU7cIOL4kOUwlp",
+          "name": "OpenWebUI Header Auth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "stream",
+        "receive_id_type": "chat_id",
+        "receive_id": {
+          "__rl": true,
+          "value": "={{ $json.message.chat_id }}",
+          "mode": "id"
+        },
+        "webhook_url": "http://localhost:5678/webhook/764a2b06-7474-42f9-810f-5bc6ba5de625",
+        "body": "={\n  \"chatInput\": \"{{ $json.message.content.text }}\",\n  \"sessionId\": \"{{ $json.sender.sender_id.open_id }}\"\n}",
+        "options": {
+          "bearer_token": "YaOx8usfeia9QmASr8KlhsSZrwCBOZPGghIT2"
+        }
+      },
+      "type": "CUSTOM.lark",
+      "typeVersion": 1,
+      "position": [
+        -96,
+        -224
+      ],
+      "id": "360d7306-0002-4e20-bf40-36aa97858891",
+      "name": "Stream message",
+      "webhookId": "741963bd-2fb1-45ca-9e1f-c8dddf851a1f",
+      "credentials": {
+        "larkApi": {
+          "id": "iHvvoDNgqldHGSnM",
+          "name": "Lark MCP Tenant Token"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "parseContent",
+        "messageTypes": [
+          "text",
+          "image"
+        ]
+      },
+      "type": "CUSTOM.lark",
+      "typeVersion": 1,
+      "position": [
+        -432,
+        -208
+      ],
+      "id": "43b101f0-003e-4208-8042-cb789befe866",
+      "name": "ParseContent message",
+      "webhookId": "c6054e9d-2540-4519-bd39-378c1915187e"
+    }
+  ],
+  "pinData": {
+    "Lark Trigger": [
+      {
+        "json": {
+          "schema": "2.0",
+          "event_id": "05293092a24fc3905fb5b26825b22623",
+          "token": "",
+          "create_time": "1756905729810",
+          "event_type": "im.message.receive_v1",
+          "tenant_key": "17bae51ccd45d75d",
+          "app_id": "cli_a83fc7bd2bfad00b",
+          "message": {
+            "chat_id": "oc_2b885835ce80ee56ebdd816cc92e64b8",
+            "chat_type": "p2p",
+            "content": "{\"text\":\"Hello\"}",
+            "create_time": "1756905729468",
+            "message_id": "om_x100b44b05ed81d680f1b3f9d53b1256",
+            "message_type": "text",
+            "update_time": "1756905729468"
+          },
+          "sender": {
+            "sender_id": {
+              "open_id": "ou_6d24dc80781491a80ad62dcb8316301d",
+              "union_id": "on_5a803266e2cc90e004b631556e2e9fcc",
+              "user_id": "d312a2bd"
+            },
+            "sender_type": "user",
+            "tenant_key": "17bae51ccd45d75d"
+          }
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Lark Trigger": {
+      "main": [
+        [
+          {
+            "node": "ParseContent message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DeepSeek Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        []
+      ]
+    },
+    "Define user input": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Define user input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ParseContent message": {
+      "main": [
+        [
+          {
+            "node": "Stream message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "d141011d-9603-4f61-8858-b1a688e11de9",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "cd33199f1ea679b98a49e92a844e3ecb4db1a824d407b005aed643fd03119c5f"
+  },
+  "id": "AhEDIhJUaGFUJ1aM",
+  "tags": []
+}

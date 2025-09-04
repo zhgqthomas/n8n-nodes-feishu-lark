@@ -9,8 +9,6 @@ export const DESCRIPTIONS = {
 			rows: 5,
 		},
 		default: '{\n  "my_field_1": "value",\n  "my_field_2": 1\n}\n',
-		validateType: 'object',
-		ignoreValidationDuringExecution: true,
 	},
 
 	ARRAY_VALUES: {
@@ -1196,6 +1194,8 @@ export const DESCRIPTIONS = {
 		displayName: 'Request Body(请求体)',
 		name: 'body',
 		type: 'json',
+		validateType: 'object',
+		ignoreValidationDuringExecution: true,
 		required: true,
 		default: '',
 	},
