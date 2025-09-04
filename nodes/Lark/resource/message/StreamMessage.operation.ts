@@ -146,67 +146,83 @@ export default {
 			},
 		};
 
-		const eventPromise = new Promise(async (resolve) => {
-			const response = await fetch(webhookUrl, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					Accept: 'text/plain',
-					...headers,
-				},
-				body: JSON.stringify(parseJsonParameter(requestBody, this.getNode(), index)),
-			});
-
-			if (!response.ok) {
-				const errorText = await response.text();
-				throw new NodeApiError(this.getNode(), {
-					message: `Error while sending message. Error: ${errorText}`,
-					code: response.status,
-				});
-			}
-
-			if (!response.body) {
-				throw new NodeApiError(this.getNode(), {
-					message: 'Response body is not readable',
-					code: 500,
-				});
-			}
-
-			// Process the stream
-			const reader = response.body.pipeThrough(createLineParser()).getReader();
-			let hasReceivedChunks = false;
-
+		const eventPromise = new Promise(async (resolve, reject) => {
 			try {
-				while (true) {
-					const { done, value } = await reader.read();
-					if (done) break;
+				const response = await fetch(webhookUrl, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						Accept: 'text/plain',
+						...headers,
+					},
+					body: JSON.stringify(parseJsonParameter(requestBody, this.getNode(), index)),
+				});
 
-					const nodeId = value.metadata?.nodeId || 'unknown';
-					const runIndex = value.metadata?.runIndex;
-
-					switch (value.type) {
-						case 'begin':
-							handlers.onBeginMessage(nodeId, runIndex);
-							break;
-						case 'item':
-							hasReceivedChunks = true;
-							handlers.onChunk(value.content ?? '', nodeId, runIndex);
-							break;
-						case 'end':
-							handlers.onEndMessage(nodeId, runIndex);
-							break;
-						case 'error':
-							hasReceivedChunks = true;
-							handlers.onChunk(`Error: ${value.content ?? 'Unknown error'}`, nodeId, runIndex);
-							handlers.onEndMessage(nodeId, runIndex);
-							break;
-					}
+				if (!response.ok) {
+					const errorText = await response.text();
+					reject(
+						new NodeApiError(this.getNode(), {
+							message: `Error when call webhook api. Error: ${errorText}`,
+							code: response.status,
+						}),
+					);
+					return;
 				}
-			} finally {
-				reader.releaseLock();
-			}
 
-			resolve(hasReceivedChunks);
+				if (!response.body) {
+					reject(
+						new NodeApiError(this.getNode(), {
+							message: 'Webhook Response body is not readable',
+							code: 500,
+						}),
+					);
+					return;
+				}
+
+				// Process the stream
+				const reader = response.body.pipeThrough(createLineParser()).getReader();
+				let hasReceivedChunks = false;
+
+				try {
+					while (true) {
+						const { done, value } = await reader.read();
+						if (done) break;
+
+						const nodeId = value.metadata?.nodeId || 'unknown';
+						const runIndex = value.metadata?.runIndex;
+
+						switch (value.type) {
+							case 'begin':
+								handlers.onBeginMessage(nodeId, runIndex);
+								break;
+							case 'item':
+								hasReceivedChunks = true;
+								handlers.onChunk(value.content ?? '', nodeId, runIndex);
+								break;
+							case 'end':
+								handlers.onEndMessage(nodeId, runIndex);
+								break;
+							case 'error':
+								hasReceivedChunks = true;
+								handlers.onChunk(`Error: ${value.content ?? 'Unknown error'}`, nodeId, runIndex);
+								handlers.onEndMessage(nodeId, runIndex);
+								break;
+						}
+					}
+				} finally {
+					reader.releaseLock();
+				}
+
+				resolve(hasReceivedChunks);
+			} catch (error) {
+				// Catch any unexpected errors (network errors, parsing errors, etc.)
+				reject(
+					new NodeApiError(this.getNode(), {
+						message: `Unexpected error while processing stream: ${error instanceof Error ? error.message : 'Unknown error'}`,
+						code: 500,
+					}),
+				);
+			}
 		});
 
 		const timeoutInMinutes = (options.timeout as number) || 10;
