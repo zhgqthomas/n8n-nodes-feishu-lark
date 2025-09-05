@@ -83,7 +83,7 @@ export const WORDING = {
 	UpdateDocumentBlock: 'Update Block | 更新文档块内容',
 	GetDocumentBlock: 'Get Block | 获取文档块内容',
 	DeleteDocumentBlock: 'Delete Block | 删除文档块',
-	ConvertDocumentBlock: 'Markdown/HTML Convert to Block | Markdown/HTML 内容转换为文档块',
+	ConvertDocumentBlock: 'Markdown/HTML Convert to Block',
 
 	// Space
 	CreateFolder: 'Create Folder | 创建文件夹',
