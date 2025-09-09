@@ -90,6 +90,7 @@ export const WORDING = {
 	DeleteFileOrFolder: 'Delete File or Folder | 删除文件或文件夹',
 	GetFileList: 'Get File List | 获取文件列表',
 	SearchFiles: 'Search Files | 搜索文档',
+	UploadFileAll: 'Upload File | 上传文件',
 
 	// Contact
 	BatchGetUserInfo: 'Batch Get User Info | 批量获取用户信息',

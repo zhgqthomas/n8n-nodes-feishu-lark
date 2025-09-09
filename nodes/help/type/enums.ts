@@ -117,6 +117,7 @@ export declare const enum OperationType {
 	DeleteFileOrFolder = 'deleteFileOrFolder',
 	GetFileList = 'getFileList',
 	SearchFiles = 'searchFiles',
+	UploadFileToSpace = 'uploadFile',
 
 	// Contact
 	BatchGetUserInfo = 'batchGetUserInfo',

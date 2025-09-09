@@ -1,6 +1,15 @@
 import { FileType, MessageType } from '../type/enums';
 
 export const DESCRIPTIONS = {
+	FILE_BINARY_FIELD: {
+		displayName: 'File Binary Field(文件二进制字段)',
+		name: 'file_binary_field',
+		type: 'string',
+		required: true,
+		default: '',
+		description: 'The name of the field that will contain the file binary data',
+	},
+
 	JSON_OUTPUT: {
 		displayName: 'JSON',
 		name: 'jsonOutput',
