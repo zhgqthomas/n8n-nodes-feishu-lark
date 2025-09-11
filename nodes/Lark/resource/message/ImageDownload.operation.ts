@@ -1,4 +1,4 @@
-import { BINARY_ENCODING, IDataObject, IExecuteFunctions } from 'n8n-workflow';
+import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
 import { WORDING } from '../../../help/wording';
@@ -21,15 +21,17 @@ export default {
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
 		const resourceKey = this.getNodeParameter('file_key', index);
 
-		const data = await RequestUtils.request.call(this, {
+		const buffer = await RequestUtils.request.call(this, {
 			method: 'GET',
 			url: `/open-apis/im/v1/images/${resourceKey}`,
 			encoding: 'arraybuffer',
 			json: false,
 		});
 
+		const binaryData = await this.helpers.prepareBinaryData(buffer);
+
 		return {
-			data: Buffer.from(data).toString(BINARY_ENCODING),
+			...binaryData,
 		};
 	},
 } as ResourceOperation;
