@@ -10,6 +10,44 @@ export const DESCRIPTIONS = {
 		description: 'The name of the field that will contain the file binary data',
 	},
 
+	PARENT_TYPE: {
+		displayName: 'Upload Point Type(上传点的类型)',
+		name: 'parent_type',
+		type: 'options',
+		options: [
+			{ name: 'Bitable File(多维表格文件)', value: 'bitable_file' },
+			{ name: 'Bitable Image(多维表格图片)', value: 'bitable_image' },
+			{ name: 'File to Import Into Docs(云文档导入文件)', value: 'ccm_import_open' },
+			{ name: 'Moments(同事圈)', value: 'moments' },
+			{ name: 'Sheet File(电子表格文件)', value: 'sheet_file' },
+			{ name: 'Sheet Image(电子表格图片)', value: 'sheet_image' },
+			{ name: 'Upgraded Docs File(新版文档文件)', value: 'docx_file' },
+			{ name: 'Upgraded Docs Image(新版文档图片)', value: 'docx_image' },
+			{ name: 'VC Virtual Background(vc 虚拟背景)', value: 'vc_virtual_background' },
+		],
+		required: true,
+		default: 'bitable_file',
+		description: 'The type of media to upload to the specified type of Docs',
+	},
+
+	PARENT_NODE: {
+		displayName: 'Upload Point Token(上传点的token)',
+		name: 'parent_node',
+		type: 'string',
+		required: true,
+		default: '',
+		description: 'The document or location to which the media will be uploaded. block_id for upgraded docs, spreadsheet_token for sheet, app_token for bitable, empty for importing into docs.',
+	},
+
+	FILE: {
+		displayName: 'File(文件)',
+		name: 'file',
+		type: 'string',
+		required: true,
+		default: '',
+		description: 'The media to upload',
+	},
+
 	JSON_OUTPUT: {
 		displayName: 'JSON',
 		name: 'jsonOutput',
