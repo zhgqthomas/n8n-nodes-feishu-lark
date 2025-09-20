@@ -91,6 +91,7 @@ export const WORDING = {
 	GetFileList: 'Get File List | 获取文件列表',
 	SearchFiles: 'Search Files | 搜索文档',
 	UploadFileAll: 'Upload File | 上传文件',
+	UploadMedia: 'Upload Media | 上传素材',
 
 	// Contact
 	BatchGetUserInfo: 'Batch Get User Info | 批量获取用户信息',
