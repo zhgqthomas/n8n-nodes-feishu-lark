@@ -118,6 +118,7 @@ export declare const enum OperationType {
 	GetFileList = 'getFileList',
 	SearchFiles = 'searchFiles',
 	UploadFileToSpace = 'uploadFile',
+	UploadMediaToSpace = 'uploadMedia',
 
 	// Contact
 	BatchGetUserInfo = 'batchGetUserInfo',
