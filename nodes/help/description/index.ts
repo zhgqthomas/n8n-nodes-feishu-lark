@@ -17,8 +17,9 @@ export const DESCRIPTIONS = {
 		options: [
 			{ name: 'Bitable File(多维表格文件)', value: 'bitable_file' },
 			{ name: 'Bitable Image(多维表格图片)', value: 'bitable_image' },
+			{ name: 'Docs File(云文档文件)', value: 'docs_file' },
+			{ name: 'Docs Image(云文档图片)', value: 'docs_image' },
 			{ name: 'File to Import Into Docs(云文档导入文件)', value: 'ccm_import_open' },
-			{ name: 'Moments(同事圈)', value: 'moments' },
 			{ name: 'Sheet File(电子表格文件)', value: 'sheet_file' },
 			{ name: 'Sheet Image(电子表格图片)', value: 'sheet_image' },
 			{ name: 'Upgraded Docs File(新版文档文件)', value: 'docx_file' },
@@ -36,16 +37,8 @@ export const DESCRIPTIONS = {
 		type: 'string',
 		required: true,
 		default: '',
-		description: 'The document or location to which the media will be uploaded. block_id for upgraded docs, spreadsheet_token for sheet, app_token for bitable, empty for importing into docs.',
-	},
-
-	FILE: {
-		displayName: 'File(文件)',
-		name: 'file',
-		type: 'string',
-		required: true,
-		default: '',
-		description: 'The media to upload',
+		description:
+			'The document or location to which the media will be uploaded. block_id for upgraded docs, spreadsheet_token for sheet, app_token for bitable, empty for importing into docs.',
 	},
 
 	JSON_OUTPUT: {
@@ -1244,7 +1237,7 @@ export const DESCRIPTIONS = {
 		validateType: 'object',
 		ignoreValidationDuringExecution: true,
 		required: true,
-		default: '',
+		default: '{}',
 	},
 
 	REQUEST_ID: {
