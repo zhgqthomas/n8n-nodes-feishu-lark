@@ -10,6 +10,16 @@ export const DESCRIPTIONS = {
 		description: 'The name of the field that will contain the file binary data',
 	},
 
+	MEDIA_FILE_TOKEN: {
+		displayName: 'File Token(素材文件token)',
+		description: 'The token of the media file to download',
+		name: 'media_file_token',
+		// eslint-disable-next-line n8n-nodes-base/node-param-type-options-password-missing
+		type: 'string',
+		required: true,
+		default: '',
+	},
+
 	PARENT_TYPE: {
 		displayName: 'Upload Point Type(上传点的类型)',
 		name: 'parent_type',
