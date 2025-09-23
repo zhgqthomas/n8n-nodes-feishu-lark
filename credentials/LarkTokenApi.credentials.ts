@@ -17,7 +17,7 @@ export class LarkTokenApi implements ICredentialType {
 	properties: INodeProperties[] = [
 		{
 			displayName: 'Base URL',
-			name: 'baseUrl',
+			name: 'url',
 			type: 'options',
 			options: [
 				{
@@ -28,11 +28,35 @@ export class LarkTokenApi implements ICredentialType {
 				{
 					name: `${BaseUrl.Global}`,
 					value: `${BaseUrl.Global}`,
-					description: 'Lark Open Platform base URL(Global)',
+					description: 'Larksuite Open Platform base URL(Global)',
+				},
+				{
+					name: 'Custom',
+					value: 'custom',
+					description: 'Custom URL',
 				},
 			],
 			default: [],
 			required: true,
+		},
+		{
+			displayName: 'Custom URL',
+			name: 'customUrl',
+			type: 'string',
+			default: '',
+			placeholder: 'https://custom.domain',
+			hint: 'Always start with "https://" or "http://"',
+			displayOptions: {
+				show: {
+					url: ['custom'],
+				},
+			},
+		},
+		{
+			displayName: 'URL',
+			name: 'baseUrl',
+			type: 'hidden',
+			default: '={{$self["url"] === "custom" ? $self["customUrl"] : $self["url"]}}',
 		},
 		{
 			displayName: 'App ID',
