@@ -10,14 +10,26 @@ export const DESCRIPTIONS = {
 		description: 'The name of the field that will contain the file binary data',
 	},
 
+	MEDIA_FILE_TOKENS: {
+		displayName: 'Media File Tokens(素材文件 Token 数组)',
+		description: 'The tokens of multiple media files',
+		name: 'media_file_tokens',
+		type: 'json',
+		default: '[]',
+		required: true,
+		placeholder: '["boxcnrHpsg1QDqXAAAyachabcef"]',
+	},
+
 	MEDIA_FILE_TOKEN: {
-		displayName: 'File Token(素材文件token)',
-		description: 'The token of the media file to download',
+		displayName: 'Media File Token(素材文件token)',
+		description: 'The token of a media file',
 		name: 'media_file_token',
-		// eslint-disable-next-line n8n-nodes-base/node-param-type-options-password-missing
 		type: 'string',
 		required: true,
 		default: '',
+		typeOptions: {
+			password: true,
+		},
 	},
 
 	PARENT_TYPE: {

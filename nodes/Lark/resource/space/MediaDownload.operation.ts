@@ -33,21 +33,17 @@ export default {
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
 		const fileToken = this.getNodeParameter('media_file_token', index) as string;
-
 		const options = this.getNodeParameter('options', index, {});
 		const extra = (options.media_download_extra as IDataObject) || undefined;
 
-
-		let url = `/open-apis/drive/v1/medias/${fileToken}/download`
-		if (extra) {
-			url += `?extra=${encodeURIComponent(JSON.stringify(extra))}`
-		}
-
 		const buffer = await RequestUtils.request.call(this, {
 			method: 'GET',
-			url,
+			url: `/open-apis/drive/v1/medias/${fileToken}/download`,
 			encoding: 'arraybuffer',
 			json: false,
+			qs: {
+				...(extra && { extra: JSON.stringify(extra) }),
+			},
 		});
 
 		const binaryData = await this.helpers.prepareBinaryData(buffer);
