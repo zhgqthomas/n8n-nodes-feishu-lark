@@ -39,8 +39,6 @@ export const DESCRIPTIONS = {
 		options: [
 			{ name: 'Bitable File(多维表格文件)', value: 'bitable_file' },
 			{ name: 'Bitable Image(多维表格图片)', value: 'bitable_image' },
-			{ name: 'Docs File(云文档文件)', value: 'docs_file' },
-			{ name: 'Docs Image(云文档图片)', value: 'docs_image' },
 			{ name: 'File to Import Into Docs(云文档导入文件)', value: 'ccm_import_open' },
 			{ name: 'Sheet File(电子表格文件)', value: 'sheet_file' },
 			{ name: 'Sheet Image(电子表格图片)', value: 'sheet_image' },
