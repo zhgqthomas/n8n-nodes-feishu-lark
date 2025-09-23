@@ -61,7 +61,9 @@ export default {
 		const options = this.getNodeParameter('options', index, {});
 		const extra = (options.media_tmp_download_extra as IDataObject) || undefined;
 
-		const { data } = await RequestUtils.request.call(this, {
+		const {
+			data: { tmp_download_urls },
+		} = await RequestUtils.request.call(this, {
 			method: 'GET',
 			url: '/open-apis/drive/v1/medias/batch_get_tmp_download_url',
 			json: true,
@@ -69,8 +71,9 @@ export default {
 				file_tokens: parsedfileTokens,
 				...(extra && { extra: JSON.stringify(extra) }),
 			},
+			arrayFormat: 'repeat',
 		});
 
-		return data;
+		return tmp_download_urls;
 	},
 } as ResourceOperation;
