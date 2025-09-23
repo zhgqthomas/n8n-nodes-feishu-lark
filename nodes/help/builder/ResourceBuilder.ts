@@ -1,4 +1,4 @@
-import { INodePropertyOptions } from 'n8n-workflow/dist/Interfaces';
+import { INodePropertyOptions } from 'n8n-workflow';
 import { IResource, ResourceOperation } from '../type/IResource';
 import { INodeProperties } from 'n8n-workflow';
 import { Credentials } from '../type/enums';

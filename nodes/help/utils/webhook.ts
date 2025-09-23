@@ -432,9 +432,7 @@ export function getSendAndWaitConfig(context: IExecuteFunctions): SendAndWaitCon
 
 	const responseType = context.getNodeParameter('responseType', 0, 'approval') as string;
 
-	// @ts-ignore
 	context.setSignatureValidationRequired();
-	// @ts-ignore
 	const approvedSignedResumeUrl = context.getSignedResumeUrl({ approved: 'true' });
 
 	if (responseType === 'freeText' || responseType === 'customForm') {

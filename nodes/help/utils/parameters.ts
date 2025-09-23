@@ -1,4 +1,4 @@
-import { INodeParameters, NodeConnectionType } from 'n8n-workflow';
+import { INodeParameters, NodeConnectionTypes } from 'n8n-workflow';
 import { OperationType, ResourceType } from '../type/enums';
 
 export const configuredOutputs = (parameters: INodeParameters) => {
@@ -9,12 +9,12 @@ export const configuredOutputs = (parameters: INodeParameters) => {
 		const messageTypes = (parameters.messageTypes as string[]) || [];
 		// Return different outputs based on message types
 		return messageTypes.map((type: string) => ({
-			type: NodeConnectionType.Main,
+			type: NodeConnectionTypes.Main,
 			displayName: type,
 		}));
 	}
 
-	return [NodeConnectionType.Main];
+	return [NodeConnectionTypes.Main];
 };
 
 export const hexToRgbInt32 = (hex: string): number => {

@@ -6,7 +6,7 @@ import {
 	INodeProperties,
 	Icon,
 } from 'n8n-workflow';
-import { IAuthenticateGeneric } from 'n8n-workflow/dist/Interfaces';
+import { IAuthenticateGeneric } from 'n8n-workflow';
 import { BaseUrl, Credentials } from '../nodes/help/type/enums';
 
 export class LarkTokenApi implements ICredentialType {

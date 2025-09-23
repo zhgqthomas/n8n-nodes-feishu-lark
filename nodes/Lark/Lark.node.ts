@@ -5,7 +5,7 @@ import {
 	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
-	NodeConnectionType,
+	NodeConnectionTypes,
 	NodeOperationError,
 	IDataObject,
 } from 'n8n-workflow';
@@ -42,7 +42,7 @@ export class Lark implements INodeType {
 			name: 'Lark',
 		},
 		usableAsTool: true,
-		inputs: [NodeConnectionType.Main],
+		inputs: [NodeConnectionTypes.Main],
 		outputs: `={{(${configuredOutputs})($parameter)}}`,
 		credentials: [
 			{

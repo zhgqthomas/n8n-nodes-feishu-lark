@@ -1,10 +1,15 @@
-import { IDataObject, IExecuteFunctions, jsonParse } from 'n8n-workflow';
+import {
+	assertParamIsArray,
+	IDataObject,
+	IExecuteFunctions,
+	jsonParse,
+	NodeOperationError,
+} from 'n8n-workflow';
 import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
 import { WORDING } from '../../../help/wording';
 import { OperationType } from '../../../help/type/enums';
 import { DESCRIPTIONS } from '../../../help/description';
-import { assertParamIsArray, assertUserInput } from '../../../help/utils/validation';
 
 export default {
 	name: WORDING.GetMediaTempDownloadLink,
@@ -46,11 +51,11 @@ export default {
 
 		// Validate the number of file tokens
 		if (parsedfileTokens.length > 5) {
-			assertUserInput(false, 'Maximum 5 file tokens are allowed', this.getNode());
+			throw new NodeOperationError(this.getNode(), 'Maximum 5 file tokens are allowed');
 		}
 
 		if (parsedfileTokens.length === 0) {
-			assertUserInput(false, 'At least one file token is required', this.getNode());
+			throw new NodeOperationError(this.getNode(), 'Maximum 5 file tokens are allowed');
 		}
 
 		const options = this.getNodeParameter('options', index, {});

@@ -3,7 +3,7 @@ import {
 	INodeTypeDescription,
 	ITriggerFunctions,
 	ITriggerResponse,
-	NodeConnectionType,
+	NodeConnectionTypes,
 	NodeOperationError,
 	IRun,
 } from 'n8n-workflow';
@@ -26,7 +26,7 @@ export class LarkTrigger implements INodeType {
 			name: 'Lark Trigger',
 		},
 		inputs: [],
-		outputs: [NodeConnectionType.Main],
+		outputs: [NodeConnectionTypes.Main],
 		credentials: [
 			{
 				name: Credentials.TenantToken,
