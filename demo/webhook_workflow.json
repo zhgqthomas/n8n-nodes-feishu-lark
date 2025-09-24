@@ -1,39 +1,22 @@
 {
-  "name": "Feishu",
+  "name": "Debug",
   "nodes": [
     {
       "parameters": {
         "httpMethod": "POST",
+        "path": "2da646c1-d8e9-468f-b375-b228d722b7cd",
         "responseMode": "responseNode",
         "options": {}
       },
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        -64,
-        80
+        -144,
+        64
       ],
-      "id": "4929f81e-1a5c-4533-84f1-f02a1e96f026",
+      "id": "0a9b33f9-82fb-4372-9ae7-c68462e43c18",
       "name": "Webhook",
       "webhookId": "2da646c1-d8e9-468f-b375-b228d722b7cd"
-    },
-    {
-      "parameters": {
-        "resource": "message",
-        "operation": "parseWebhook",
-        "events": [
-          "any_event"
-        ]
-      },
-      "type": "CUSTOM.lark",
-      "typeVersion": 1,
-      "position": [
-        160,
-        80
-      ],
-      "id": "28976466-b18e-4ef2-b0ba-c92402ae94df",
-      "name": "ParseWebhook message",
-      "webhookId": "c045d050-4c20-43d5-8dc7-15fd864f8c2d"
     },
     {
       "parameters": {
@@ -46,15 +29,38 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.4,
       "position": [
-        384,
-        80
+        304,
+        64
       ],
-      "id": "ca6e1924-b8c8-4a09-9e98-0a0805ff98ac",
+      "id": "5bcb81f4-0b80-4f70-bf66-dbdcdc53fafa",
       "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "parseWebhook",
+        "events": [
+          "any_event"
+        ]
+      },
+      "type": "n8n-nodes-feishu-lark.lark",
+      "typeVersion": 1,
+      "position": [
+        80,
+        64
+      ],
+      "id": "cc2e6d6b-b601-4b29-bd45-fb776edf1dfb",
+      "name": "ParseWebhook message",
+      "webhookId": "11f3ef5e-d2d1-4c1c-a266-c3c8fdfc339b"
     }
   ],
   "pinData": {},
   "connections": {
+    "Respond to Webhook": {
+      "main": [
+        []
+      ]
+    },
     "Webhook": {
       "main": [
         [
@@ -82,11 +88,11 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "5f8a064e-5ec1-407d-8304-6ffb0bbad962",
+  "versionId": "1ab8ac4c-39cc-4f07-9c18-83b82016e774",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "cd33199f1ea679b98a49e92a844e3ecb4db1a824d407b005aed643fd03119c5f"
+    "instanceId": "a5d4765d1c3308210088457279a93fb3412724e843a17c74263bea0c56bb501a"
   },
-  "id": "EGXTEKJJFnkAUQx6",
+  "id": "UcOkAMYivWOSc1iA",
   "tags": []
 }
