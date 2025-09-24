@@ -87,7 +87,7 @@ Webhook 接收飞书的事件方式是使用 `parse webhook` operation 然后搭
 
 n8n 在 1.3.0 版本当中，[为 `Webhook node` 和 `AI Agent node` 添加了 Streaming 的能力](https://docs.n8n.io/release-notes/#n8n11030)。`Send Streaming Message` node 通过调用 Webhook node 将 AI Agent 的 output 以 Streaming 的形式，推送给飞书机器人。效果如下所示。
 
-https://github.com/user-attachments/assets/bb057729-c802-4052-bb10-eadf8b6cb843
+![485422619-bb057729-c802-4052-bb10-eadf8b6cb843](https://github.com/user-attachments/assets/5ef79b84-bdb1-4203-b561-807e52676d16)
 
 
 > [Demo json 文件](https://github.com/zhgqthomas/n8n-nodes-feishu-lark/blob/main/demo/send_streaming_message.json)
