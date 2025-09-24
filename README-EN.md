@@ -87,7 +87,7 @@ By selecting the `Send and Wait` operation, the application will send a message 
 
 In n8n version 1.3.0, [Streaming capability was added to `Webhook node` and `AI Agent node`](https://docs.n8n.io/release-notes/#n8n11030). The `Send Streaming Message` node pushes the AI Agent's output in streaming form to Feishu bots by calling the Webhook node. The effect is shown below.
 
-https://github.com/user-attachments/assets/bb057729-c802-4052-bb10-eadf8b6cb843
+![485422619-bb057729-c802-4052-bb10-eadf8b6cb843](https://github.com/user-attachments/assets/5ef79b84-bdb1-4203-b561-807e52676d16)
 
 > [Demo json file](https://github.com/zhgqthomas/n8n-nodes-feishu-lark/blob/main/demo/send_streaming_message.json)
 
