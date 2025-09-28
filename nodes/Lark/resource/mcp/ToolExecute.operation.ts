@@ -53,9 +53,7 @@ export default {
 				);
 			}
 
-			const rawParams = this.getNodeParameter('toolParameters', index, undefined, {
-				ensureType: 'json',
-			}) as IDataObject;
+			const rawParams = this.getNodeParameter('toolParameters', index, undefined);
 			let toolParams;
 
 			this.logger.debug(`Raw tool parameters: ${JSON.stringify(rawParams)}`);

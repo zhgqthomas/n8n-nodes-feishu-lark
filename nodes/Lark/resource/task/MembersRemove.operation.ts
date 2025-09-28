@@ -1,6 +1,6 @@
 import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import { ResourceOperation } from '../../../help/type/IResource';
-import NodeUtils from '../../../help/utils/NodeUtils';
+import NodeUtils from '../../../help/utils/node';
 import RequestUtils from '../../../help/utils/RequestUtils';
 
 const REQUEST_BODY = {

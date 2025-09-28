@@ -4,6 +4,8 @@ import RequestUtils from '../../../help/utils/RequestUtils';
 import { WORDING } from '../../../help/wording';
 import { OperationType } from '../../../help/type/enums';
 import { DESCRIPTIONS } from '../../../help/description';
+import NodeUtils from '../../../help/utils/node';
+import { OBJECT_JSON } from '../../../help/description/base';
 
 export default {
 	name: WORDING.CalendarEventSearch,
@@ -16,10 +18,9 @@ export default {
 		DESCRIPTIONS.PAGE_SIZE,
 		DESCRIPTIONS.PAGE_TOKEN,
 		{
-			...DESCRIPTIONS.REQUEST_BODY,
 			displayName: 'Filter(过滤器)',
 			required: false,
-			name: 'filter',
+			...OBJECT_JSON,
 		},
 		{
 			displayName: WORDING.Options,
@@ -41,9 +42,8 @@ export default {
 			extractValue: true,
 		}) as string;
 		const query = this.getNodeParameter('search_key', index) as string;
-		const filter = this.getNodeParameter('filter', index, '', {
-			ensureType: 'json',
-		}) as IDataObject;
+		const filter = NodeUtils.getObjectData(this, index, undefined);
+
 		const whetherPaging = this.getNodeParameter('whether_paging', index, false) as boolean;
 		const pageSize = this.getNodeParameter('page_size', index, 100) as string;
 		let pageToken = this.getNodeParameter('page_token', index, '') as string;
@@ -65,7 +65,7 @@ export default {
 				},
 				body: {
 					query,
-					...(Object.keys(filter).length > 0 && { filter }),
+					...(filter && Object.keys(filter).length > 0 && { filter }),
 				},
 			});
 

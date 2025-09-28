@@ -4,6 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 import { WORDING } from '../../../help/wording';
 import { OperationType } from '../../../help/type/enums';
 import { DESCRIPTIONS } from '../../../help/description';
+import NodeUtils from '../../../help/utils/node';
 
 export default {
 	name: WORDING.BatchDeleteBaseTables,
@@ -23,9 +24,7 @@ export default {
 		const app_token = this.getNodeParameter('app_token', index, undefined, {
 			extractValue: true,
 		}) as string;
-		const body = this.getNodeParameter('body', index, {
-			ensureType: 'json',
-		}) as IDataObject;
+		const body = NodeUtils.getObjectData(this, index);
 
 		await RequestUtils.request.call(this, {
 			method: 'POST',

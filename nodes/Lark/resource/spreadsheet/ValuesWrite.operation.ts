@@ -4,6 +4,8 @@ import { ResourceOperation } from '../../../help/type/IResource';
 import { WORDING } from '../../../help/wording';
 import { OperationType } from '../../../help/type/enums';
 import { DESCRIPTIONS } from '../../../help/description';
+import NodeUtils from '../../../help/utils/node';
+import { isArray } from '../../../help/utils/validation';
 
 export default {
 	name: WORDING.ValuesWrite,
@@ -13,7 +15,7 @@ export default {
 		DESCRIPTIONS.SPREADSHEET_ID,
 		DESCRIPTIONS.SHEET_ID,
 		DESCRIPTIONS.CELL_RANGE,
-		DESCRIPTIONS.ARRAY_VALUES,
+		DESCRIPTIONS.SHEET_VALUES,
 		{
 			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/sheets-v3/data-operation/write-data-to-a-single-range">${WORDING.OpenDocument}</a>`,
 			name: 'notice',
@@ -29,9 +31,7 @@ export default {
 			extractValue: true,
 		}) as string;
 		const cell_range = this.getNodeParameter('range', index, '') as string;
-		const values = this.getNodeParameter('array_values', index, undefined, {
-			ensureType: 'json',
-		});
+		const values = NodeUtils.getArrayData(this, 'values', index, isArray);
 
 		const body: IDataObject = {
 			valueRange: {

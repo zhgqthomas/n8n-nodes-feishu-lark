@@ -4,6 +4,8 @@ import { ResourceOperation } from '../../../help/type/IResource';
 import { WORDING } from '../../../help/wording';
 import { OperationType } from '../../../help/type/enums';
 import { DESCRIPTIONS } from '../../../help/description';
+import NodeUtils from '../../../help/utils/node';
+import { isArray } from '../../../help/utils/validation';
 
 export default {
 	name: WORDING.ValuesAppend,
@@ -13,7 +15,7 @@ export default {
 		DESCRIPTIONS.SPREADSHEET_ID,
 		DESCRIPTIONS.SHEET_ID,
 		DESCRIPTIONS.CELL_RANGE,
-		DESCRIPTIONS.ARRAY_VALUES,
+		DESCRIPTIONS.SHEET_VALUES,
 		{
 			displayName: WORDING.Options,
 			name: 'options',
@@ -55,9 +57,7 @@ export default {
 			extractValue: true,
 		}) as string;
 		const cell_range = this.getNodeParameter('range', index, '') as string;
-		const values = this.getNodeParameter('array_values', index, undefined, {
-			ensureType: 'json',
-		}) as IDataObject[];
+		const values = NodeUtils.getArrayData(this, 'values', index, isArray);
 
 		const options = this.getNodeParameter('options', index) as IDataObject;
 		const insertDataOption = (options.insertDataOption as string) || 'OVERWRITE';

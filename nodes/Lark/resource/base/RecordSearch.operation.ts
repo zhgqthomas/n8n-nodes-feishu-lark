@@ -4,6 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 import { DESCRIPTIONS } from '../../../help/description';
 import { WORDING } from '../../../help/wording';
 import { OperationType } from '../../../help/type/enums';
+import NodeUtils from '../../../help/utils/node';
 
 export default {
 	name: WORDING.SearchTableRecords,
@@ -38,14 +39,12 @@ export default {
 		const table_id = this.getNodeParameter('table_id', index, undefined, {
 			extractValue: true,
 		}) as string;
-		const body = this.getNodeParameter('body', index, undefined, {
-			ensureType: 'json',
-		}) as IDataObject;
+		const body = NodeUtils.getObjectData(this, index);
 		let pageToken = this.getNodeParameter('page_token', index, '') as string;
 		const pageSize = this.getNodeParameter('page_size', index, 500) as number;
 		const whetherPaging = this.getNodeParameter('whether_paging', index, false) as boolean;
 		const options = this.getNodeParameter('options', index, {});
-		const user_id_type = options.user_id_type as string || 'open_id';
+		const user_id_type = (options.user_id_type as string) || 'open_id';
 
 		const allRecords: IDataObject[] = [];
 		let hasMore = false;

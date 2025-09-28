@@ -4,6 +4,8 @@ import RequestUtils from '../../../help/utils/RequestUtils';
 import { WORDING } from '../../../help/wording';
 import { OperationType } from '../../../help/type/enums';
 import { DESCRIPTIONS } from '../../../help/description';
+import NodeUtils from '../../../help/utils/node';
+import { isObject } from '../../../help/utils/validation';
 
 export default {
 	name: WORDING.CalendarEventAttendeeCreate,
@@ -38,15 +40,13 @@ export default {
 		const calendarId = this.getNodeParameter('calendar_id', index, undefined, {
 			extractValue: true,
 		}) as string;
-		const eventId = this.getNodeParameter('event_id', index, undefined, {
+		const eventId = this.getNodeParameter('calendar_event_id', index, undefined, {
 			extractValue: true,
 		}) as string;
-		const attendees = this.getNodeParameter('attendees', index, undefined, {
-			ensureType: 'json',
-		}) as IDataObject[];
+		const attendees = NodeUtils.getArrayData<IDataObject>(this, 'attendees', index, isObject);
 		const options = this.getNodeParameter('options', index, {}) as IDataObject;
 		const userIdType = (options.user_id_type as string) || 'open_id';
-		const needNotification = (options.need_notification as boolean) !== false;
+		const needNotification = options.need_notification as boolean;
 		const instanceStartTimeAdmin = options.instance_start_time_admin as string;
 		const isEnableAdmin = options.is_enable_admin as boolean;
 		const addOperatorToAttendee = options.add_operator_to_attendee as boolean;
@@ -60,11 +60,13 @@ export default {
 				...(userIdType && { user_id_type: userIdType }),
 			},
 			body: {
-				...(attendees?.length > 0 && { attendees }),
-				...(needNotification !== undefined && { need_notification: needNotification }),
+				attendees,
+				...(needNotification && { need_notification: needNotification }),
 				...(instanceStartTimeAdmin && { instance_start_time_admin: instanceStartTimeAdmin }),
-				...(isEnableAdmin !== undefined && { is_enable_admin: isEnableAdmin }),
-				...(addOperatorToAttendee !== undefined && { add_operator_to_attendee: addOperatorToAttendee }),
+				...(isEnableAdmin && { is_enable_admin: isEnableAdmin }),
+				...(addOperatorToAttendee && {
+					add_operator_to_attendee: addOperatorToAttendee,
+				}),
 			},
 		});
 

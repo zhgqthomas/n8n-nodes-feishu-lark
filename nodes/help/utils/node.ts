@@ -1,4 +1,10 @@
-import { IDataObject, IExecuteFunctions, NodeOperationError } from 'n8n-workflow';
+import {
+	assertParamIsArray,
+	IDataObject,
+	IExecuteFunctions,
+	jsonParse,
+	NodeOperationError,
+} from 'n8n-workflow';
 
 class NodeUtils {
 	static getNodeFixedCollection(data: IDataObject, collectionName: string): IDataObject[] {
@@ -60,6 +66,34 @@ class NodeUtils {
 				`Can't parse [${propertyName}] JSON data: ${e.message}`,
 			);
 		}
+	}
+
+	static getObjectData(
+		context: IExecuteFunctions,
+		index: number,
+		failValue?: any,
+	): IDataObject | any {
+		const dataObject = context.getNodeParameter('objectJson', index, failValue);
+		return typeof dataObject === 'string' ? jsonParse<IDataObject>(dataObject) : dataObject;
+	}
+
+	static getArrayData<T>(
+		context: IExecuteFunctions,
+		propertyName: string,
+		index: number,
+		validator: (val: unknown) => val is T,
+		failValue?: any,
+	): T[] {
+		const arrayJson = context.getNodeParameter(propertyName, index, failValue) as T[];
+		const parsedArrayObject: T[] = typeof arrayJson === 'string' ? jsonParse(arrayJson) : arrayJson;
+
+		assertParamIsArray<T>(propertyName, parsedArrayObject, validator, context.getNode());
+
+		if (parsedArrayObject.length === 0) {
+			throw new NodeOperationError(context.getNode(), `The ${propertyName} can not be empty`);
+		}
+
+		return parsedArrayObject;
 	}
 }
 

@@ -4,6 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 import { WORDING } from '../../../help/wording';
 import { OperationType } from '../../../help/type/enums';
 import { DESCRIPTIONS } from '../../../help/description';
+import NodeUtils from '../../../help/utils/node';
 
 export default {
 	name: WORDING.UpdateTableView,
@@ -36,9 +37,7 @@ export default {
 			extractValue: true,
 		}) as string;
 		const view_name = this.getNodeParameter('view_name', index, '') as string;
-		const property = this.getNodeParameter('property', index, undefined, {
-			ensureType: 'json',
-		}) as IDataObject;
+		const property = NodeUtils.getObjectData(this, index, undefined);
 
 		const {
 			data: { view },
