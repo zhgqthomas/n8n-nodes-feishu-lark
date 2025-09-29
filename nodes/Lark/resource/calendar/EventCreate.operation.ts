@@ -4,6 +4,7 @@ import RequestUtils from '../../../help/utils/RequestUtils';
 import { WORDING } from '../../../help/wording';
 import { OperationType } from '../../../help/type/enums';
 import { DESCRIPTIONS } from '../../../help/description';
+import NodeUtils from '../../../help/utils/node';
 
 export default {
 	name: WORDING.CalendarEventCreate,
@@ -31,9 +32,7 @@ export default {
 		const calendarId = this.getNodeParameter('calendar_id', index, undefined, {
 			extractValue: true,
 		}) as string;
-		const body = this.getNodeParameter('body', index, undefined, {
-			ensureType: 'json',
-		}) as IDataObject;
+		const body = NodeUtils.getObjectData(this, index);
 		const options = this.getNodeParameter('options', index, {}) as IDataObject;
 		const idempotencyKey = (options.request_id as string) || '';
 		const userIdType = (options.user_id_type as string) || 'open_id';

@@ -4,6 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 import { DESCRIPTIONS } from '../../../help/description';
 import { WORDING } from '../../../help/wording';
 import { OperationType } from '../../../help/type/enums';
+import NodeUtils from '../../../help/utils/node';
 
 export default {
 	name: WORDING.BatchCreateTableRecords,
@@ -39,12 +40,10 @@ export default {
 		const table_id = this.getNodeParameter('table_id', index, undefined, {
 			extractValue: true,
 		}) as string;
-		const body = this.getNodeParameter('body', index, undefined, {
-			ensureType: 'json',
-		}) as IDataObject;
+		const body = NodeUtils.getObjectData(this, index);
 		const options = this.getNodeParameter('options', index, {});
-		const user_id_type = options.user_id_type as string || 'open_id';
-		const ignore_consistency_check = options.ignore_consistency_check as boolean || true;
+		const user_id_type = (options.user_id_type as string) || 'open_id';
+		const ignore_consistency_check = (options.ignore_consistency_check as boolean) || true;
 		const client_token = options.request_id as string | undefined;
 
 		const {
@@ -57,7 +56,7 @@ export default {
 				ignore_consistency_check,
 				...(client_token && { client_token }),
 			},
-			body: body,
+			body,
 		});
 
 		return records;

@@ -4,6 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 import { WORDING } from '../../../help/wording';
 import { OperationType } from '../../../help/type/enums';
 import { DESCRIPTIONS } from '../../../help/description';
+import NodeUtils from '../../../help/utils/node';
 
 export default {
 	name: WORDING.CreateDocumentBlock,
@@ -37,9 +38,7 @@ export default {
 			extractValue: true,
 		}) as string;
 		const block_id = this.getNodeParameter('block_id', index, document_id) as string;
-		const body = this.getNodeParameter('body', index, undefined, {
-			ensureType: 'json',
-		}) as IDataObject;
+		const body = NodeUtils.getObjectData(this, index);
 		const options = this.getNodeParameter('options', index, {});
 		const document_revision_id = (options.document_revision_id as number) || -1;
 		const user_id_type = (options.user_id_type as string) || 'open_id';

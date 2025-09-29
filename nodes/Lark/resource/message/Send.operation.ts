@@ -4,6 +4,7 @@ import { ResourceOperation } from '../../../help/type/IResource';
 import { WORDING } from '../../../help/wording';
 import { OperationType } from '../../../help/type/enums';
 import { DESCRIPTIONS } from '../../../help/description';
+import NodeUtils from '../../../help/utils/node';
 
 export default {
 	name: WORDING.SendMessage,
@@ -39,9 +40,7 @@ export default {
 			extractValue: true,
 		}) as string;
 		const msg_type = this.getNodeParameter('msg_type', index, 'text') as string;
-		const content = this.getNodeParameter('content', index, undefined, {
-			ensureType: 'json',
-		}) as IDataObject;
+		const content = NodeUtils.getObjectData(this, index);
 		const options = this.getNodeParameter('options', index, {}) as IDataObject;
 		const uuid = options.request_id as string | undefined;
 

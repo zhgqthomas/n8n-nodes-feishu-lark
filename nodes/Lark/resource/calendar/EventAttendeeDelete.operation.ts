@@ -1,9 +1,11 @@
-import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
+import { IDataObject, IExecuteFunctions, jsonParse } from 'n8n-workflow';
 import { ResourceOperation } from '../../../help/type/IResource';
 import RequestUtils from '../../../help/utils/RequestUtils';
 import { WORDING } from '../../../help/wording';
 import { OperationType } from '../../../help/type/enums';
 import { DESCRIPTIONS } from '../../../help/description';
+import NodeUtils from '../../../help/utils/node';
+import { isString } from '../../../help/utils/validation';
 
 export default {
 	name: WORDING.CalendarEventAttendeeDelete,
@@ -38,18 +40,21 @@ export default {
 		const calendarId = this.getNodeParameter('calendar_id', index, undefined, {
 			extractValue: true,
 		}) as string;
-		const eventId = this.getNodeParameter('event_id', index, undefined, {
+		const eventId = this.getNodeParameter('calendar_event_id', index, undefined, {
 			extractValue: true,
 		}) as string;
-		const attendeeIds = this.getNodeParameter('attendee_ids', index, undefined, {
-			ensureType: 'json',
-		}) as string[];
+		const attendeeIds = NodeUtils.getArrayData<string>(this, 'attendee_ids', index, isString);
+
 		const options = this.getNodeParameter('options', index, {}) as IDataObject;
 		const userIdType = (options.user_id_type as string) || 'open_id';
-		const needNotification = (options.need_notification as boolean) !== false;
+		const needNotification = options.need_notification as boolean;
 		const instanceStartTimeAdmin = options.instance_start_time_admin as string;
 		const isEnableAdmin = options.is_enable_admin as boolean;
-		const deleteIds = options.delete_ids as IDataObject[];
+		let deleteIds = options.delete_ids as IDataObject[];
+
+		if (deleteIds) {
+			deleteIds = typeof deleteIds === 'string' ? jsonParse(deleteIds) : deleteIds;
+		}
 
 		await RequestUtils.request.call(this, {
 			method: 'POST',
@@ -58,10 +63,10 @@ export default {
 				...(userIdType && { user_id_type: userIdType }),
 			},
 			body: {
-				...(attendeeIds?.length && { attendee_ids: attendeeIds }),
-				...(needNotification !== undefined && { need_notification: needNotification }),
+				attendee_ids: attendeeIds,
+				...(needNotification && { need_notification: needNotification }),
 				...(instanceStartTimeAdmin && { instance_start_time_admin: instanceStartTimeAdmin }),
-				...(isEnableAdmin !== undefined && { is_enable_admin: isEnableAdmin }),
+				...(isEnableAdmin && { is_enable_admin: isEnableAdmin }),
 				...(deleteIds?.length && { delete_ids: deleteIds }),
 			},
 		});

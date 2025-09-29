@@ -4,6 +4,8 @@ import { ResourceOperation } from '../../../help/type/IResource';
 import { WORDING } from '../../../help/wording';
 import { OperationType } from '../../../help/type/enums';
 import { DESCRIPTIONS } from '../../../help/description';
+import { OBJECT_JSON } from '../../../help/description/base';
+import NodeUtils from '../../../help/utils/node';
 
 export default {
 	name: WORDING.SendMessageCard,
@@ -37,10 +39,7 @@ export default {
 		},
 		{
 			displayName: 'Message Card(消息卡片)',
-			name: 'message_card',
-			type: 'json',
-			default: '',
-			required: true,
+			...OBJECT_JSON,
 		},
 		{
 			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/im-v1/message-card/send-message-cards-that-are-only-visible-to-certain-people">${WORDING.OpenDocument}</a>`,
@@ -53,9 +52,7 @@ export default {
 		const chat_id = this.getNodeParameter('chat_id', index) as string;
 		const user_id_type = this.getNodeParameter('user_id_type', index) as string;
 		const id = this.getNodeParameter('id', index, '') as string;
-		const message_card = this.getNodeParameter('message_card', index, undefined, {
-			ensureType: 'json',
-		}) as IDataObject;
+		const content = NodeUtils.getObjectData(this, index);
 
 		const openId = user_id_type === 'open_id' ? id : undefined;
 		const userId = user_id_type === 'user_id' ? id : undefined;
@@ -70,7 +67,7 @@ export default {
 				...(userId && { user_id: userId }),
 				...(email && { email }),
 				msg_type: 'interactive',
-				card: message_card,
+				card: content,
 			},
 		});
 

@@ -1,9 +1,11 @@
-import { IDataObject, IExecuteFunctions, NodeOperationError } from 'n8n-workflow';
+import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
 import { DESCRIPTIONS } from '../../../help/description';
 import { WORDING } from '../../../help/wording';
 import { OperationType } from '../../../help/type/enums';
+import NodeUtils from '../../../help/utils/node';
+import { isString } from '../../../help/utils/validation';
 
 export default {
 	name: WORDING.GetTableRecordList,
@@ -12,11 +14,7 @@ export default {
 	options: [
 		DESCRIPTIONS.BASE_APP_TOKEN,
 		DESCRIPTIONS.BASE_TABLE_ID,
-		{
-			...DESCRIPTIONS.REQUEST_BODY,
-			displayName: WORDING.TableRecordIdList,
-			default: '[]',
-		},
+		DESCRIPTIONS.RECORD_IDS,
 		{
 			displayName: WORDING.Options,
 			name: 'options',
@@ -43,23 +41,18 @@ export default {
 		const table_id = this.getNodeParameter('table_id', index, undefined, {
 			extractValue: true,
 		}) as string;
-		const recordIds = this.getNodeParameter('body', index, undefined, {
-			ensureType: 'json',
-		}) as IDataObject;
-		const options = this.getNodeParameter('options', index, {});
-		const user_id_type = options.user_id_type as string || 'open_id';
-		const with_shared_url = options.with_shared_url as boolean || false;
-		const automatic_fields = options.automatic_fields as boolean || false;
+		const recordIds = NodeUtils.getArrayData<string>(this, 'record_ids', index, isString);
 
-		if (!Array.isArray(recordIds)) {
-			throw new NodeOperationError(this.getNode(), 'Record IDs must be an array.');
-		}
+		const options = this.getNodeParameter('options', index, {});
+		const user_id_type = (options.user_id_type as string) || 'open_id';
+		const with_shared_url = (options.with_shared_url as boolean) || false;
+		const automatic_fields = (options.automatic_fields as boolean) || false;
 
 		const { data } = await RequestUtils.request.call(this, {
 			method: 'POST',
 			url: `/open-apis/bitable/v1/apps/${app_token}/tables/${table_id}/records/batch_get`,
 			body: {
-				record_ids: recordIds || [],
+				record_ids: recordIds,
 				user_id_type,
 				with_shared_url,
 				automatic_fields,

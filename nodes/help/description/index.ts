@@ -1,4 +1,5 @@
 import { FileType, MessageType } from '../type/enums';
+import { OBJECT_JSON } from './base';
 
 export const DESCRIPTIONS = {
 	FILE_BINARY_FIELD: {
@@ -71,9 +72,9 @@ export const DESCRIPTIONS = {
 		default: '{\n  "my_field_1": "value",\n  "my_field_2": 1\n}\n',
 	},
 
-	ARRAY_VALUES: {
+	SHEET_VALUES: {
 		displayName: 'Values(数据)',
-		name: 'array_values',
+		name: 'values',
 		type: 'json',
 		required: true,
 		default: '[]',
@@ -112,6 +113,7 @@ export const DESCRIPTIONS = {
 		name: 'range',
 		type: 'string',
 		default: '',
+		required: true,
 		placeholder: '!A1:B2',
 		hint: 'https://open.feishu.cn/document/server-docs/docs/sheets-v3/overview#9049d332',
 		description:
@@ -832,10 +834,8 @@ export const DESCRIPTIONS = {
 
 	MESSAGE_CONTENT: {
 		displayName: 'Message Content(消息内容)',
-		name: 'content',
-		type: 'json',
-		default: '',
-		required: true,
+		require: true,
+		...OBJECT_JSON,
 	},
 
 	MESSAGE_TYPE: {
@@ -1074,9 +1074,7 @@ export const DESCRIPTIONS = {
 
 	TABLE_VIEW_PROPERTY: {
 		displayName: 'View Property(视图属性)',
-		name: 'property',
-		type: 'json',
-		default: '{}',
+		...OBJECT_JSON,
 	},
 
 	TABLE_VIEW_ID: {
@@ -1252,12 +1250,8 @@ export const DESCRIPTIONS = {
 
 	REQUEST_BODY: {
 		displayName: 'Request Body(请求体)',
-		name: 'body',
-		type: 'json',
-		validateType: 'object',
-		ignoreValidationDuringExecution: true,
-		required: true,
-		default: '{}',
+		require: true,
+		...OBJECT_JSON,
 	},
 
 	REQUEST_ID: {
@@ -1307,6 +1301,15 @@ export const DESCRIPTIONS = {
 				default: '',
 			},
 		],
+	},
+
+	RECORD_IDS: {
+		displayName: 'Record IDs(记录 ID 列表)',
+		name: 'record_ids',
+		type: 'json',
+		default: '[]',
+		required: true,
+		description: 'List of record IDs to retrieve',
 	},
 
 	BASE_TABLE_ID: {
