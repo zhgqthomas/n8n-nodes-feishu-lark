@@ -836,6 +836,7 @@ export const DESCRIPTIONS = {
 		displayName: 'Message Content(消息内容)',
 		require: true,
 		...OBJECT_JSON,
+		name: 'content',
 	},
 
 	MESSAGE_TYPE: {

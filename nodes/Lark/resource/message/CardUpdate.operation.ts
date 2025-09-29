@@ -22,7 +22,7 @@ export default {
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
 		const message_id = this.getNodeParameter('message_id', index) as string;
-		const content = NodeUtils.getObjectData(this, index);
+		const content = NodeUtils.getObjectData(this, index, 'content');
 
 		await RequestUtils.request.call(this, {
 			method: 'PATCH',

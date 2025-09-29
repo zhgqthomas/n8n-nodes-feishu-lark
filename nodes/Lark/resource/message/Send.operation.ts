@@ -40,7 +40,7 @@ export default {
 			extractValue: true,
 		}) as string;
 		const msg_type = this.getNodeParameter('msg_type', index, 'text') as string;
-		const content = NodeUtils.getObjectData(this, index);
+		const content = NodeUtils.getObjectData(this, index, 'content');
 		const options = this.getNodeParameter('options', index, {}) as IDataObject;
 		const uuid = options.request_id as string | undefined;
 

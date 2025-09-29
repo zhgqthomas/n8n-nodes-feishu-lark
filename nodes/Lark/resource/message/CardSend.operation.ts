@@ -40,6 +40,7 @@ export default {
 		{
 			displayName: 'Message Card(消息卡片)',
 			...OBJECT_JSON,
+			name: 'message_card',
 		},
 		{
 			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/im-v1/message-card/send-message-cards-that-are-only-visible-to-certain-people">${WORDING.OpenDocument}</a>`,
@@ -52,7 +53,7 @@ export default {
 		const chat_id = this.getNodeParameter('chat_id', index) as string;
 		const user_id_type = this.getNodeParameter('user_id_type', index) as string;
 		const id = this.getNodeParameter('id', index, '') as string;
-		const content = NodeUtils.getObjectData(this, index);
+		const content = NodeUtils.getObjectData(this, index, 'message_card');
 
 		const openId = user_id_type === 'open_id' ? id : undefined;
 		const userId = user_id_type === 'user_id' ? id : undefined;

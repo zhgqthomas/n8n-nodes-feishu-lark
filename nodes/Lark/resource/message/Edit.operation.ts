@@ -24,7 +24,7 @@ export default {
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
 		const message_id = this.getNodeParameter('message_id', index) as string;
 		const msg_type = this.getNodeParameter('msg_type', index) as string;
-		const content = NodeUtils.getObjectData(this, index);
+		const content = NodeUtils.getObjectData(this, index, 'content');
 
 		const { data } = await RequestUtils.request.call(this, {
 			method: 'PUT',

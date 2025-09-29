@@ -71,9 +71,10 @@ class NodeUtils {
 	static getObjectData(
 		context: IExecuteFunctions,
 		index: number,
+		propertyName?: string,
 		failValue?: any,
 	): IDataObject | any {
-		const dataObject = context.getNodeParameter('body', index, failValue);
+		const dataObject = context.getNodeParameter(propertyName || 'body', index, failValue);
 		return typeof dataObject === 'string' ? jsonParse<IDataObject>(dataObject) : dataObject;
 	}
 
