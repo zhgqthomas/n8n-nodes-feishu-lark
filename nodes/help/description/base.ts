@@ -1,5 +1,5 @@
 export const OBJECT_JSON = {
-	name: 'objectJson',
+	name: 'body',
 	type: 'json',
 	validateType: 'object',
 	ignoreValidationDuringExecution: true,

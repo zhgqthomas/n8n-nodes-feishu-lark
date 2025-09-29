@@ -73,7 +73,7 @@ class NodeUtils {
 		index: number,
 		failValue?: any,
 	): IDataObject | any {
-		const dataObject = context.getNodeParameter('objectJson', index, failValue);
+		const dataObject = context.getNodeParameter('body', index, failValue);
 		return typeof dataObject === 'string' ? jsonParse<IDataObject>(dataObject) : dataObject;
 	}
 
