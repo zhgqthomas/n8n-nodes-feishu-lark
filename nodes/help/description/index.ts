@@ -988,7 +988,7 @@ export const DESCRIPTIONS = {
 		displayName: 'Role ID(自定义角色唯一标识)',
 		name: 'role_id',
 		type: 'resourceLocator',
-		default: { mode: 'list', value: '' },
+		default: { mode: 'id', value: '' },
 		required: true,
 		description: 'Need to have the read permission of base role',
 		modes: [
@@ -1026,7 +1026,7 @@ export const DESCRIPTIONS = {
 		displayName: 'Field ID(字段唯一标识)',
 		name: 'field_id',
 		type: 'resourceLocator',
-		default: { mode: 'list', value: '' },
+		default: { mode: 'id', value: '' },
 		required: true,
 		description: 'Need to have the permission to view the Base above',
 		modes: [
@@ -1082,7 +1082,7 @@ export const DESCRIPTIONS = {
 		displayName: 'View(视图)',
 		name: 'view_id',
 		type: 'resourceLocator',
-		default: { mode: 'list', value: '' },
+		default: { mode: 'id', value: '' },
 		required: true,
 		description: 'Need to have the permission to view the Base above',
 		modes: [
@@ -1218,7 +1218,7 @@ export const DESCRIPTIONS = {
 		displayName: 'Folder Token(文件夹唯一标识)',
 		name: 'folder_token',
 		type: 'resourceLocator',
-		default: { mode: 'list', value: '' },
+		default: { mode: 'id', value: '' },
 		description: 'Need to have the read permission of base role',
 		modes: [
 			{
@@ -1279,7 +1279,7 @@ export const DESCRIPTIONS = {
 		displayName: 'Base App(多维表格)',
 		name: 'app_token',
 		type: 'resourceLocator',
-		default: { mode: 'list', value: '' },
+		default: { mode: 'id', value: '' },
 		required: true,
 		description: 'Need to have the permission to view all files in my space',
 		modes: [
@@ -1317,7 +1317,7 @@ export const DESCRIPTIONS = {
 		displayName: 'Table(数据表)',
 		name: 'table_id',
 		type: 'resourceLocator',
-		default: { mode: 'list', value: '' },
+		default: { mode: 'id', value: '' },
 		required: true,
 		description: 'Need to have the permission to view the Base above',
 		modes: [
