@@ -23,8 +23,8 @@ export class LarkTrigger implements INodeType {
 		name: 'larkTrigger',
 		icon: 'file:lark_icon.svg',
 		group: ['trigger'],
-		version: [1],
-		defaultVersion: 1,
+		version: [1, 1.1],
+		defaultVersion: 1.1,
 		subtitle: '=Events: {{$parameter["events"].join(", ")}}',
 		description: 'Starts the workflow on Lark events',
 		defaults: {
@@ -128,11 +128,24 @@ export class LarkTrigger implements INodeType {
 						],
 					},
 					{
-						displayName: 'Unsubscribe on Deactivate',
+						displayName: 'Unsubscribe on Deactivate | 停用时取消订阅',
 						name: 'unsubscribeOnDeactivate',
 						type: 'boolean',
 						default: false,
 						description: 'Whether to unsubscribe the events on deactivation',
+					},
+					{
+						displayName: 'Callback Toast | 回调提示',
+						name: 'callbackToast',
+						type: 'string',
+						default: '',
+						description:
+							'Set the toast message displayed to users when the callback is triggered. If not set, no toast will be shown.',
+						displayOptions: {
+							show: {
+								'@version': [{ _cnd: { gte: 1 } }],
+							},
+						},
 					},
 				],
 			},
@@ -156,14 +169,18 @@ export class LarkTrigger implements INodeType {
 	};
 
 	async trigger(this: ITriggerFunctions): Promise<ITriggerResponse> {
+		const { typeVersion: nodeVersion } = this.getNode();
+
 		const credentials = await this.getCredentials(Credentials.TenantToken);
 
 		if (!(credentials.appid && credentials.appsecret && credentials.baseUrl)) {
 			throw new NodeOperationError(this.getNode(), 'Missing required Lark credentials');
 		}
 
+		const options = this.getNodeParameter('options', {}) as IDataObject;
+		const callbackToast = (options.callbackToast as string) || undefined;
+
 		const handleSubscribeEvents = async (cmd: 'subscribe' | 'delete_subscribe') => {
-			const options = this.getNodeParameter('options', {}) as IDataObject;
 			const unsubscribeOnDeactivate = (options.unsubscribeOnDeactivate as boolean) || false;
 			if (cmd === 'delete_subscribe' && !unsubscribeOnDeactivate) {
 				return;
@@ -211,7 +228,7 @@ export class LarkTrigger implements INodeType {
 		const startWsClient = async () => {
 			const events = this.getNodeParameter('events', []) as string[];
 			const isAnyEvent = events.includes('any_event');
-			const handlers: Record<string, (data: any) => Promise<void>> = {};
+			const handlers: Record<string, (data: any) => Promise<IDataObject>> = {};
 
 			for (const event of events) {
 				handlers[event] = async (data) => {
@@ -224,6 +241,17 @@ export class LarkTrigger implements INodeType {
 					// }
 
 					this.logger.info(`Handled event: ${event}`);
+
+					if (nodeVersion > 1 && callbackToast) {
+						return {
+							toast: {
+								type: 'info',
+								content: callbackToast,
+							},
+						};
+					}
+
+					return {};
 				};
 			}
 
