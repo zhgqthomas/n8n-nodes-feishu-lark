@@ -8,8 +8,8 @@ import { OBJECT_JSON } from '../../../help/description/base';
 import NodeUtils from '../../../help/utils/node';
 
 export default {
-	name: WORDING.SendMessageCard,
-	value: OperationType.SendMessageCard,
+	name: WORDING.SendLimitedCard,
+	value: OperationType.SendLimitedCard,
 	order: 182,
 	options: [
 		{

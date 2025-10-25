@@ -6,8 +6,8 @@ import { OperationType } from '../../../help/type/enums';
 import { DESCRIPTIONS } from '../../../help/description';
 
 export default {
-	name: WORDING.DeleteMessageCard,
-	value: OperationType.DeleteMessageCard,
+	name: WORDING.DeleteLimitedCard,
+	value: OperationType.DeleteLimitedCard,
 	order: 180,
 	options: [
 		DESCRIPTIONS.MESSAGE_ID,

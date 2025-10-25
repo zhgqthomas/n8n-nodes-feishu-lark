@@ -92,9 +92,9 @@ export declare const enum OperationType {
 	DownloadImage = 'downloadImage',
 	UploadFile = 'uploadFile',
 	DownloadFile = 'downloadFile',
-	SendMessageCard = 'sendMessageCard',
+	SendLimitedCard = 'sendLimitedCard',
 	UpdateMessageCard = 'updateMessageCard',
-	DeleteMessageCard = 'deleteMessageCard',
+	DeleteLimitedCard = 'deleteLimitedCard',
 	ParseWebhookMessage = 'parseWebhook',
 	SendStreamMessage = 'stream',
 
