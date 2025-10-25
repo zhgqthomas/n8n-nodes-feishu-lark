@@ -502,15 +502,6 @@ const approvalOptionsValues = [
 	},
 ].filter((p) => Object.keys(p).length) as INodeProperties[];
 
-const messageIdSaveKey = {
-	displayName: 'Message ID Save Key',
-	name: 'messageIdSaveKey',
-	type: 'string',
-	default: '',
-	description:
-		'The key for saving the message ID to the custom execution data. <a target="_blank" href="https://docs.n8n.io/code/cookbook/builtin/get-workflow-static-data/">Open Doc</a>.',
-} as INodeProperties;
-
 export const sendAndWaitProperties: INodeProperties[] = [
 	{
 		displayName: 'Subject',
@@ -552,6 +543,25 @@ export const sendAndWaitProperties: INodeProperties[] = [
 			},
 		],
 	},
+	{
+		displayName: 'Disable Button After Submission',
+		name: 'disableButton',
+		type: 'boolean',
+		default: false,
+		description: 'Whether to disable the buttons after submission to prevent multiple submissions',
+	},
+	{
+		displayName: 'Disable Tips',
+		name: 'disableTips',
+		type: 'string',
+		default: '',
+		description: 'Show tips when buttons are disabled after being submitted',
+		displayOptions: {
+			show: {
+				disableButton: [true],
+			},
+		},
+	},
 	...updateDisplayOptions(
 		{
 			show: {
@@ -586,7 +596,7 @@ export const sendAndWaitProperties: INodeProperties[] = [
 		type: 'collection',
 		placeholder: 'Add option',
 		default: {},
-		options: [messageIdSaveKey, limitWaitTimeOption, DESCRIPTIONS.REQUEST_ID as INodeProperties],
+		options: [limitWaitTimeOption, DESCRIPTIONS.REQUEST_ID as INodeProperties],
 		displayOptions: {
 			show: {
 				responseType: ['approval'],
@@ -637,7 +647,6 @@ export const sendAndWaitProperties: INodeProperties[] = [
 				type: 'string',
 				default: '',
 			},
-			messageIdSaveKey,
 			limitWaitTimeOption,
 			DESCRIPTIONS.REQUEST_ID as INodeProperties,
 		],

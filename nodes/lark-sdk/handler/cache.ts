@@ -35,6 +35,9 @@ export class DefaultCache implements Cache {
 			if (!expiredTime || expiredTime - new Date().getTime() > 0) {
 				return value;
 			}
+
+			// If expired, delete the cache
+			this.values.delete(cacheKey);
 		}
 
 		return undefined;

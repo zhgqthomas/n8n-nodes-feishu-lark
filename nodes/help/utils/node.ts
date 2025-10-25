@@ -2,6 +2,7 @@ import {
 	assertParamIsArray,
 	IDataObject,
 	IExecuteFunctions,
+	IWebhookFunctions,
 	jsonParse,
 	NodeOperationError,
 } from 'n8n-workflow';
@@ -95,6 +96,18 @@ class NodeUtils {
 		}
 
 		return parsedArrayObject;
+	}
+
+	static getNodeParameter(
+		context: IExecuteFunctions | IWebhookFunctions,
+		propertyName: string,
+		failValue?: any,
+	): any {
+		if ('getInputData' in context) {
+			return (context as IExecuteFunctions).getNodeParameter(propertyName, 0, failValue);
+		}
+
+		return (context as IWebhookFunctions).getNodeParameter(propertyName, failValue);
 	}
 }
 

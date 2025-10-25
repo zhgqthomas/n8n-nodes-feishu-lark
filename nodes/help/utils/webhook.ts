@@ -16,6 +16,9 @@ import {
 } from 'n8n-workflow';
 import sanitize from 'sanitize-html';
 import { ACTION_RECORDED_PAGE } from '../templates';
+import { internalCache } from '../../lark-sdk/handler/cache';
+import RequestUtils from './RequestUtils';
+import NodeUtils from './node';
 
 const INPUT_FIELD_IDENTIFIER = 'field-0';
 
@@ -408,12 +411,14 @@ export function escapeHtml(text: string): string {
 }
 
 // Send and Wait Config -----------------------------------------------------------
-export function getSendAndWaitConfig(context: IExecuteFunctions): SendAndWaitConfig {
-	const message = escapeHtml((context.getNodeParameter('message', 0, '') as string).trim())
+export function getSendAndWaitConfig(
+	context: IExecuteFunctions | IWebhookFunctions,
+): SendAndWaitConfig {
+	const message = escapeHtml((NodeUtils.getNodeParameter(context, 'message', '') as string).trim())
 		.replace(/\\n/g, '\n')
 		.replace(/<br>/g, '\n');
-	const subject = escapeHtml(context.getNodeParameter('subject', 0, '') as string);
-	const approvalOptions = context.getNodeParameter('approvalOptions.values', 0, {}) as {
+	const subject = escapeHtml(NodeUtils.getNodeParameter(context, 'subject', '') as string);
+	const approvalOptions = NodeUtils.getNodeParameter(context, 'approvalOptions.values', {}) as {
 		approvalType?: 'single' | 'double';
 		approveLabel?: string;
 		buttonApprovalStyle?: string;
@@ -421,7 +426,7 @@ export function getSendAndWaitConfig(context: IExecuteFunctions): SendAndWaitCon
 		buttonDisapprovalStyle?: string;
 	};
 
-	const options = context.getNodeParameter('options', 0, {});
+	const options = NodeUtils.getNodeParameter(context, 'options', {});
 
 	const config: SendAndWaitConfig = {
 		title: subject,
@@ -430,13 +435,17 @@ export function getSendAndWaitConfig(context: IExecuteFunctions): SendAndWaitCon
 		appendAttribution: options?.appendAttribution as boolean,
 	};
 
-	const responseType = context.getNodeParameter('responseType', 0, 'approval') as string;
+	const responseType = NodeUtils.getNodeParameter(context, 'responseType', 'approval') as string;
 
 	context.setSignatureValidationRequired();
 	const approvedSignedResumeUrl = context.getSignedResumeUrl({ approved: 'true' });
 
 	if (responseType === 'freeText' || responseType === 'customForm') {
-		const label = context.getNodeParameter('options.messageButtonLabel', 0, 'Respond') as string;
+		const label = NodeUtils.getNodeParameter(
+			context,
+			'options.messageButtonLabel',
+			'Respond',
+		) as string;
 		config.options.push({
 			label,
 			url: approvedSignedResumeUrl,
@@ -474,20 +483,28 @@ export function getSendAndWaitConfig(context: IExecuteFunctions): SendAndWaitCon
 	return config;
 }
 
-function createButtonElements(options: { label: string; url: string; style: string }[]) {
+function createButtonElements(
+	options: { label: string; url: string; style: string }[],
+	disableValues: {
+		disabled: boolean;
+		disabledTips: string;
+	},
+) {
 	return options.map((option) => {
 		return {
 			tag: 'button',
 			text: {
 				tag: 'plain_text',
 				content: option.label,
-				i18n_content: {
-					en_us: option.label,
-				},
 			},
 			type: option.style,
 			width: 'default',
 			size: 'medium',
+			disabled: disableValues.disabled,
+			disabled_tips: {
+				tag: 'plain_text',
+				content: disableValues.disabledTips,
+			},
 			behaviors: [
 				{
 					type: 'open_url',
@@ -498,15 +515,22 @@ function createButtonElements(options: { label: string; url: string; style: stri
 	});
 }
 
-export function createSendAndWaitMessageBody(context: IExecuteFunctions) {
+export function createSendAndWaitMessageBody(
+	context: IExecuteFunctions,
+	disableValues: {
+		disabled: boolean;
+		disabledTips: string;
+	} = { disabled: false, disabledTips: '' },
+) {
 	const config = getSendAndWaitConfig(context);
 	const subject = config.title;
 	const message = config.message;
 
+	console.log('config value: ', config);
+
 	const content = {
 		schema: '2.0',
 		config: {
-			locales: ['en_us'],
 			style: {
 				text_size: {
 					normal_v2: {
@@ -524,9 +548,6 @@ export function createSendAndWaitMessageBody(context: IExecuteFunctions) {
 				{
 					tag: 'markdown',
 					content: message,
-					i18n_content: {
-						en_us: message,
-					},
 					text_align: 'left',
 					text_size: 'normal_v2',
 					margin: '0px 0px 0px 0px',
@@ -542,7 +563,7 @@ export function createSendAndWaitMessageBody(context: IExecuteFunctions) {
 						{
 							tag: 'column',
 							width: 'weighted',
-							elements: createButtonElements(config.options),
+							elements: createButtonElements(config.options, disableValues),
 							direction: 'horizontal',
 							vertical_spacing: '8px',
 							horizontal_align: 'left',
@@ -558,9 +579,6 @@ export function createSendAndWaitMessageBody(context: IExecuteFunctions) {
 			title: {
 				tag: 'plain_text',
 				content: `${subject}`,
-				i18n_content: {
-					en_us: `${subject}`,
-				},
 			},
 			template: 'blue',
 			icon: {
@@ -622,6 +640,36 @@ export function configureWaitTillDate(context: IExecuteFunctions) {
 	return waitTill;
 }
 
+async function getMessageId(context: IWebhookFunctions) {
+	return await internalCache.get('sendAndWaitMessageId', {
+		namespace: `${context.getWorkflow().id}-${context.getExecutionId()}`,
+	});
+}
+
+async function editCardMessage(context: IWebhookFunctions) {
+	const disableButton = context.getNodeParameter('disableButton', false) as boolean;
+	if (!disableButton) {
+		return;
+	}
+
+	const disabledTips = context.getNodeParameter('disableTips', '') as string;
+	const messageId = await getMessageId(context);
+	if (!messageId) {
+		return;
+	}
+
+	await RequestUtils.request.call(context as unknown as IExecuteFunctions, {
+		method: 'PATCH',
+		url: `/open-apis/im/v1/messages/${messageId}`,
+		body: {
+			content: createSendAndWaitMessageBody(context as unknown as IExecuteFunctions, {
+				disabled: true,
+				disabledTips,
+			}),
+		},
+	});
+}
+
 export async function sendAndWaitWebhook(this: IWebhookFunctions) {
 	const method = this.getRequestObject().method;
 	const res = this.getResponseObject();
@@ -668,11 +716,20 @@ export async function sendAndWaitWebhook(this: IWebhookFunctions) {
 			};
 		}
 		if (method === 'POST') {
+			await editCardMessage(this);
 			const data = this.getBodyData().data as IDataObject;
 
 			return {
 				webhookResponse: ACTION_RECORDED_PAGE,
-				workflowData: [[{ json: { data: { text: data[INPUT_FIELD_IDENTIFIER] } } }]],
+				workflowData: [
+					[
+						{
+							json: {
+								data: { text: data[INPUT_FIELD_IDENTIFIER], messageId: await getMessageId(this) },
+							},
+						},
+					],
+				],
 			};
 		}
 	}
@@ -721,8 +778,10 @@ export async function sendAndWaitWebhook(this: IWebhookFunctions) {
 			};
 		}
 		if (method === 'POST') {
+			await editCardMessage(this);
 			const returnItem = await prepareFormReturnItem(this, fields, 'production', true);
 			const json = returnItem.json;
+			json.messageId = await getMessageId(this);
 
 			delete json.submittedAt;
 			delete json.formMode;
@@ -736,10 +795,11 @@ export async function sendAndWaitWebhook(this: IWebhookFunctions) {
 		}
 	}
 
+	await editCardMessage(this);
 	const query = req.query as { approved: 'false' | 'true' };
 	const approved = query.approved === 'true';
 	return {
 		webhookResponse: ACTION_RECORDED_PAGE,
-		workflowData: [[{ json: { data: { approved } } }]],
+		workflowData: [[{ json: { data: { approved, messageId: await getMessageId(this) } } }]],
 	};
 }

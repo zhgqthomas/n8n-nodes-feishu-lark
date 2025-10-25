@@ -10,6 +10,7 @@ import { WORDING } from '../../../help/wording';
 import { DESCRIPTIONS } from '../../../help/description';
 import { sendAndWaitProperties } from '../../../help/utils/properties';
 import { configureWaitTillDate, createSendAndWaitMessageBody } from '../../../help/utils/webhook';
+import { internalCache } from '../../../lark-sdk/handler/cache';
 
 export default {
 	name: WORDING.SendAndWaitMessage,
@@ -38,7 +39,6 @@ export default {
 		}) as string;
 		const options = this.getNodeParameter('options', index, {}) as IDataObject;
 		const uuid = (options.request_id as string) || undefined;
-		const messageIdSaveKey = (options.messageIdSaveKey as string) || undefined;
 
 		const {
 			data: { message_id },
@@ -56,11 +56,15 @@ export default {
 			},
 		});
 
-		if (messageIdSaveKey) {
-			this.getWorkflowStaticData('global')[`${messageIdSaveKey}`] = message_id;
+		const waitTill = configureWaitTillDate(this);
+
+		// Cache the message_id with an expiration time matching the waitTill time
+		if (message_id) {
+			internalCache.set('sendAndWaitMessageId', message_id, waitTill.getTime(), {
+				namespace: `${this.getWorkflow().id}-${this.getExecutionId()}`,
+			});
 		}
 
-		const waitTill = configureWaitTillDate(this);
 		await this.putExecutionToWait(waitTill);
 
 		return this.getInputData();
