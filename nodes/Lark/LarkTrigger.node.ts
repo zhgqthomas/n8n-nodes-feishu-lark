@@ -23,8 +23,8 @@ export class LarkTrigger implements INodeType {
 		name: 'larkTrigger',
 		icon: 'file:lark_icon.svg',
 		group: ['trigger'],
-		version: [1],
-		defaultVersion: 1,
+		version: [1, 1.1],
+		defaultVersion: 1.1,
 		subtitle: '=Events: {{$parameter["events"].join(", ")}}',
 		description: 'Starts the workflow on Lark events',
 		defaults: {

@@ -668,11 +668,26 @@ export const triggerEventProperty = {
 			name: 'Add Reaction for Message(新增消息表情回复)',
 			value: 'im.message.reaction.created_v1',
 			description: 'This event will be triggered when a reaction is added to a message',
+			displayOptions: {
+				show: {
+					'@version': [1],
+				},
+			},
 		},
 		{
 			name: 'Any Event(所有事件)',
 			value: ANY_EVENT,
 			description: 'Triggers on any event',
+		},
+		{
+			name: 'Bot Menu Event()',
+			value: 'application.bot.menu_v6',
+			description: 'This event is triggered when the user clicks bot menu',
+			displayOptions: {
+				show: {
+					'@version': [{ _cnd: { gte: 1.1 } }],
+				},
+			},
 		},
 		{
 			name: 'Base App Field Changed(多维表格字段变更)',
@@ -695,6 +710,11 @@ export const triggerEventProperty = {
 			name: 'Delete Reaction for Message(删除消息表情回复)',
 			value: 'im.message.reaction.deleted_v1',
 			description: 'This event will be triggered when the message reaction is deleted',
+			displayOptions: {
+				show: {
+					'@version': [1],
+				},
+			},
 		},
 		{
 			name: 'Receive Message(接收消息)',
