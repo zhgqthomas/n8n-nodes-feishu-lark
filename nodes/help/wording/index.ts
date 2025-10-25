@@ -68,6 +68,7 @@ export const WORDING = {
 	SendAndWaitMessage: 'Send and Wait',
 	ParseWebhookMessage: 'Parse Webhook Message',
 	SendStreamMessage: 'Send Stream Message | 发送流式消息',
+	UpdateInteractiveCard: 'Update Interactive Card | 延时更新消息卡片',
 
 	// Document
 	CreateDocument: 'Create | 创建文档',

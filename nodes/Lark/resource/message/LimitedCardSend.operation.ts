@@ -10,7 +10,7 @@ import NodeUtils from '../../../help/utils/node';
 export default {
 	name: WORDING.SendLimitedCard,
 	value: OperationType.SendLimitedCard,
-	order: 182,
+	order: 181,
 	options: [
 		{
 			displayName: `Only work with Tenant Access Token`,

@@ -7,34 +7,37 @@ import { DESCRIPTIONS } from '../../../help/description';
 import NodeUtils from '../../../help/utils/node';
 
 export default {
-	name: WORDING.UpdateMessageCard,
-	value: OperationType.UpdateMessageCard,
-	order: 182,
+	name: WORDING.UpdateInteractiveCard,
+	value: OperationType.UpdateInteractiveCard,
+	order: 179,
 	options: [
-		DESCRIPTIONS.MESSAGE_ID,
-		DESCRIPTIONS.MESSAGE_CONTENT,
+		DESCRIPTIONS.INTERACTIVE_TOKEN,
 		{
-			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/im-v1/message-card/patch">${WORDING.OpenDocument}</a>`,
+			...DESCRIPTIONS.MESSAGE_CONTENT,
+			displayName: 'Card',
+		},
+		{
+			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/im-v1/message-card/delay-update-message-card">${WORDING.OpenDocument}</a>`,
 			name: 'notice',
 			type: 'notice',
 			default: '',
 		},
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
-		const message_id = this.getNodeParameter('message_id', index) as string;
+		const token = this.getNodeParameter('interactive_token', index) as string;
 		const content = NodeUtils.getObjectData(this, index, 'content');
 
 		await RequestUtils.request.call(this, {
-			method: 'PATCH',
-			url: `/open-apis/im/v1/messages/${message_id}`,
+			method: 'POST',
+			url: `/open-apis/interactive/v1/card/update`,
 			body: {
-				content: JSON.stringify(content),
+				token,
+				card: content,
 			},
 		});
 
 		return {
 			updated: true,
-			message_id,
 		};
 	},
 } as ResourceOperation;

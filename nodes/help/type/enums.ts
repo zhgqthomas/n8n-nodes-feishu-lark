@@ -97,6 +97,7 @@ export declare const enum OperationType {
 	DeleteLimitedCard = 'deleteLimitedCard',
 	ParseWebhookMessage = 'parseWebhook',
 	SendStreamMessage = 'stream',
+	UpdateInteractiveCard = 'updateInteractiveCard',
 
 	// Document
 	CreateDocument = 'create',

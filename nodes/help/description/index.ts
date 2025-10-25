@@ -2,6 +2,23 @@ import { FileType, MessageType } from '../type/enums';
 import { OBJECT_JSON } from './base';
 
 export const DESCRIPTIONS = {
+	TENANT_TOKEN_TIP: {
+		displayName: `Only work with <a target="_blank" href="https://open.feishu.cn/document/server-docs/authentication-management/access-token/tenant_access_token_internal">Tenant Token.</a>`,
+		name: 'notice',
+		type: 'notice',
+		default: '',
+	},
+
+	INTERACTIVE_TOKEN: {
+		displayName: 'Token',
+		name: 'interactive_token',
+		type: 'string',
+		typeOptions: { password: true },
+		required: true,
+		default: '',
+		description: 'The token parameter value contained in the card callback interaction callback',
+	},
+
 	FILE_BINARY_FIELD: {
 		displayName: 'File Binary Field(文件二进制字段)',
 		name: 'file_binary_field',

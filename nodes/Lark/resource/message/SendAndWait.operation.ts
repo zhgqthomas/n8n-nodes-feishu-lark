@@ -18,12 +18,6 @@ export default {
 	action: 'Send message and wait',
 	order: 1,
 	options: [
-		{
-			displayName: `Only work with <a target="_blank" href="https://open.feishu.cn/document/server-docs/authentication-management/access-token/tenant_access_token_internal">Tenant Token.</a>`,
-			name: 'notice',
-			type: 'notice',
-			default: '',
-		},
 		DESCRIPTIONS.RECEIVE_ID_TYPE,
 		{
 			...DESCRIPTIONS.MEMBER_ID,
