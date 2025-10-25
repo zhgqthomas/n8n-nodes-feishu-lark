@@ -23,8 +23,8 @@ export class LarkTrigger implements INodeType {
 		name: 'larkTrigger',
 		icon: 'file:lark_icon.svg',
 		group: ['trigger'],
-		version: [1, 1.1],
-		defaultVersion: 1.1,
+		version: [1],
+		defaultVersion: 1,
 		subtitle: '=Events: {{$parameter["events"].join(", ")}}',
 		description: 'Starts the workflow on Lark events',
 		defaults: {
@@ -141,11 +141,6 @@ export class LarkTrigger implements INodeType {
 						default: '',
 						description:
 							'Set the toast message displayed to users when the callback is triggered. If not set, no toast will be shown.',
-						displayOptions: {
-							show: {
-								'@version': [{ _cnd: { gte: 1 } }],
-							},
-						},
 					},
 				],
 			},
@@ -169,8 +164,6 @@ export class LarkTrigger implements INodeType {
 	};
 
 	async trigger(this: ITriggerFunctions): Promise<ITriggerResponse> {
-		const { typeVersion: nodeVersion } = this.getNode();
-
 		const credentials = await this.getCredentials(Credentials.TenantToken);
 
 		if (!(credentials.appid && credentials.appsecret && credentials.baseUrl)) {
@@ -242,7 +235,7 @@ export class LarkTrigger implements INodeType {
 
 					this.logger.info(`Handled event: ${event}`);
 
-					if (nodeVersion > 1 && callbackToast) {
+					if (callbackToast) {
 						return {
 							toast: {
 								type: 'info',
