@@ -685,7 +685,7 @@ export const triggerEventProperty = {
 			description: 'This event is triggered when the user clicks bot menu',
 			displayOptions: {
 				show: {
-					'@version': [{ _cnd: { gte: 1.1 } }],
+					'@version': [{ _cnd: { gte: 2 } }],
 				},
 			},
 		},
