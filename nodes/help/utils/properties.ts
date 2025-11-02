@@ -680,7 +680,7 @@ export const triggerEventProperty = {
 			description: 'Triggers on any event',
 		},
 		{
-			name: 'Bot Menu Event()',
+			name: 'Bot Menu Event(自定义菜单事件)',
 			value: 'application.bot.menu_v6',
 			description: 'This event is triggered when the user clicks bot menu',
 			displayOptions: {
