@@ -7,6 +7,7 @@
 # 使用教程
 ## 视频教程
 - [从0开始在飞书搭建一个AI生图工具！【n8n 教程】](https://www.bilibili.com/video/BV1Zos1zME16/?vd_source=d35758d60056879c9a188d7e8760e7f1)
+- [如何把 Zlibrary 搬到飞书里【n8n教程】](https://www.bilibili.com/video/BV1tj1yBJEuX/?vd_source=d35758d60056879c9a188d7e8760e7f1)
 
 ## Credentials
 
