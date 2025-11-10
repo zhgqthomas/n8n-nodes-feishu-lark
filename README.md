@@ -95,14 +95,6 @@ n8n 在 1.3.0 版本当中，[为 `Webhook node` 和 `AI Agent node` 添加了 S
 
 > [Demo json 文件](https://github.com/zhgqthomas/n8n-nodes-feishu-lark/blob/main/demo/send_streaming_message.json)
 
-### MCP node
-
-`listTool` 和 `executeTool` 两个 Operation，会调用飞书官方的 lark-openapi-mcp 开源库，实现 AI Agent 通过 MCP 协议调用飞书 OpenAPI。并且为 MCP Operation 添加了特有的 Crediential 以实现 MCP 可以使用 user token 进行飞书 API 的调用。[Demo json 文件](https://github.com/zhgqthomas/n8n-nodes-feishu-lark/blob/main/demo/lark_mcp.json)
-
-![](./images/lark_mcp_nodes.png)
-
-> 关于 lark-openapi-mcp 更多的介绍，请查看[飞书官方文档](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/mcp_integration/mcp_introduction)
-
 ## 许可证
 
 MIT License
