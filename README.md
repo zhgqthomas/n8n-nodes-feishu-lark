@@ -96,6 +96,11 @@ n8n 在 1.3.0 版本当中，[为 `Webhook node` 和 `AI Agent node` 添加了 S
 
 > [Demo json 文件](https://github.com/zhgqthomas/n8n-nodes-feishu-lark/blob/main/demo/send_streaming_message.json)
 
+## 打赏
+如果你喜欢这个小项目的设计或思路，愿意的话可以 “投喂” 一下开发者呀～ 一杯奶茶、一罐快乐水，都能让我更有精力优化细节、添加新玩法。不打赏也完全没关系，你的 star 和使用就是最大的鼓励！
+![IMG_5756](https://github.com/user-attachments/assets/eb98a093-3226-4d67-92e5-c24b8ce56b5b)
+
+
 ## 许可证
 
 MIT License
