@@ -71,6 +71,7 @@ export const WORDING_ZH: IWording = {
 	ParseWebhookMessage: '解析 Webhook 消息',
 	SendStreamMessage: '发送流式消息',
 	UpdateInteractiveCard: '延时更新消息卡片',
+	AddReactionForMessage: "添加消息表情回复",
 
 	// Document
 	CreateDocument: '创建文档',

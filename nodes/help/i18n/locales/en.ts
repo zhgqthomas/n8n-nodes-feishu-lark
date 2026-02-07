@@ -71,6 +71,7 @@ export const WORDING_EN: IWording = {
 	ParseWebhookMessage: 'Parse Webhook Message',
 	SendStreamMessage: 'Send Stream Message',
 	UpdateInteractiveCard: 'Update Interactive Card',
+	AddReactionForMessage: "Add a reaction for a message",
 
 	// Document
 	CreateDocument: 'Create',

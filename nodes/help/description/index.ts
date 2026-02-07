@@ -1,6 +1,6 @@
+import { DESCRIPTION_NAMES } from '../i18n/descriptions';
 import { FileType, MessageType } from '../type/enums';
 import { OBJECT_JSON } from './base';
-import { DESCRIPTION_NAMES } from '../i18n/descriptions';
 
 const t = DESCRIPTION_NAMES;
 
@@ -839,6 +839,14 @@ export const DESCRIPTIONS = {
 		],
 		required: true,
 		default: 'text',
+	},
+
+	MESSAGE_REACTION: {
+		displayName: t.MESSAGE_REACTION,
+		name: 'reaction',
+		type: 'string',
+		required: true,
+		default: '',
 	},
 
 	RECEIVE_ID_TYPE: {

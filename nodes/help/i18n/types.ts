@@ -82,6 +82,7 @@ export interface IWording {
 	ParseWebhookMessage: string;
 	SendStreamMessage: string;
 	UpdateInteractiveCard: string;
+	AddReactionForMessage: string;
 
 	// Document
 	CreateDocument: string;

@@ -98,6 +98,7 @@ export declare const enum OperationType {
 	ParseWebhookMessage = 'parseWebhook',
 	SendStreamMessage = 'stream',
 	UpdateInteractiveCard = 'updateInteractiveCard',
+	AddReactionForMessage = 'addReaction',
 
 	// Document
 	CreateDocument = 'create',

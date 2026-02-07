@@ -174,6 +174,9 @@ export const DESCRIPTION_NAMES_ZH: IDescriptionNames = {
 	MSG_TYPE_TEXT: '文本',
 	MSG_TYPE_MEDIA: '视频',
 
+	// Option names for MESSAGE_REACTION
+	MESSAGE_REACTION: '消息表情',
+
 	// Option names for CALENDAR_PERMISSIONS
 	CALENDAR_PERMISSIONS_PRIVATE: '私密',
 	CALENDAR_PERMISSIONS_SHOW_ONLY_FREE_BUSY: '仅展示忙闲信息',

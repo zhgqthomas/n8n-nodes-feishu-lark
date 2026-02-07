@@ -175,6 +175,9 @@ export interface IDescriptionNames {
 	MSG_TYPE_TEXT: string;
 	MSG_TYPE_MEDIA: string;
 
+	// Option names for MESSAGE_REACTION
+	MESSAGE_REACTION: string;
+
 	// Option names for CALENDAR_PERMISSIONS
 	CALENDAR_PERMISSIONS_PRIVATE: string;
 	CALENDAR_PERMISSIONS_SHOW_ONLY_FREE_BUSY: string;

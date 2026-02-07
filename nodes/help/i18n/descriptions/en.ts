@@ -174,6 +174,9 @@ export const DESCRIPTION_NAMES_EN: IDescriptionNames = {
 	MSG_TYPE_TEXT: 'Text',
 	MSG_TYPE_MEDIA: 'Video',
 
+	// Option names for MESSAGE_REACTION
+	MESSAGE_REACTION: 'Reaction',
+
 	// Option names for CALENDAR_PERMISSIONS
 	CALENDAR_PERMISSIONS_PRIVATE: 'Private',
 	CALENDAR_PERMISSIONS_SHOW_ONLY_FREE_BUSY: 'Show Only Free Busy',
